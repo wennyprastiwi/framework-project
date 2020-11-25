@@ -43,5 +43,14 @@ Lakukan langkah clone dulu. (WAJIB)
 		b. buka cmd pada folder project / terminal jika pakai vscode (ctrl + `)
 		c. lalu ketik "git pull origin master"
 		d. Tunggu proses selesai.
+        
+    3. Git Push Branch (Push ke github dengan branch)
+        a. git checkout -b feature/namaprojekbagian/namaanda/tglbulantahun
+        b. Contoh  : git checkout -b feature/admin/wenny/25112020
+        c. git add sama seperti biasanya
+        d. git commit -m "namaandatglbulantahun isi pesan" , contoh : git commit -m "wenny25112020 ini pesan commit"
+        e. git push origin nama branch , contoh : git push origin feature/admin/wenny/25112020
+        f. gunakan -f jika mau push lebih dari 1 kali di branch yang sama , contoh : git push -f origin feature/admin/wenny/25112020
+        (noted : Selalu buat branch baru setiap ganti hari , jangan hapus branch lama , jangan push dengan branch lama kecuali ada error pada branch lama) 
 
 -------------------------------------------------------------------------------------------
