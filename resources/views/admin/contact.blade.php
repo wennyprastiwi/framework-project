@@ -72,11 +72,11 @@
 @section('pagejs')
 
     <!-- Page level plugins -->
-    <script src="sb-admin/vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="sb-admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="{{ asset('sb-admin/vendor/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('sb-admin/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
 
     <!-- Page level custom scripts -->
-    <script src="sb-admin/js/demo/datatables-demo.js"></script>
+    <script src="{{ asset('sb-admin/js/demo/datatables-demo.js') }}"></script>
 
 @endsection
 
