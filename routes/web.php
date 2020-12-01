@@ -14,48 +14,52 @@ use App\Http\Controllers\AdminController;
 */
 
 Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/admin', function () {
     return view('admin/dashboard');
 });
 
-Route::get('/user', function () {
+Route::get('/admin/user', function () {
     return view('admin/user');
 });
 
-Route::get('/jenis-pekerjaan', function () {
+Route::get('/admin/jenis-pekerjaan', function () {
     return view('admin/jenis-pekerjaan');
 });
 
-Route::get('/penyedia-kerja', function () {
+Route::get('/admin/penyedia-kerja', function () {
     return view('admin/penyedia-kerja');
 });
 
-Route::get('/pencari-kerja', function () {
+Route::get('/admin/pencari-kerja', function () {
     return view('admin/pencari-kerja');
 });
 
-Route::get('/lokasi', function () {
+Route::get('/admin/lokasi', function () {
     return view('admin/lokasi');
 });
 
-Route::get('/about-us', function () {
+Route::get('/admin/about-us', function () {
     return view('admin/about-us');
 });
 
-Route::get('/contact', function () {
+Route::get('/admin/contact', function () {
     return view('admin/contact');
 });
 
-Route::get('/push-notifikasi', function () {
+Route::get('/admin/push-notifikasi', function () {
     return view('admin/push-notifikasi');
 });
 
-Route::get('/profile', function () {
+Route::get('/admin/profile', function () {
     return view('admin/profile');
 });
 
-Route::get('/setting', function () {
+Route::get('/admin/setting', function () {
     return view('admin/setting');
 });
 
 
-Route::resource('Admins', AdminController::class);
+// Route::resource('Admins', AdminController::class);
