@@ -59,9 +59,24 @@
                                             <td>085850319106</td>
                                             <td>egawahyu20@gmail.com</td>
                                             <td>
-                                                <a class="btn btn-primary">Detail</a>
-                                                <a class="btn btn-info">Edit</a>
-                                                <a class="btn btn-danger">Delete</a>
+                                                <a href="#" class="btn btn-info btn-icon-split">
+                                                    <span class="icon text-white-50">
+                                                        <i class="fas fa-info-circle"></i>
+                                                    </span>
+                                                    <span class="text">Detail</span>
+                                                </a>
+                                                <a href="#" class="btn btn-primary btn-icon-split">
+                                                    <span class="icon text-white-50">
+                                                        <i class="far fa-edit"></i>
+                                                    </span>
+                                                    <span class="text">Edit</span>
+                                                </a>
+                                                <a href="#" class="btn btn-danger btn-icon-split">
+                                                    <span class="icon text-white-50">
+                                                        <i class="fas fa-trash"></i>
+                                                    </span>
+                                                    <span class="text">Delete</span>
+                                                </a>
                                             </td>
                                         </tr>
                                     </tbody>

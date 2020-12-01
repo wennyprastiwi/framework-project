@@ -2,7 +2,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin">
                 <div class="sidebar-brand-icon">
                     <i class="fas fa-people-arrows"></i>
                 </div>
@@ -14,7 +14,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="/">
+                <a class="nav-link" href="/admin">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -29,49 +29,49 @@
 
             <!-- Nav Item - User -->
             <li class="nav-item">
-                <a class="nav-link" href="/user">
+                <a class="nav-link" href="/admin/user">
                     <i class="fas fa-fw fa-users"></i>
                     <span>User</span></a>
             </li>
 
             <!-- Nav Item - Jenis Pekerhaan -->
             <li class="nav-item">
-                <a class="nav-link" href="/jenis-pekerjaan">
+                <a class="nav-link" href="/admin/jenis-pekerjaan">
                     <i class="fas fa-fw fa-briefcase"></i>
                     <span>Jenis Pekerjaan</span></a>
             </li>
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="/penyedia-kerja">
+                <a class="nav-link" href="/admin/penyedia-kerja">
                     <i class="fas fa-fw fa-building"></i>
                     <span>Penyedia Kerja</span></a>
             </li>
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="/pencari-kerja">
+                <a class="nav-link" href="/admin/pencari-kerja">
                     <i class="fas fa-fw fa-user-tie"></i>
                     <span>Pencari Kerja</span></a>
             </li>
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="/lokasi">
+                <a class="nav-link" href="/admin/lokasi">
                     <i class="fas fa-fw fa-map-marked-alt"></i>
                     <span>Lokasi</span></a>
             </li>
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="/about-us">
+                <a class="nav-link" href="/admin/about-us">
                     <i class="fas fa-fw fa-info-circle"></i>
                     <span>About Us</span></a>
             </li>
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="/contact">
+                <a class="nav-link" href="/admin/contact">
                     <i class="far fa-fw fa-address-book"></i>
                     <span>Contact</span></a>
             </li>
@@ -85,7 +85,7 @@
             </div>
 
             <li class="nav-item">
-                <a class="nav-link" href="/push-notifikasi">
+                <a class="nav-link" href="/admin/push-notifikasi">
                     <i class="fas fa-fw fa-paper-plane"></i>
                     <span>Push Notifikasi</span></a>
             </li>
