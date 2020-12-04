@@ -10,7 +10,7 @@ class Lowongan extends Model
     use HasFactory;
     protected $table = 'lowongan';
     protected $fillable = [
-        'id_lowongan', 
+        'id', 
         'id_kategori', 
         'nama_pekerjaan', 
         'jenis_pekerjaan', 

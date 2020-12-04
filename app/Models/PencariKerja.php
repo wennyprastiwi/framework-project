@@ -10,7 +10,7 @@ class PencariKerja extends Model
     use HasFactory;
     protected $table = 'pencari_kerja';
     protected $fillable = [
-        'id_pencari_kerja', 
+        'id', 
         'nama_lengkap', 
         'nik', 
         'jenis_kelamin', 

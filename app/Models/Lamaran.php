@@ -10,7 +10,7 @@ class Lamaran extends Model
     use HasFactory;
     protected $table = 'lamaran';
     protected $fillable = [
-        'id_lamaran', 
+        'id', 
         'id_lowongan', 
         'status_lamaran', 
         'id_pencari_kerja'

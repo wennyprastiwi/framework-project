@@ -1,22 +1,22 @@
 @extends('layouts.back-end_layout')
 
 @section('title')
-    Master user
+    Master Kategori Pekerjaan
 @endsection
 
 @section('content')
 
 <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Tambah User</h1>
-                        <a href="{{ route('user.index') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                        <h1 class="h3 mb-0 text-gray-800">Edit Kategori Pekerjaan</h1>
+                        <a href="{{ route('kategori-pekerjaan.index') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-arrow-left fa-sm text-white-50"></i> Kembali</a>
                     </div>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Data User</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Data Kategori Pekerjaan</h6>
                         </div>
                         <div class="card-body">
 
@@ -31,27 +31,15 @@
                             </div>
                         @endif
                             
-                        <form action="{{ route('user.update',$user->id) }}" method="POST">
+                        <form action="{{ route('kategori-pekerjaan.update',$kp->id) }}" method="POST">
                             @csrf
                             @method('PUT')
                     
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
-                                        <strong>Username:</strong>
-                                        <input type="text" name="name" value="{{ $user->name }}" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group">
-                                        <strong>Email:</strong>
-                                        <input type="text" name="email" value="{{ $user->email }}" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group">
-                                        <strong>Password:</strong>
-                                        <input type="password" name="password" value="{{ $user->password }}" class="form-control" >
+                                        <strong>Kategori Pekerjaan:</strong>
+                                        <input type="text" name="nama_kategori_pekerjaan" value="{{ $kp->nama_kategori_pekerjaan }}" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12 text-center">

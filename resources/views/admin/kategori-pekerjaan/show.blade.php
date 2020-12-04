@@ -1,15 +1,14 @@
 @extends('layouts.back-end_layout')
 
 @section('title')
-    Master user
+    Master Kategori Pekerjaan
 @endsection
 
 @section('content')
-
 <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Tambah User</h1>
-                        <a href="{{ route('user.index') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                        <h1 class="h3 mb-0 text-gray-800">Lihat Data</h1>
+                        <a href="{{ route('kategori-pekerjaan.index') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-arrow-left fa-sm text-white-50"></i> Kembali</a>
                     </div>
                     <!-- DataTales Example -->
@@ -21,14 +20,8 @@
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
-                                        <strong>Nama:</strong>
-                                        {{ $user->name }}
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group">
-                                        <strong>Email:</strong>
-                                        {{ $user->email }}
+                                        <strong>Nama Kategori:</strong>
+                                        {{ $kp->nama_kategori_pekerjaan }}
                                     </div>
                                 </div>
                             </div>

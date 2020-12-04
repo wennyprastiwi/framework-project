@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Kecamatan extends Model
 {
     use HasFactory;
-    protected $table = 'kecamatan';
+    protected $table = 'indonesia_districts';
     protected $fillable = [
-        'id_kec', 
-        'id_kota', 
-        'nama'
+        'id', 
+        'city_id', 
+        'name'
     ];
 }

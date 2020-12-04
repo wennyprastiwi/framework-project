@@ -32,7 +32,6 @@
                                             <th>No</th>
                                             <th>Username</th>
                                             <th>Email</th>
-                                            <th>Password</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -41,7 +40,6 @@
                                             <th>No</th>
                                             <th>Username</th>
                                             <th>Email</th>
-                                            <th>Password</th>
                                             <th>Action</th>
                                         </tr>
                                     </tfoot>
@@ -51,16 +49,15 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $usr->name }}</td>
                                             <td>{{ $usr->email }}</td>
-                                            <td>{{ $usr->password }}</td>
                                             <td>
                                                 <form action="{{ route('user.destroy',$usr->id) }}" method="POST">
                                                 <a href="{{ route('user.show',$usr->id) }}" class="btn btn-info btn-icon-split">
                                                     <span class="icon text-white-50">
-                                                        <i class="fas fa-info-circle"></i>
+                                                        <i class="fas fa-eye"></i>
                                                     </span>
                                                     <span class="text">Detail</span>
                                                 </a>
-                                                <a href="{{ route('user.edit',$usr->id) }}" class="btn btn-primary btn-icon-split">
+                                                <a href="{{ route('user.edit',$usr->id) }}" class="btn btn-success btn-icon-split">
                                                     <span class="icon text-white-50">
                                                         <i class="far fa-edit"></i>
                                                     </span>
