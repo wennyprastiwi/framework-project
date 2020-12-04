@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
-/*
+use App\Http\Controllers\UserAdminController;
+
+ /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
@@ -17,13 +19,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/admin', function () {
-    return view('admin/dashboard');
-});
+Route::get('admin', [AdminController::class, 'index']);
 
-Route::get('/admin/user', function () {
-    return view('admin/user');
-});
+Route::resource('admin/user', UserAdminController::class);
 
 Route::get('/admin/jenis-pekerjaan', function () {
     return view('admin/jenis-pekerjaan');
@@ -60,6 +58,3 @@ Route::get('/admin/profile', function () {
 Route::get('/admin/setting', function () {
     return view('admin/setting');
 });
-
-
-// Route::resource('Admins', AdminController::class);

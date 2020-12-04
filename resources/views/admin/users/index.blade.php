@@ -9,72 +9,82 @@
 <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Master User</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                        <a href="{{ route('user.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-plus-square fa-sm text-white-50"></i> Tambah</a>
                     </div>
 
                     <!-- DataTales Example -->
+                    
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Data User</h6>
                         </div>
                         <div class="card-body">
+                            @if ($message = Session::get('success'))
+                            <div class="alert alert-success">
+                                <p>{{ $message }}</p>
+                            </div>
+                            @endif
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
+                                            <th>No</th>
+                                            <th>Username</th>
+                                            <th>Email</th>
+                                            <th>Password</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
+                                            <th>No</th>
+                                            <th>Username</th>
+                                            <th>Email</th>
+                                            <th>Password</th>
+                                            <th>Action</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
+                                        @foreach ($user as $usr)
                                         <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $usr->name }}</td>
+                                            <td>{{ $usr->email }}</td>
+                                            <td>{{ $usr->password }}</td>
                                             <td>
-                                                <a href="#" class="btn btn-info btn-icon-split">
+                                                <form action="{{ route('user.destroy',$usr->id) }}" method="POST">
+                                                <a href="{{ route('user.show',$usr->id) }}" class="btn btn-info btn-icon-split">
                                                     <span class="icon text-white-50">
                                                         <i class="fas fa-info-circle"></i>
                                                     </span>
                                                     <span class="text">Detail</span>
                                                 </a>
-                                                <a href="#" class="btn btn-primary btn-icon-split">
+                                                <a href="{{ route('user.edit',$usr->id) }}" class="btn btn-primary btn-icon-split">
                                                     <span class="icon text-white-50">
                                                         <i class="far fa-edit"></i>
                                                     </span>
                                                     <span class="text">Edit</span>
                                                 </a>
-                                                <a href="#" class="btn btn-danger btn-icon-split">
+
+                                                @csrf
+                                                @method('DELETE')
+
+                                                <button type="submit" class="btn btn-danger btn-icon-split" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
                                                     <span class="icon text-white-50">
                                                         <i class="fas fa-trash"></i>
                                                     </span>
                                                     <span class="text">Delete</span>
-                                                </a>
+                                                </button>
+                                                </form>
                                             </td>
                                         </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-
 @endsection
 
 @section('pagejs')
