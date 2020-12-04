@@ -5,10 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Admin extends Model
+class BiodataPekerjaan extends Model
 {
     use HasFactory;
+    protected $table = 'biodata_pekerjaan';
     protected $fillable = [
-        '', '', ''
+        'id_pekerjaan', 
+        'nama_pekerjaan', 
+        'tempat_pekerjaan'
     ];
 }

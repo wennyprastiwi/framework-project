@@ -23,7 +23,6 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                        Nama Lengkap, NIK, Jenis Kelamin, Domisili Tempat lahir, tanggal lahir, Status Pernikahan, Agama, Alamat sesuai KTP, Alamat Tinggal, kota, email, telepon, Hobi
                                             <th>No</th>
                                             <th>NIK</th>
                                             <th>Nama</th>
