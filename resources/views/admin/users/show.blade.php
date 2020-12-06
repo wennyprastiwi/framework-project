@@ -17,22 +17,24 @@
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Data User</h6>
                         </div>
-                        <div class="card-body">  
+                        @foreach($user as $u)
+                        <div class="card-body">
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Nama:</strong>
-                                        {{ $user->name }}
+                                        {{ $u->nama_user }}
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Email:</strong>
-                                        {{ $user->email }}
+                                        {{ $u->email_user }}
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        @endforeach
                     </div>
 
 @endsection

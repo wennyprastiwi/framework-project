@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\KategoriPekerjaan;
+use Illuminate\Support\Facades\DB;
 
 class KategoriPekerjaanAdminController extends Controller
 {
 
     public function index()
     {
-        $kp = KategoriPekerjaan::all();
-        return view('admin.kategori-pekerjaan.index',compact('kp'));
+        $kategori = DB::table('kategori_pekerjaan')->get();
+        return view('admin.kategori-pekerjaan.index',compact('kategori'));
     }
 
     public function create()
@@ -21,44 +21,42 @@ class KategoriPekerjaanAdminController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'nama_kategori_pekerjaan' => 'required',
-        ]);
- 
-        KategoriPekerjaan::create($request->all());
- 
+        DB::table('kategori_pekerjaan')->insert([
+			'nama_kategori_pekerjaan' => $request->nama_kategori_pekerjaan,
+            'created_at' => date('Y-m-d H:i:s'),
+		]);
+
         return redirect()->route('kategori-pekerjaan.index')
                         ->with('success','Kategori Pekerjaan created successfully.');
     }
 
-    public function show(KategoriPekerjaan $KategoriPekerjaan)
+    public function show($id)
     {
-        $kp = $KategoriPekerjaan;
-        return view('admin.kategori-pekerjaan.show',compact('kp'));
+        $kategori = DB::table('kategori_pekerjaan')->where('id_kategori_pekerjaan',$id)->get();
+        return view('admin.kategori-pekerjaan.show',['kategori' => $kategori]);
     }
 
-    public function edit(KategoriPekerjaan $KategoriPekerjaan)
+    public function edit($id)
     {
-        $kp = $KategoriPekerjaan;
-        return view('admin.kategori-pekerjaan.edit',compact('kp'));
+        $kategori = DB::table('kategori_pekerjaan')->where('id_kategori_pekerjaan',$id)->get();
+        return view('admin.kategori-pekerjaan.edit',['kategori' => $kategori]);
     }
 
-    public function update(Request $request, KategoriPekerjaan $KategoriPekerjaan)
+    public function update(Request $request)
     {
-        $request->validate([
-            'nama_kategori_pekerjaan' => 'required',
+        DB::table('kategori_pekerjaan')->where('id_kategori_pekerjaan',$request->id_kategori_pekerjaan)->update([
+			'nama_kategori_pekerjaan' => $request->nama_kategori_pekerjaan,
+            'update_at' => date('Y-m-d H:i:s'),
         ]);
- 
-        $KategoriPekerjaan->update($request->all());
- 
+
         return redirect()->route('kategori-pekerjaan.index')
                         ->with('success','Kategori Pekerjaan updated successfully');
     }
 
-    public function destroy(KategoriPekerjaan $KategoriPekerjaan)
+    public function destroy($id)
     {
-        $KategoriPekerjaan->delete();
- 
+        DB::table('kategori_pekerjaan')->where('id_kategori_pekerjaan',$id)->delete();
+
         return redirect()->route('kategori-pekerjaan.index')
                         ->with('success','Kategori Pekerjaan deleted successfully');
     }

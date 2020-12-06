@@ -30,39 +30,42 @@
                                 </ul>
                             </div>
                         @endif
-                            
-                        <form action="{{ route('user.update',$user->id) }}" method="POST">
+
+                        @foreach($user as $u)
+
+                        <form action="{{ route('user.update',$u->id_users) }}" method="POST">
                             @csrf
                             @method('PUT')
-                    
+
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
+                                        <input type="hidden" name="id_users" value="{{ $u->id_users }}"> <br/>
                                         <strong>Username:</strong>
-                                        <input type="text" name="name" value="{{ $user->name }}" class="form-control">
+                                        <input type="text" name="nama_user" value="{{ $u->nama_user }}" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Email:</strong>
-                                        <input type="text" name="email" value="{{ $user->email }}" class="form-control">
+                                        <input type="text" name="email_user" value="{{ $u->email_user }}" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Password:</strong>
-                                        <input type="password" name="password" value="{{ $user->password }}" class="form-control" >
+                                        <input type="password" name="password" value="{{ $u->password }}" class="form-control" >
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                                 <button type="submit" class="btn btn-primary">Update</button>
                                 </div>
                             </div>
-                    
                         </form>
-                            
+                        @endforeach
+
                         </div>
                     </div>
 
 @endsection
- 
+

@@ -16,7 +16,8 @@
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Data User</h6>
                         </div>
-                        <div class="card-body">  
+                        @foreach ($kategori as $kp)
+                        <div class="card-body">
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
@@ -26,6 +27,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endforeach
                     </div>
 
 @endsection

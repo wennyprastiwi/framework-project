@@ -30,21 +30,21 @@
                                     </ul>
                                 </div>
                             @endif
-                            
+
                             <form action="{{ route('user.store') }}" method="POST">
                                 @csrf
-                            
+
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
                                             <strong>Username</strong>
-                                            <input type="text" name="name" class="form-control" placeholder="Masukkan username">
+                                            <input type="text" name="nama_user" class="form-control" placeholder="Masukkan username">
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
                                             <strong>email:</strong>
-                                            <input type="text" name="email" class="form-control" placeholder="Masukkan email">
+                                            <input type="text" name="email_user" class="form-control" placeholder="Masukkan email">
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12">
@@ -57,9 +57,9 @@
                                         <button type="submit" class="btn btn-primary">Submit</button>
                                     </div>
                                 </div>
-                            
+
                             </form>
-                            
+
                         </div>
                     </div>
 
