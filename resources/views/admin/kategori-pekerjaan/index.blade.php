@@ -14,7 +14,7 @@
                     </div>
 
                     <!-- DataTales Example -->
-                    
+
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Data Jenis Pekerjaan</h6>
@@ -34,27 +34,20 @@
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Nama Kategori</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
-                                        @foreach ($kp as $kp)
+                                        @foreach ($kategori as $kp)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $kp->nama_kategori_pekerjaan }}</td>
                                             <td>
-                                                <form action="{{ route('kategori-pekerjaan.destroy',$kp->id) }}" method="POST">
-                                                <a href="{{ route('kategori-pekerjaan.show',$kp->id) }}" class="btn btn-info btn-icon-split">
+                                                <form action="{{ route('kategori-pekerjaan.destroy',$kp->id_kategori_pekerjaan) }}" method="POST">
+                                                <a href="{{ route('kategori-pekerjaan.show',$kp->id_kategori_pekerjaan) }}" class="btn btn-info btn-icon-split">
                                                     <span class="icon text-white-50">
                                                         <i class="fas fa-eye"></i>
                                                     </span>
                                                     <span class="text">Detail</span>
                                                 </a>
-                                                <a href="{{ route('kategori-pekerjaan.edit',$kp->id) }}" class="btn btn-success btn-icon-split">
+                                                <a href="{{ route('kategori-pekerjaan.edit',$kp->id_kategori_pekerjaan) }}" class="btn btn-success btn-icon-split">
                                                     <span class="icon text-white-50">
                                                         <i class="far fa-edit"></i>
                                                     </span>

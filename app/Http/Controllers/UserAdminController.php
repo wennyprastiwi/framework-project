@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class UserAdminController extends Controller
 {
 
     public function index()
     {
-        $user = User::all();
+
+        $user = DB::table('users')->get();
         return view('admin.users.index', compact('user'));
     }
 
@@ -21,44 +23,48 @@ class UserAdminController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'password' => 'required',
-        ]);
- 
-        User::create($request->all());
- 
+        DB::table('users')->insert([
+			'nama_user' => $request->nama_user,
+			'email_user' => $request->email_user,
+            'password' => $request->password,
+            'email_verified_at' => now(),
+            'created_at' => date('Y-m-d H:i:s'),
+            'remember_token' => Str::random(10),
+		]);
+
         return redirect()->route('user.index')
                         ->with('success','User created successfully.');
     }
 
-    public function show(User $user)
+    public function show($id_users)
     {
-        return view('admin.users.show',compact('user'));
+        $user = DB::table('users')->where('id_users',$id_users)->get();
+        return view('admin.users.show',['user' => $user]);
     }
 
-    public function edit(User $user)
+    public function edit($id_users)
     {
-        return view('admin.users.edit',compact('user'));
+        $user = DB::table('users')->where('id_users',$id_users)->get();
+        return view('admin.users.edit',['user' => $user]);
     }
-    public function update(Request $request, User $user)
+
+    public function update(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required',
+        DB::table('users')->where('id_users',$request->id_users)->update([
+			'nama_user' => $request->nama_user,
+			'email_user' => $request->email_user,
+            'password' => $request->password,
+            'update_at' => date('Y-m-d H:i:s'),
         ]);
- 
-        $user->update($request->all());
- 
+
         return redirect()->route('user.index')
                         ->with('success','User updated successfully');
     }
 
-    public function destroy(User $user)
+    public function destroy($id)
     {
-        $user->delete();
- 
+        DB::table('users')->where('id_users',$id)->delete();
+
         return redirect()->route('user.index')
                         ->with('success','User deleted successfully');
     }

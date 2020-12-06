@@ -14,7 +14,7 @@
                     </div>
 
                     <!-- DataTales Example -->
-                    
+
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Data User</h6>
@@ -35,29 +35,21 @@
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Username</th>
-                                            <th>Email</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
                                         @foreach ($user as $usr)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $usr->name }}</td>
-                                            <td>{{ $usr->email }}</td>
+                                            <td>{{ $usr->nama_user }}</td>
+                                            <td>{{ $usr->email_user }}</td>
                                             <td>
-                                                <form action="{{ route('user.destroy',$usr->id) }}" method="POST">
-                                                <a href="{{ route('user.show',$usr->id) }}" class="btn btn-info btn-icon-split">
+                                                <form action="{{ route('user.destroy',$usr->id_users) }}" method="POST">
+                                                <a href="{{ route('user.show',$usr->id_users) }}" class="btn btn-info btn-icon-split">
                                                     <span class="icon text-white-50">
                                                         <i class="fas fa-eye"></i>
                                                     </span>
                                                     <span class="text">Detail</span>
                                                 </a>
-                                                <a href="{{ route('user.edit',$usr->id) }}" class="btn btn-success btn-icon-split">
+                                                <a href="{{ route('user.edit',$usr->id_users) }}" class="btn btn-success btn-icon-split">
                                                     <span class="icon text-white-50">
                                                         <i class="far fa-edit"></i>
                                                     </span>

@@ -30,15 +30,17 @@
                                 </ul>
                             </div>
                         @endif
-                            
-                        <form action="{{ route('kategori-pekerjaan.update',$kp->id) }}" method="POST">
+
+                        @foreach ($kategori as $kp)
+                        <form action="{{ route('kategori-pekerjaan.update',$kp->id_kategori_pekerjaan) }}" method="POST">
                             @csrf
                             @method('PUT')
-                    
+
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Kategori Pekerjaan:</strong>
+                                        <input type="hidden" name="id_kategori_pekerjaan" value="{{ $kp->id_kategori_pekerjaan }}" class="form-control">
                                         <input type="text" name="nama_kategori_pekerjaan" value="{{ $kp->nama_kategori_pekerjaan }}" class="form-control">
                                     </div>
                                 </div>
@@ -46,11 +48,9 @@
                                 <button type="submit" class="btn btn-primary">Update</button>
                                 </div>
                             </div>
-                    
                         </form>
-                            
+                        @endforeach
                         </div>
                     </div>
-
 @endsection
- 
+
