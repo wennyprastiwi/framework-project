@@ -54,3 +54,14 @@ Lakukan langkah clone dulu. (WAJIB)
         (noted : Selalu buat branch baru setiap ganti hari , jangan hapus branch lama , jangan push dengan branch lama kecuali ada error pada branch lama) 
 
 -------------------------------------------------------------------------------------------
+
+
+
+
+
+----------------------- Langkah-langkah Awal Menjalankan Aplikasi --------------------------
+
+	1. Buka CMD di drectory project
+	2. Migrate DB dengan cara ketik "php artisan migrate" dan tekan enter
+	3. Jalankan seed untuk agama dengan ketik "php artisan db:seed" dan tekan enter
+	4. Jalankan seed untuk lokasi indonesia dengan ketik "php artisan laravolt:indonesia:seed" dan enter

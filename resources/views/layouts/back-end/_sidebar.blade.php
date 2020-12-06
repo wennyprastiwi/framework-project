@@ -36,9 +36,9 @@
 
             <!-- Nav Item - Jenis Pekerhaan -->
             <li class="nav-item">
-                <a class="nav-link" href="{{ url('/admin/jenis-pekerjaan') }}">
+                <a class="nav-link" href="{{ url('/admin/kategori-pekerjaan') }}">
                     <i class="fas fa-fw fa-briefcase"></i>
-                    <span>Jenis Pekerjaan</span></a>
+                    <span>Kategori Pekerjaan</span></a>
             </li>
 
             <!-- Nav Item - Charts -->

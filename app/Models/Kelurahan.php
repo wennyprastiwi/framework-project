@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Kelurahan extends Model
 {
     use HasFactory;
-    protected $table = 'kelurahan';
+    protected $table = 'indonesia_villages';
     protected $fillable = [
-        'id_kel', 
-        'id_kec', 
-        'nama'
+        'id', 
+        'district_id', 
+        'name'
     ];
 }

@@ -10,7 +10,7 @@ class BiodataPendidikan extends Model
     use HasFactory;
     protected $table = 'biodata_pendidikan';
     protected $fillable = [
-        'id_pendidikan', 
+        'id', 
         'pendidikan_terakhir', 
         'tahun_lulus'
     ];

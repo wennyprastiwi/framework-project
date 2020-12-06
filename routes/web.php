@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserAdminController;
+use App\Http\Controllers\KategoriPekerjaanAdminController;
+use App\Http\Controllers\PenyediaKerjaAdminController;
 
  /*
 |--------------------------------------------------------------------------
@@ -23,13 +25,9 @@ Route::get('admin', [AdminController::class, 'index']);
 
 Route::resource('admin/user', UserAdminController::class);
 
-Route::get('/admin/jenis-pekerjaan', function () {
-    return view('admin/jenis-pekerjaan');
-});
+Route::resource('admin/kategori-pekerjaan', KategoriPekerjaanAdminController::class);
 
-Route::get('/admin/penyedia-kerja', function () {
-    return view('admin/penyedia-kerja');
-});
+Route::resource('admin/penyedia-kerja', PenyediaKerjaAdminController::class);
 
 Route::get('/admin/pencari-kerja', function () {
     return view('admin/pencari-kerja');
@@ -51,10 +49,6 @@ Route::get('/admin/push-notifikasi', function () {
     return view('admin/push-notifikasi');
 });
 
-Route::get('/admin/profile', function () {
-    return view('admin/profile');
-});
+Route::get('admin/profile', [AdminController::class, 'profile']);
 
-Route::get('/admin/setting', function () {
-    return view('admin/setting');
-});
+Route::get('admin/setting', [AdminController::class, 'setting']);

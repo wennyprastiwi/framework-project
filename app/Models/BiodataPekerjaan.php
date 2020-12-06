@@ -10,7 +10,7 @@ class BiodataPekerjaan extends Model
     use HasFactory;
     protected $table = 'biodata_pekerjaan';
     protected $fillable = [
-        'id_pekerjaan', 
+        'id', 
         'nama_pekerjaan', 
         'tempat_pekerjaan'
     ];
