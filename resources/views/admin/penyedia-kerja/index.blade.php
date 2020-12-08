@@ -9,12 +9,12 @@
 <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Master Penyedia Kerja</h1>
-                        <a href="{{ route('penyedia-kerja.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                        <a href="{{ route('penyediaKerja.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-plus-square fa-sm text-white-50"></i> Tambah</a>
                     </div>
 
                     <!-- DataTales Example -->
-                    
+
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Data Penyedia Pekerjaan</h6>
@@ -37,18 +37,8 @@
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Nama Perusahaan</th>
-                                            <th>Bidang pekerjaan</th>
-                                            <th>Kota</th>
-                                            <th>No Telepon</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
-                                        @foreach ($pk as $pk)
+                                        @foreach ($penyediaKerja as $pk)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $pk->nama_perusahaan }}</td>
@@ -56,14 +46,14 @@
                                             <td>{{ $pk->id_lokasi }}</td>
                                             <td>{{ $pk->id_kontak }}</td>
                                             <td>
-                                                <form action="{{ route('penyedia-kerja.destroy',$kp->id) }}" method="POST">
-                                                <a href="{{ route('penyedia-kerja.show',$pk->id) }}" class="btn btn-info btn-icon-split">
+                                                <form action="{{ route('penyediaKerja.delete',$kp->id) }}" method="POST">
+                                                <a href="{{ route('penyediaKerja.show',$pk->id) }}" class="btn btn-info btn-icon-split">
                                                     <span class="icon text-white-50">
                                                         <i class="fas fa-eye"></i>
                                                     </span>
                                                     <span class="text">Detail</span>
                                                 </a>
-                                                <a href="{{ route('penyedia-kerja.edit',$pk->id) }}" class="btn btn-success btn-icon-split">
+                                                <a href="{{ route('penyediaKerja.edit',$pk->id) }}" class="btn btn-success btn-icon-split">
                                                     <span class="icon text-white-50">
                                                         <i class="far fa-edit"></i>
                                                     </span>

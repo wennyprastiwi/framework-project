@@ -9,7 +9,7 @@
 <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Master Jenis Pekerjaan</h1>
-                        <a href="{{ route('kategori-pekerjaan.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                        <a href="{{ route('kategoriPekerjaan.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-plus-square fa-sm text-white-50"></i> Tambah</a>
                     </div>
 
@@ -35,19 +35,19 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($kategori as $kp)
+                                        @foreach ($ktgPekerjaan as $kp)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $kp->nama_kategori_pekerjaan }}</td>
                                             <td>
-                                                <form action="{{ route('kategori-pekerjaan.destroy',$kp->id_kategori_pekerjaan) }}" method="POST">
-                                                <a href="{{ route('kategori-pekerjaan.show',$kp->id_kategori_pekerjaan) }}" class="btn btn-info btn-icon-split">
+                                                <form action="{{ route('kategoriPekerjaan.delete',$kp->id) }}" method="POST">
+                                                <a href="{{ route('kategoriPekerjaan.show',$kp->id) }}" class="btn btn-info btn-icon-split">
                                                     <span class="icon text-white-50">
                                                         <i class="fas fa-eye"></i>
                                                     </span>
                                                     <span class="text">Detail</span>
                                                 </a>
-                                                <a href="{{ route('kategori-pekerjaan.edit',$kp->id_kategori_pekerjaan) }}" class="btn btn-success btn-icon-split">
+                                                <a href="{{ route('kategoriPekerjaan.edit',$kp->id) }}" class="btn btn-success btn-icon-split">
                                                     <span class="icon text-white-50">
                                                         <i class="far fa-edit"></i>
                                                     </span>

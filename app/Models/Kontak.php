@@ -10,12 +10,8 @@ class Kontak extends Model
     use HasFactory;
     protected $table = 'kontak';
     protected $fillable = [
-        'id_', 
-        'no_hp', 
-        'nama_email', 
-        'nama_ig', 
-        'nama_twitter', 
-        'nama_linkedin', 
-        'nama_facebook'
+        'no_hp',
+        'email',
+        'jenis_kontak'
     ];
 }
