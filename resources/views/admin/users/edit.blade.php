@@ -9,7 +9,7 @@
 <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Tambah User</h1>
-                        <a href="{{ route('user.index') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                        <a href="{{ route('admin.user') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-arrow-left fa-sm text-white-50"></i> Kembali</a>
                     </div>
 
@@ -33,14 +33,14 @@
 
                         @foreach($user as $u)
 
-                        <form action="{{ route('user.update',$u->id_users) }}" method="POST">
+                        <form action="{{ route('user.update',$u->id) }}" method="POST">
                             @csrf
-                            @method('PUT')
+                            @method('POST')
 
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
-                                        <input type="hidden" name="id_users" value="{{ $u->id_users }}"> <br/>
+                                        <input type="hidden" name="id" value="{{ $u->id }}"> <br/>
                                         <strong>Username:</strong>
                                         <input type="text" name="nama_user" value="{{ $u->nama_user }}" class="form-control">
                                     </div>

@@ -42,14 +42,14 @@
                                             <td>{{ $usr->nama_user }}</td>
                                             <td>{{ $usr->email_user }}</td>
                                             <td>
-                                                <form action="{{ route('user.destroy',$usr->id_users) }}" method="POST">
-                                                <a href="{{ route('user.show',$usr->id_users) }}" class="btn btn-info btn-icon-split">
+                                                <form action="{{ route('user.delete',$usr->id) }}" method="POST">
+                                                <a href="{{ route('user.show',$usr->id) }}" class="btn btn-info btn-icon-split">
                                                     <span class="icon text-white-50">
                                                         <i class="fas fa-eye"></i>
                                                     </span>
                                                     <span class="text">Detail</span>
                                                 </a>
-                                                <a href="{{ route('user.edit',$usr->id_users) }}" class="btn btn-success btn-icon-split">
+                                                <a href="{{ route('user.edit',$usr->id) }}" class="btn btn-success btn-icon-split">
                                                     <span class="icon text-white-50">
                                                         <i class="far fa-edit"></i>
                                                     </span>

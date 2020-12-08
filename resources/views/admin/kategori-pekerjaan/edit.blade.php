@@ -9,7 +9,7 @@
 <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Edit Kategori Pekerjaan</h1>
-                        <a href="{{ route('kategori-pekerjaan.index') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                        <a href="{{ route('admin.kategoriPekerjaan') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-arrow-left fa-sm text-white-50"></i> Kembali</a>
                     </div>
 
@@ -32,15 +32,15 @@
                         @endif
 
                         @foreach ($kategori as $kp)
-                        <form action="{{ route('kategori-pekerjaan.update',$kp->id_kategori_pekerjaan) }}" method="POST">
+                        <form action="{{ route('kategoriPekerjaan.update',$kp->id) }}" method="POST">
                             @csrf
-                            @method('PUT')
+                            @method('POST')
 
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Kategori Pekerjaan:</strong>
-                                        <input type="hidden" name="id_kategori_pekerjaan" value="{{ $kp->id_kategori_pekerjaan }}" class="form-control">
+                                        <input type="hidden" name="id" value="{{ $kp->id }}" class="form-control">
                                         <input type="text" name="nama_kategori_pekerjaan" value="{{ $kp->nama_kategori_pekerjaan }}" class="form-control">
                                     </div>
                                 </div>
