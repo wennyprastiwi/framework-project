@@ -55,6 +55,10 @@ Route::group(['prefix' => 'penyediaKerja'], function() {
     Route::get('{id}/show', 'PenyediaKerjaController@show')->name('penyediaKerja.show');
     Route::get('{id}/edit', 'PenyediaKerjaController@edit')->name('penyediaKerja.edit');
 
+    Route::get('getkota/{id}', 'PenyediaKerjaController@getKota')->name('penyediaKerja.kota');
+    Route::get('getkecamatan/{id}', 'PenyediaKerjaController@getKecamatan')->name('penyediaKerja.kecamatan');
+    Route::get('getkelurahan/{id}', 'PenyediaKerjaController@getKelurahan')->name('penyediaKerja.kelurahan');
+
     Route::post('store', 'PenyediaKerjaController@store')->name('penyediaKerja.store');
 	Route::post('update', 'PenyediaKerjaController@update')->name('penyediaKerja.update');
 	Route::delete('{id}/delete', 'PenyediaKerjaController@delete')->name('penyediaKerja.delete');
