@@ -44,35 +44,39 @@
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
                                             <strong>Bidang Usaha: </strong>
-                                            <input type="text" name="bidang_usaha" class="form-control" placeholder="Masukkan Bidang Usaha">
+                                            <select name="bidang_usaha[]" class="form-control" id="bidangusaha" multiple="multiple" searchable="Search here..">
+                                                <option value="">-- Plih Kategori Usaha --</option>
+                                                    @foreach ($ktgPekerjaan as $k => $val)
+                                                        <option value="{{ $k }}">{{ $val }}</option>
+                                                    @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-xs-3 col-sm-3 col-md-3">
-                                        <strong for="exampleFormControlSelect1">Provinsi</strong>
-                                        <select name="indonesia_provinces" class="form-control" id="exampleFormControlSelect1">
-                                        <option>1</option>
-                                        <option>2</option>
+                                        <strong for="exampleFormControlSelect1" id="provinsi">Provinsi</strong>
+                                        <select name="indonesia_provinces" class="form-control" id="provinsi">
+                                            <option value="">-- Plih Provinsi --</option>
+                                                @foreach ($provinsi as $key => $value)
+                                                    <option value="{{ $key }}">{{ $value }}</option>
+                                                @endforeach
                                         </select>
                                     </div>
                                     <div class="col-xs-3 col-sm-3 col-md-3">
-                                        <strong for="exampleFormControlSelect2">Kota/Kabupaten</strong>
-                                        <select name="indonesia_districts" class="form-control" id="exampleFormControlSelect2">
-                                        <option>1</option>
-                                        <option>2</option>
+                                        <strong for="exampleFormControlSelect2" id="kota">Kota/Kabupaten</strong>
+                                        <select name="indonesia_cities" class="form-control" id="kota">
+                                            <option value="">-- Pilih Kota/Kabupaten</option>
                                         </select>
                                     </div>
                                     <div class="col-xs-3 col-sm-3 col-md-3">
                                         <strong for="exampleFormControlSelect3">Kecamatan</strong>
-                                        <select name="indonesia_cities" class="form-control" id="exampleFormControlSelect3">
-                                        <option>1</option>
-                                        <option>2</option>
+                                        <select name="indonesia_districts" class="form-control" id="kelurahan">
+                                            <option value="">-- Pilih Kecamatan</option>
                                         </select>
                                     </div>
                                     <div class="col-xs-3 col-sm-3 col-md-3">
                                         <strong for="exampleFormControlSelect4">Kelurahan</strong>
-                                        <select name="indonesia_villages" class="form-control" id="exampleFormControlSelect4">
-                                        <option>1</option>
-                                        <option>2</option>
+                                        <select name="indonesia_villages" class="form-control" id="kecamatan">
+                                            <option value="">-- Pilih Kelurahan</option>
                                         </select>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12">
@@ -108,12 +112,12 @@
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <strong>Dokumen: </strong>
                                         <div class="custom-file mb-3">
-                                            <input name="id_dokumen" type="file" class="custom-file-input" id="customFile">
+                                            <input name="npwp" type="file" class="custom-file-input" id="npwp">
                                             <label class="custom-file-label" for="customFile">Choose file</label>
                                         </div>
                                         <strong>Logo: </strong>
                                         <div class="custom-file">
-                                            <input name="logo_perusahaan" type="file" class="custom-file-input" id="customFile">
+                                            <input name="logo_perusahaan" type="file" class="custom-file-input" id="logo" accept="image/*">
                                             <label class="custom-file-label" for="customFile">Choose file</label>
                                         </div>
                                     </div>
@@ -127,5 +131,88 @@
                         </div>
                     </div>
 
+@endsection
+@section('pagejs')
+<script>
+   $(document).ready(function ()
+    {
+            $('#bidangusaha').multiselect();
+
+            $('select[name="indonesia_provinces"]').on('change',function(){
+               var provinsiID = $(this).val();
+               console.log(provinsiID);
+               if(provinsiID)
+               {
+                  $.ajax({
+                     url : 'getkota/' +provinsiID,
+                     type : "GET",
+                     dataType : "json",
+                     success:function(data)
+                     {
+                        console.log(data);
+                        $('select[name="indonesia_cities"]').empty();
+                        $.each(data, function(key,value){
+                           $('select[name="indonesia_cities"]').append('<option value="'+ key +'">'+ value +'</option>');
+                        });
+                     }
+                  });
+               }
+               else
+               {
+                  $('select[name="indonesia_cities"]').empty();
+               }
+            });
+
+            $('select[name="indonesia_cities"]').on('change',function(){
+               var kotaID = $(this).val();
+               console.log(kotaID);
+               if(kotaID)
+               {
+                  $.ajax({
+                     url : 'getkecamatan/' +kotaID,
+                     type : "GET",
+                     dataType : "json",
+                     success:function(data)
+                     {
+                        console.log(data);
+                        $('select[name="indonesia_districts"]').empty();
+                        $.each(data, function(key,value){
+                           $('select[name="indonesia_districts"]').append('<option value="'+ key +'">'+ value +'</option>');
+                        });
+                     }
+                  });
+               }
+               else
+               {
+                  $('select[name="indonesia_districts"]').empty();
+               }
+            });
+
+            $('select[name="indonesia_districts"]').on('change',function(){
+               var KecamatanID = $(this).val();
+               console.log(KecamatanID);
+               if(KecamatanID)
+               {
+                  $.ajax({
+                     url : 'getkelurahan/' +KecamatanID,
+                     type : "GET",
+                     dataType : "json",
+                     success:function(data)
+                     {
+                        console.log(data);
+                        $('select[name="indonesia_villages"]').empty();
+                        $.each(data, function(key,value){
+                           $('select[name="indonesia_villages"]').append('<option value="'+ key +'">'+ value +'</option>');
+                        });
+                     }
+                  });
+               }
+               else
+               {
+                  $('select[name="indonesia_villages"]').empty();
+               }
+            });
+    });
+</script>
 @endsection
 

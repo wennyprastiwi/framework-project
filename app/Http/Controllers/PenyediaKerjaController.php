@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KategoriPekerjaan;
+use App\Models\Kecamatan;
+use App\Models\Kelurahan;
 use App\Models\Kontak;
+use App\Models\Kota;
 use Illuminate\Http\Request;
 use App\Models\PenyediaKerja;
+use App\Models\Provinsi;
 use Illuminate\Support\Facades\DB;
 
 class PenyediaKerjaController extends Controller
@@ -19,7 +24,39 @@ class PenyediaKerjaController extends Controller
 
     public function create()
     {
-        return view('admin.penyedia-kerja.create');
+        $provinsi = Provinsi::orderBy('name')->pluck('name', 'id');
+        $ktgPekerjaan = KategoriPekerjaan::orderBy('nama_kategori_pekerjaan')->pluck('nama_kategori_pekerjaan', 'id');
+        return view('admin.penyedia-kerja.create', ['provinsi' => $provinsi , 'ktgPekerjaan' => $ktgPekerjaan]);
+    }
+
+    public function getKota($id)
+    {
+        $kota = Kota::where('province_id', $id)
+            ->orderBy('name')
+            ->pluck('name', 'id');
+
+        return response()->json($kota);
+
+    }
+
+    public function getKecamatan($id)
+    {
+        $kecamatan = Kecamatan::where('city_id', $id)
+            ->orderBy('name')
+            ->pluck('name', 'id');
+
+        return response()->json($kecamatan);
+
+    }
+
+    public function getKelurahan($id)
+    {
+        $kelurahan = Kelurahan::where('district_id', $id)
+            ->orderBy('name')
+            ->pluck('name', 'id');
+
+        return response()->json($kelurahan);
+
     }
 
     public function store(Request $request)
@@ -33,7 +70,7 @@ class PenyediaKerjaController extends Controller
             'alamat_web' => 'required',
             'alamat_perusahaan' => 'required',
             'deskripsi_perusahaan' => 'required',
-            'logo_perusahaan' => 'required',
+            'logo_perusahaan' => 'required|mimes:jpg,png|max:2048',
             'id_kontak'  => 'required',
 
             'no_hp'  => 'required',
@@ -54,11 +91,6 @@ class PenyediaKerjaController extends Controller
             'nama_perusahaan' => $request->nama_perusahaan,
             'bidang_usaha' => $request->bidang_usaha,
             'alamat_web' => $request->alamat_web,
-            'alamat_perusahaan' => $request->alamat_perusahaan,
-            'kecamatan' => $request->kecamatan,
-            'kelurahan' => $request->kelurahan,
-            'kota' => $request->kota,
-            'provinsi' => $request->provinsi,
             'id_kontak' => $kontak->id_kontak,
             'deskripsi_perusahaan' => $request->deskripsi_perusahaan,
             'logo_perusahaan' => $logoFileName,

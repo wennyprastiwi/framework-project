@@ -16,14 +16,22 @@ class CreatePenyediaKerjaTable extends Migration
         Schema::create('penyedia_kerja', function (Blueprint $table) {
             $table->id();
             $table->string('nama_perusahaan',200);
-            $table->string('bidang_usaha',200);
-            $table->foreignId('id_lokasi')->constrained('lokasi');
             $table->string('alamat_web');
-            $table->foreignId('id_kontak')->constrained('kontak');
             $table->string('deskripsi_perusahaan',100);
+            $table->foreignId('id_lokasi')->constrained('lokasi');
+            $table->foreignId('id_kontak')->constrained('kontak');
             $table->foreignId('id_dokumen')->constrained('dokumen_perusahaan');
+            $table->unsignedBigInteger('id_bidang_perusahaan');
             $table->string('logo_perusahaan');
+            $table->string('status_perusahaan', 2);
             $table->timestamps();
+        });
+
+        Schema::table('penyedia_kerja', function (Blueprint $table) {
+            $table->foreign('id_bidang_perusahaan')
+                ->references('id')
+                ->on('penyedia_kerja')
+                ->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
