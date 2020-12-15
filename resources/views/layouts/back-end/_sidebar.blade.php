@@ -71,7 +71,7 @@
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="{{ url('/admin/contact') }}">
+                <a class="nav-link" href="{{ url('/admin/kontak') }}">
                     <i class="far fa-fw fa-address-book"></i>
                     <span>Contact</span></a>
             </li>

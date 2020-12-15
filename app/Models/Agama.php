@@ -9,5 +9,5 @@ class Agama extends Model
 {
     use HasFactory;
     protected $table = 'agama';
-    protected $fillable = ['nama'];
+    protected $fillable = ['nama_agama'];
 }

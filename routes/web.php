@@ -22,44 +22,52 @@ Route::get('/', function () {
 });
 
 Route::group(['prefix' => 'admin'], function() {
-    Route::get('index', 'AdminController@index')->name('admin.index');
+    Route::get('', 'AdminController@index')->name('admin.index');
     Route::get('user', 'AdminController@user')->name('admin.user');
     Route::get('kategori-pekerjaan', 'AdminController@kategoriPekerjaan')->name('admin.kategoriPekerjaan');
     Route::get('penyedia-kerja', 'AdminController@penyediaKerja')->name('admin.penyediaKerja');
+    Route::get('pencari-kerja', 'AdminController@pencariKerja')->name('admin.pencariKerja');
+    Route::get('lokasi', 'AdminController@lokasi')->name('admin.lokasi');
+    Route::get('about-us', 'AdminController@aboutUs')->name('admin.aboutUs');
+    Route::get('kontak', 'AdminController@kontak')->name('admin.kontak');
+    Route::get('push-notifikasi', 'AdminController@pushNotifikasi')->name('admin.pushNotifikasi');
+    Route::get('login', 'AdminController@login')->name('admin.login');
+    Route::post('auth','AdminController@authCheck')->name('admin.auth');
+    
+    Route::group(['prefix' => 'user'], function() {
+        Route::get('create', 'UserController@create')->name('user.create');
+        Route::get('{id}/show', 'UserController@show')->name('user.show');
+        Route::get('{id}/edit', 'UserController@edit')->name('user.edit');
+    
+        Route::post('store', 'UserController@store')->name('user.store');
+        Route::post('update', 'UserController@update')->name('user.update');
+        Route::delete('{id}/delete', 'UserController@delete')->name('user.delete');
+    });
+    
+    Route::group(['prefix' => 'kategoriPekerjaan'], function() {
+        Route::get('create', 'KategoriPekerjaanController@create')->name('kategoriPekerjaan.create');
+        Route::get('{id}/show', 'KategoriPekerjaanController@show')->name('kategoriPekerjaan.show');
+        Route::get('{id}/edit', 'KategoriPekerjaanController@edit')->name('kategoriPekerjaan.edit');
+    
+        Route::post('store', 'KategoriPekerjaanController@store')->name('kategoriPekerjaan.store');
+        Route::post('update', 'KategoriPekerjaanController@update')->name('kategoriPekerjaan.update');
+        Route::delete('{id}/delete', 'KategoriPekerjaanController@delete')->name('kategoriPekerjaan.delete');
+    });
+    
+    
+    Route::group(['prefix' => 'penyediaKerja'], function() {
+        Route::get('create', 'PenyediaKerjaController@create')->name('penyediaKerja.create');
+        Route::get('{id}/show', 'PenyediaKerjaController@show')->name('penyediaKerja.show');
+        Route::get('{id}/edit', 'PenyediaKerjaController@edit')->name('penyediaKerja.edit');
+    
+        Route::get('getkota/{id}', 'PenyediaKerjaController@getKota')->name('penyediaKerja.kota');
+        Route::get('getkecamatan/{id}', 'PenyediaKerjaController@getKecamatan')->name('penyediaKerja.kecamatan');
+        Route::get('getkelurahan/{id}', 'PenyediaKerjaController@getKelurahan')->name('penyediaKerja.kelurahan');
+    
+        Route::post('store', 'PenyediaKerjaController@store')->name('penyediaKerja.store');
+        Route::post('update', 'PenyediaKerjaController@update')->name('penyediaKerja.update');
+        Route::delete('{id}/delete', 'PenyediaKerjaController@delete')->name('penyediaKerja.delete');
+    });
 });
 
 
-Route::group(['prefix' => 'user'], function() {
-    Route::get('create', 'UserController@create')->name('user.create');
-    Route::get('{id}/show', 'UserController@show')->name('user.show');
-    Route::get('{id}/edit', 'UserController@edit')->name('user.edit');
-
-    Route::post('store', 'UserController@store')->name('user.store');
-	Route::post('update', 'UserController@update')->name('user.update');
-	Route::delete('{id}/delete', 'UserController@delete')->name('user.delete');
-});
-
-Route::group(['prefix' => 'kategoriPekerjaan'], function() {
-    Route::get('create', 'KategoriPekerjaanController@create')->name('kategoriPekerjaan.create');
-    Route::get('{id}/show', 'KategoriPekerjaanController@show')->name('kategoriPekerjaan.show');
-    Route::get('{id}/edit', 'KategoriPekerjaanController@edit')->name('kategoriPekerjaan.edit');
-
-    Route::post('store', 'KategoriPekerjaanController@store')->name('kategoriPekerjaan.store');
-	Route::post('update', 'KategoriPekerjaanController@update')->name('kategoriPekerjaan.update');
-	Route::delete('{id}/delete', 'KategoriPekerjaanController@delete')->name('kategoriPekerjaan.delete');
-});
-
-
-Route::group(['prefix' => 'penyediaKerja'], function() {
-    Route::get('create', 'PenyediaKerjaController@create')->name('penyediaKerja.create');
-    Route::get('{id}/show', 'PenyediaKerjaController@show')->name('penyediaKerja.show');
-    Route::get('{id}/edit', 'PenyediaKerjaController@edit')->name('penyediaKerja.edit');
-
-    Route::get('getkota/{id}', 'PenyediaKerjaController@getKota')->name('penyediaKerja.kota');
-    Route::get('getkecamatan/{id}', 'PenyediaKerjaController@getKecamatan')->name('penyediaKerja.kecamatan');
-    Route::get('getkelurahan/{id}', 'PenyediaKerjaController@getKelurahan')->name('penyediaKerja.kelurahan');
-
-    Route::post('store', 'PenyediaKerjaController@store')->name('penyediaKerja.store');
-	Route::post('update', 'PenyediaKerjaController@update')->name('penyediaKerja.update');
-	Route::delete('{id}/delete', 'PenyediaKerjaController@delete')->name('penyediaKerja.delete');
-});
