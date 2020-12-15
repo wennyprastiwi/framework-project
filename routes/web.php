@@ -20,6 +20,9 @@ use App\Http\Controllers\PenyediaKerjaAdminController;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('login', 'LoginController@login')->name('login.login');
+Route::post('auth','LoginController@authCheck')->name('login.auth');
+Route::post('logout','LoginController@logout')->name('login.logout');
 
 Route::group(['prefix' => 'admin'], function() {
     Route::get('', 'AdminController@index')->name('admin.index');
@@ -31,8 +34,6 @@ Route::group(['prefix' => 'admin'], function() {
     Route::get('about-us', 'AdminController@aboutUs')->name('admin.aboutUs');
     Route::get('kontak', 'AdminController@kontak')->name('admin.kontak');
     Route::get('push-notifikasi', 'AdminController@pushNotifikasi')->name('admin.pushNotifikasi');
-    Route::get('login', 'AdminController@login')->name('admin.login');
-    Route::post('auth','AdminController@authCheck')->name('admin.auth');
     
     Route::group(['prefix' => 'user'], function() {
         Route::get('create', 'UserController@create')->name('user.create');
