@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b22b5049c366918149611615d6f684d9",
+    "content-hash": "cfb2c0863b35bf02cb80fd85d0b3ff8e",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1115,21 +1115,21 @@
         },
         {
             "name": "laravolt/indonesia",
-            "version": "v0.27",
+            "version": "v0.28",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravolt/indonesia.git",
-                "reference": "4d62bd23f09abfb789030701ee3fec983c544eca"
+                "reference": "9a4562241a800bdbf3ac8c24c4305a3c8912f646"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravolt/indonesia/zipball/4d62bd23f09abfb789030701ee3fec983c544eca",
-                "reference": "4d62bd23f09abfb789030701ee3fec983c544eca",
+                "url": "https://api.github.com/repos/laravolt/indonesia/zipball/9a4562241a800bdbf3ac8c24c4305a3c8912f646",
+                "reference": "9a4562241a800bdbf3ac8c24c4305a3c8912f646",
                 "shasum": ""
             },
             "require": {
                 "illuminate/support": "^8.0",
-                "php": "^7.3"
+                "php": "^7.3|^8.0"
             },
             "require-dev": {
                 "orchestra/testbench": "^6.0",
@@ -1189,7 +1189,11 @@
                 "laravolt",
                 "provinsi"
             ],
-            "time": "2020-10-07T09:32:04+00:00"
+            "support": {
+                "issues": "https://github.com/laravolt/indonesia/issues",
+                "source": "https://github.com/laravolt/indonesia/tree/v0.28"
+            },
+            "time": "2020-12-07T13:08:07+00:00"
         },
         {
             "name": "league/commonmark",
@@ -6711,5 +6715,6 @@
     "platform": {
         "php": "^7.3|^8.0"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.0.0"
 }
