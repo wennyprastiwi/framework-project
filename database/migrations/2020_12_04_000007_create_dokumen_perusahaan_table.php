@@ -15,6 +15,7 @@ class CreateDokumenPerusahaanTable extends Migration
     {
         Schema::create('dokumen_perusahaan', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('id_penyedia_kerja')->constrained('penyedia_kerja')->onUpdate('cascade')->onDelete('cascade')->nullable();
             $table->string('sop',100);
             $table->string('surat_domisili');
             $table->string('npwp',100);

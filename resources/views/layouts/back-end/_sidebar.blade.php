@@ -57,25 +57,11 @@
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="{{ url('/admin/lokasi') }}">
-                    <i class="fas fa-fw fa-map-marked-alt"></i>
-                    <span>Lokasi</span></a>
-            </li>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
                 <a class="nav-link" href="{{ url('/admin/about-us') }}">
                     <i class="fas fa-fw fa-info-circle"></i>
                     <span>About Us</span></a>
             </li>
 
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url('/admin/kontak') }}">
-                    <i class="far fa-fw fa-address-book"></i>
-                    <span>Contact</span></a>
-            </li>
-                        
             <!-- Divider -->
             <hr class="sidebar-divider">
 

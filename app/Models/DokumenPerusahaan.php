@@ -10,9 +10,10 @@ class DokumenPerusahaan extends Model
     use HasFactory;
     protected $table = 'dokumen_perusahaan';
     protected $fillable = [
-        'id', 
-        'sop', 
-        'surat_domisili', 
+        'id',
+        'id_penyedia_kerja',
+        'sop',
+        'surat_domisili',
         'npwp'
     ];
 }

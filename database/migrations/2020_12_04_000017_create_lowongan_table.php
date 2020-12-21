@@ -15,11 +15,11 @@ class CreateLowonganTable extends Migration
     {
         Schema::create('lowongan', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_kategori')->constrained('kategori_pekerjaan');
+            $table->foreignId('id_kategori')->constrained('kategori_pekerjaan')->onUpdate('cascade')->onDelete('cascade');
             $table->string('nama_pekerjaan',100);
             $table->string('jenis_pekerjaan',50);
-            $table->foreignId('id_lokasi')->constrained('lokasi');
-            $table->foreignId('id_pekerjaan')->constrained('kontak');
+            $table->foreignId('id_lokasi')->constrained('lokasi')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('id_penyedia_kerja')->constrained('penyedia_kerja')->onUpdate('cascade')->onDelete('cascade');
             $table->Integer('gaji');
             $table->date('tanggal_dibuka');
             $table->date('tanggal_ditutup');
@@ -30,6 +30,7 @@ class CreateLowonganTable extends Migration
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.
