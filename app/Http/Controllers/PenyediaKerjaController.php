@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BidangPerusahaan;
+use App\Models\DokumenPerusahaan;
 use App\Models\KategoriPekerjaan;
 use App\Models\Kecamatan;
 use App\Models\Kelurahan;
 use App\Models\Kontak;
 use App\Models\Kota;
+use App\Models\Lokasi;
 use Illuminate\Http\Request;
 use App\Models\PenyediaKerja;
 use App\Models\Provinsi;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class PenyediaKerjaController extends Controller
 {
@@ -24,13 +28,14 @@ class PenyediaKerjaController extends Controller
 
     public function create()
     {
-        $provinsi = Provinsi::orderBy('name')->pluck('name', 'id');
+        $provinsi = Provinsi::all();
         $ktgPekerjaan = KategoriPekerjaan::orderBy('nama_kategori_pekerjaan')->pluck('nama_kategori_pekerjaan', 'id');
         return view('admin.penyedia-kerja.create', ['provinsi' => $provinsi , 'ktgPekerjaan' => $ktgPekerjaan]);
     }
 
-    public function getKota($id)
+    public function getKota(Request $request)
     {
+        $id = $request->provinsi_id;
         $kota = Kota::where('province_id', $id)
             ->orderBy('name')
             ->pluck('name', 'id');
@@ -39,8 +44,9 @@ class PenyediaKerjaController extends Controller
 
     }
 
-    public function getKecamatan($id)
+    public function getKecamatan(Request $request)
     {
+        $id = $request->kota_id;
         $kecamatan = Kecamatan::where('city_id', $id)
             ->orderBy('name')
             ->pluck('name', 'id');
@@ -49,8 +55,9 @@ class PenyediaKerjaController extends Controller
 
     }
 
-    public function getKelurahan($id)
+    public function getKelurahan(Request $request)
     {
+        $id = $request->kecamatan_id;
         $kelurahan = Kelurahan::where('district_id', $id)
             ->orderBy('name')
             ->pluck('name', 'id');
@@ -61,79 +68,236 @@ class PenyediaKerjaController extends Controller
 
     public function store(Request $request)
     {
+        DB::beginTransaction();
+
+
         $logo = $request->file('logo_perusahaan');
+        $npwp = $request->file('npwp');
+        $sop  = $request->file('sop');
+        $surat= $request->file('surat_domisili');
+
         $logoFileName = $logo->getClientOriginalName();
+        $npwpFileName = $npwp->getClientOriginalName();
+        $sopFileName = $sop->getClientOriginalName();
+        $suratFileName = $surat->getClientOriginalName();
+
 
         $validateData = $this->validate($request, [
             'nama_perusahaan' => 'required',
-            'bidang_usaha' => 'required',
             'alamat_web' => 'required',
             'alamat_perusahaan' => 'required',
             'deskripsi_perusahaan' => 'required',
-            'logo_perusahaan' => 'required|mimes:jpg,png|max:2048',
-            'id_kontak'  => 'required',
+            'logo_perusahaan' => 'required|max:4096',
+            'npwp' =>  'required|max:4096',
+            'sop' => 'required|max:4096',
+            'surat_domisili' => 'required|max:4096',
 
             'no_hp'  => 'required',
             'email'  => 'required',
 		]);
 
-        $kontak = Kontak::create([
-            'no_hp' => $request->no_hp,
-            'email' => $request->email,
-            'link_ig' => $request->link_ig,
-            'link_twitter' => $request->link_twitter,
-            'link_linkedin' => $request->link_linkedin,
-            'link_facebook' => $request->link_facebook,
-            'jenis_kontak' => $request->jenis_kontak
-        ]);
+        try {
 
-        $pk = PenyediaKerja::create([
-            'nama_perusahaan' => $request->nama_perusahaan,
-            'bidang_usaha' => $request->bidang_usaha,
-            'alamat_web' => $request->alamat_web,
-            'id_kontak' => $kontak->id_kontak,
-            'deskripsi_perusahaan' => $request->deskripsi_perusahaan,
-            'logo_perusahaan' => $logoFileName,
-        ]);
+            $pk = PenyediaKerja::create([
+                'nama_perusahaan' => $request->nama_perusahaan,
+                'alamat_web' => $request->alamat_web,
+                'deskripsi_perusahaan' => $request->deskripsi_perusahaan,
+                'logo_perusahaan' => $logoFileName,
+                'status_perusahaan' => 0
+            ]);
 
-        $logo->storeAs('public/logo_perusahaan', $logoFileName);
+            $kontak = Kontak::create([
+                'id_penyedia_kerja' =>  $pk->id,
+                'no_hp' => $request->no_hp,
+                'email' => $request->email,
+                'jenis_kontak' => 2
+            ]);
+
+            $dokumen = DokumenPerusahaan::create([
+                'id_penyedia_kerja' =>  $pk->id,
+                'sop' => $sopFileName,
+                'surat_domisili' => $suratFileName,
+                'npwp' => $npwpFileName
+            ]);
+
+            $lokasi = Lokasi::create([
+                'nama_lokasi' => $request->alamat_perusahaan,
+                'id_provinsi' => $request->indonesia_provinces,
+                'id_kota' => $request->indonesia_cities,
+                'id_kecamatan' => $request->indonesia_districts,
+                'id_kelurahan' => $request->indonesia_villages,
+                'id_penyedia_kerja' =>  $pk->id
+            ]);
+
+            $finalArray = array();
+            foreach($request->bidang_usaha as $value){
+                array_push($finalArray, array(
+                        'id_kategori_pekerjaan' =>  $value,
+                        'id_penyedia_kerja' =>  $pk->id,
+                        'created_at' => date('Y-m-d H:i:s')
+                    )
+                );
+            };
+
+            BidangPerusahaan::insert($finalArray);
+
+            $logo->storeAs('public/logo_perusahaan', $logoFileName);
+            $npwp->storeAs('public/npwp', $npwpFileName);
+            $sop->storeAs('public/sop', $sopFileName);
+            $surat->storeAs('public/surat', $suratFileName);
+        } catch(\Exception $e)
+        {
+            DB::rollback();
+            throw $e;
+        }
+
+        DB::commit();
 
         return redirect()->route('admin.penyediaKerja')
                         ->with('success','Penyedia Kerja created successfully.');
     }
 
-    public function show(PenyediaKerja $PenyediaKerja)
+    public function show($id)
     {
-        $pk = $PenyediaKerja;
-        return view('admin.penyedia-kerja.show',compact('pk'));
+        $penyediaKerja = PenyediaKerja::where('id' , $id)->first();
+        // dd($penyediaKerja->bidang);
+        return view('admin.penyedia-kerja.show',['penyediaKerja' => $penyediaKerja]);
     }
 
-    public function edit(PenyediaKerja $PenyediaKerja)
+    public function edit($id)
     {
-        $pk = $PenyediaKerja;
-        return view('admin.penyedia-kerja.edit',compact('pk'));
-    }
+        $penyediaKerja = PenyediaKerja::where('id' , $id)->first();
+        $bidangKerja = BidangPerusahaan::all()->where('id_penyedia_kerja', $penyediaKerja->id);
+        $provinsi = Provinsi::all();
+        $ktgPekerjaan = KategoriPekerjaan::all();
 
-    public function update(Request $request, PenyediaKerja $PenyediaKerja)
-    {
-        $request->validate([
-            'nama_perusahaan' => 'required',
-            'bidang_usaha' => 'required',
-            'alamat_web' => 'required',
-            'deskripsi_perusahaan' => 'required',
+        return view('admin.penyedia-kerja.edit',[
+            'penyediaKerja' => $penyediaKerja ,
+            'provinsi' => $provinsi,
+            'ktgPekerjaan' => $ktgPekerjaan,
+            'bidKerja' => $bidangKerja
         ]);
-
-        $PenyediaKerja->update($request->all());
-
-        return redirect()->route('penyedia-kerja.index')
-                        ->with('success','Penyedia Kerja updated successfully');
     }
 
-    public function destroy(PenyediaKerja $PenyediaKerja)
+    public function update(Request $request)
     {
-        $PenyediaKerja->delete();
+        DB::beginTransaction();
 
-        return redirect()->route('penyedia-kerja.index')
+        $id = $request->id;
+
+        $logo = $request->file('logo_perusahaan');
+        $npwp = $request->file('npwp');
+        $sop  = $request->file('sop');
+        $surat= $request->file('surat_domisili');
+
+        $validateData = $this->validate($request, [
+            'nama_perusahaan' => 'required',
+            'alamat_web' => 'required',
+            'alamat_perusahaan' => 'required',
+            'deskripsi_perusahaan' => 'required',
+            'logo_perusahaan' => 'required|max:4096',
+            'npwp' =>  'required|max:4096',
+            'sop' => 'required|max:4096',
+            'surat_domisili' => 'required|max:4096',
+
+            'no_hp'  => 'required',
+            'email'  => 'required',
+		]);
+
+        try {
+
+            $pk = PenyediaKerja::where('id', $id);
+            $updatePk = [
+                'nama_perusahaan' => $request->nama_perusahaan,
+                'alamat_web' => $request->alamat_web,
+                'deskripsi_perusahaan' => $request->deskripsi_perusahaan,
+                'status_perusahaan' => 0
+            ];
+
+            if ($logo) {
+                $logoFileName = $logo->getClientOriginalName();
+                $deleteOldPhoto = Storage::delete('public/logo_perusahaan/'.$pk->first()->logo_perusahaan);
+                $uploadNewPhoto =  $logo->storeAs('public/logo_perusahaan', $logoFileName);
+                $updatePk['logo_perusahaan'] = $logoFileName;
+            }
+
+            $pk->update($updatePk);
+
+            $kontak = Kontak::where('id_penyedia_kerja', $pk->first()->id)
+                ->update([
+                    'no_hp' => $request->no_hp,
+                    'email' => $request->email,
+                    'jenis_kontak' => 2
+            ]);
+
+            $dokumen = DokumenPerusahaan::where('id_penyedia_kerja', $pk->first()->id);
+               $updateDok = [];
+               if ($npwp || $sop || $surat) {
+                    $npwpFileName = $npwp->getClientOriginalName();
+                    $sopFileName = $sop->getClientOriginalName();
+                    $suratFileName = $surat->getClientOriginalName();
+
+                    $deleteOldNpwp = Storage::delete('public/npwp/'.$dokumen->first()->npwp);
+                    $uploadNewNpwp =  $logo->storeAs('public/npwp', $npwpFileName);
+
+                    $deleteOldSop = Storage::delete('public/sop/'.$dokumen->first()->sop);
+                    $uploadNewSop =  $logo->storeAs('public/sop', $sopFileName);
+
+                    $deleteOldSurat = Storage::delete('public/surat/'.$dokumen->first()->surat_domisili);
+                    $uploadNewSurat =  $logo->storeAs('public/surat', $suratFileName);
+
+                    $updateDok['npwp'] = $npwpFileName;
+                    $updateDok['sop'] = $sopFileName;
+                    $updateDok['surat_domisili'] = $suratFileName;
+               }
+
+            $dokumen->update($updateDok);
+
+            $lokasi = Lokasi::where('id_penyedia_kerja', $pk->first()->id)
+                ->update([
+                    'nama_lokasi' => $request->alamat_perusahaan,
+                    'id_provinsi' => $request->indonesia_provinces,
+                    'id_kota' => $request->indonesia_cities,
+                    'id_kecamatan' => $request->indonesia_districts,
+                    'id_kelurahan' => $request->indonesia_villages,
+            ]);
+
+            $bidangPerusahaan = BidangPerusahaan::where('id_penyedia_kerja', $pk->first()->id);
+            $updateBid =
+                $finalArray = array();
+                foreach($request->bidang_usaha as $value){
+                    array_push($finalArray, array(
+                            'id_kategori_pekerjaan' =>  $value,
+                            'updated_at' => date('Y-m-d H:i:s')
+                        )
+                    );
+                };
+
+            $bidangPerusahaan->update($updateBid);
+        } catch(\Exception $e)
+        {
+            DB::rollback();
+            throw $e;
+        }
+
+        DB::commit();
+
+        return redirect()->route('admin.penyediaKerja')
+                        ->with('success','Penyedia Kerja created successfully.');
+    }
+
+    public function delete($id)
+    {
+        $penyediaKerja = PenyediaKerja::where('id' , $id)->first();
+
+        $hapusLogo = Storage::delete('public/logo_perusahaan/'.$penyediaKerja['logo_perusahaan']);
+        $hapusNpwp = Storage::delete('public/npwp/'.$penyediaKerja->dokumen['npwp']);
+        $hapusSop = Storage::delete('public/sop/'.$penyediaKerja->dokumen['sop']);
+        $hapusSurat = Storage::delete('public/surat/'.$penyediaKerja->dokumen['surat_domisili']);
+
+        $penyediaKerja->delete($hapusLogo,$hapusNpwp,$hapusSop,$hapusSurat);
+
+        return redirect()->route('admin.penyediaKerja')
                         ->with('success','Penyedia Kerja deleted successfully');
     }
 }

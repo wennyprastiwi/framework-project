@@ -47,13 +47,11 @@
                                                     <span class="icon text-white-50">
                                                         <i class="fas fa-eye"></i>
                                                     </span>
-                                                    <span class="text">Detail</span>
                                                 </a>
                                                 <a href="{{ route('user.edit',$usr->id) }}" class="btn btn-success btn-icon-split">
                                                     <span class="icon text-white-50">
                                                         <i class="far fa-edit"></i>
                                                     </span>
-                                                    <span class="text">Edit</span>
                                                 </a>
 
                                                 @csrf
@@ -63,7 +61,6 @@
                                                     <span class="icon text-white-50">
                                                         <i class="fas fa-trash"></i>
                                                     </span>
-                                                    <span class="text">Delete</span>
                                                 </button>
                                                 </form>
                                             </td>

@@ -26,14 +26,12 @@
                             </div>
                             @endif
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
+                                <table class="table table-bordered table-hover" id="dataTable" width="100%">
+                                    <thead aria-rowspan="2">
                                         <tr>
                                             <th>No</th>
                                             <th>Nama Perusahaan</th>
-                                            <th>Bidang pekerjaan</th>
-                                            <th>Kota</th>
-                                            <th>No Telepon</th>
+                                            <th>E-mail</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -42,22 +40,18 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $pk->nama_perusahaan }}</td>
-                                            <td>{{ $pk->bidang_usaha }}</td>
-                                            <td>{{ $pk->id_lokasi }}</td>
-                                            <td>{{ $pk->id_kontak }}</td>
+                                            <td>{{ $pk->kontak->email }}</td>
                                             <td>
-                                                <form action="{{ route('penyediaKerja.delete',$kp->id) }}" method="POST">
+                                                <form action="{{ route('penyediaKerja.delete',$pk->id) }}" method="POST">
                                                 <a href="{{ route('penyediaKerja.show',$pk->id) }}" class="btn btn-info btn-icon-split">
                                                     <span class="icon text-white-50">
                                                         <i class="fas fa-eye"></i>
                                                     </span>
-                                                    <span class="text">Detail</span>
                                                 </a>
                                                 <a href="{{ route('penyediaKerja.edit',$pk->id) }}" class="btn btn-success btn-icon-split">
                                                     <span class="icon text-white-50">
                                                         <i class="far fa-edit"></i>
                                                     </span>
-                                                    <span class="text">Edit</span>
                                                 </a>
 
                                                 @csrf
@@ -67,7 +61,6 @@
                                                     <span class="icon text-white-50">
                                                         <i class="fas fa-trash"></i>
                                                     </span>
-                                                    <span class="text">Delete</span>
                                                 </button>
                                                 </form>
                                             </td>

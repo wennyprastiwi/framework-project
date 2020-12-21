@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLamaranTable extends Migration
+class CreatePenyediaKerjaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateLamaranTable extends Migration
      */
     public function up()
     {
-        Schema::create('lamaran', function (Blueprint $table) {
+        Schema::create('penyedia_kerja', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_lowongan')->constrained('lowongan');
-            $table->string('status_lamaran');
-            $table->foreignId('id_pencari_kerja')->constrained('pencari_kerja');
+            $table->string('nama_perusahaan',200);
+            $table->string('alamat_web');
+            $table->longText('deskripsi_perusahaan');
+            $table->string('logo_perusahaan');
+            $table->string('status_perusahaan', 2);
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ class CreateLamaranTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lamaran');
+        Schema::dropIfExists('penyedia_kerja');
     }
 }
