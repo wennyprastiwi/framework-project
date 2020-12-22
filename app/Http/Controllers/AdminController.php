@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Admin;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Session;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserController as userCtrl;
 use App\Http\Controllers\KategoriPekerjaanController as ktgPekerjaanCtrl;
 use App\Http\Controllers\PencariKerjaController as pncrKerjaCtrl;
@@ -11,9 +14,16 @@ use App\Http\Controllers\PenyediaKerjaController as pnydKerjaCtrl;
 
 class AdminController extends Controller
 {
+  function __construct()
+    {
+      $this->middleware('admin');
+    }
+
     public function index()
     {
-        return view('admin.dashboard');
+        $admin = Auth::user();
+        return view('admin.dashboard')->with(['admin' => $admin]);
+
     }
 
     public function user() {
@@ -47,17 +57,12 @@ class AdminController extends Controller
 
     public function profile()
     {
-        return view('admin.profile');
+      return view('admin.profile');
     }
 
     public function setting()
     {
-        return view('admin.setting');
-    }
-
-    public function login()
-    {
-        return view('admin.login');
+      return view('admin.setting');
     }
 
     public function AuthCheck(Request $request)
@@ -91,4 +96,5 @@ class AdminController extends Controller
 
           }
     }
+
 }

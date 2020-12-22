@@ -20,6 +20,9 @@ use App\Http\Controllers\PenyediaKerjaAdminController;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('login', 'LoginController@login')->name('login.login');
+Route::post('auth','LoginController@authCheck')->name('login.auth');
+Route::post('logout','LoginController@logout')->name('login.logout');
 
 Route::group(['prefix' => 'admin'], function() {
     Route::get('', 'AdminController@index')->name('admin.index');
@@ -32,7 +35,7 @@ Route::group(['prefix' => 'admin'], function() {
     Route::get('login', 'AdminController@login')->name('admin.login');
     Route::post('auth','AdminController@authCheck')->name('admin.auth');
 
-    Route::group(['prefix' => 'user'], function() {
+Route::group(['prefix' => 'user'], function() {
         Route::get('create', 'UserController@create')->name('user.create');
         Route::get('{id}/show', 'UserController@show')->name('user.show');
         Route::get('{id}/edit', 'UserController@edit')->name('user.edit');
