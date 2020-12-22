@@ -17,16 +17,15 @@ class CreateLowonganTable extends Migration
             $table->id();
             $table->foreignId('id_kategori')->constrained('kategori_pekerjaan')->onUpdate('cascade')->onDelete('cascade');
             $table->string('nama_pekerjaan',100);
-            $table->string('jenis_pekerjaan',50);
             $table->foreignId('id_lokasi')->constrained('lokasi')->onUpdate('cascade')->onDelete('cascade');
-            $table->unsignedBigInteger('id_penyedia_kerja')->constrained('penyedia_kerja')->onUpdate('cascade')->onDelete('cascade');
-            $table->Integer('gaji');
+            $table->foreignId('id_penyedia_kerja')->constrained('penyedia_kerja')->onUpdate('cascade')->onDelete('cascade');
+            $table->integer('gaji')->unsigned();
             $table->date('tanggal_dibuka');
             $table->date('tanggal_ditutup');
-            $table->string('deskripsi_pekerjaan');
-            $table->string('kualifikasi', 200);
-            $table->string('gambaran_perusahaan', 200);
-            $table->string('keahlian_dibutuhkan', 200);
+            $table->text('deskripsi_pekerjaan');
+            $table->text('kualifikasi');
+            $table->text('gambaran_perusahaan');
+            $table->text('keahlian_dibutuhkan');
             $table->timestamps();
         });
     }

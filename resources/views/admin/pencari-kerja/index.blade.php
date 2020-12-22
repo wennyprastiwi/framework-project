@@ -1,7 +1,7 @@
 @extends('layouts.back-end_layout')
 
 @section('title')
-    Master pencari kerja
+    Master Pencari kerja
 @endsection
 
 @section('content')
@@ -9,7 +9,7 @@
 <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Master Pencari Kerja</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                        <a href={{ route('pencariKerja.create') }} class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-plus-square fa-sm text-white-50"></i> Tambah</a>
                     </div>
 
@@ -26,58 +26,52 @@
                                             <th>No</th>
                                             <th>NIK</th>
                                             <th>Nama</th>
-                                            <th>Jenis Kelamin</th>
-                                            <th>Tempat Lahir</th>
-                                            <th>Tanggal Lahir</th>
-                                            <th>No Telepon</th>
-                                            <th>Email</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>NIK</th>
-                                            <th>Nama</th>
-                                            <th>Jenis Kelamin</th>
-                                            <th>Tempat Lahir</th>
-                                            <th>Tanggal Lahir</th>
-                                            <th>No Telepon</th>
-                                            <th>Email</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
+                                        @foreach ($pencariKerja as $pk)
                                         <tr>
-                                            <td>1</td>
-                                            <td>18050623014</td>
-                                            <td>Ega Wahyu Cahyono</td>
-                                            <td>Laki-laki</td>
-                                            <td>Mojokerto</td>
-                                            <td>24/04/2000</td>
-                                            <td>085850319106</td>
-                                            <td>egawahyu20@gmail.com</td>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $pk->nik }}</td>
+                                            <td>{{ $pk->nama_lengkap }}</td>
                                             <td>
-                                                <a href="#" class="btn btn-info btn-icon-split">
+                                                {{-- <form action="{{ route('pencariKerja.delete',$pk->id) }}" method="POST">
+                                                <a href="{{ route('pencariKerja.show',$pk->id) }}" class="btn btn-info btn-icon-split">
                                                     <span class="icon text-white-50">
-                                                        <i class="fas fa-info-circle"></i>
+                                                        <i class="fas fa-eye"></i>
                                                     </span>
-                                                    <span class="text">Detail</span>
                                                 </a>
-                                                <a href="#" class="btn btn-primary btn-icon-split">
+                                                <a href="{{ route('pencariKerja.edit',$pk->id) }}" class="btn btn-secondary btn-icon-split">
                                                     <span class="icon text-white-50">
                                                         <i class="far fa-edit"></i>
                                                     </span>
-                                                    <span class="text">Edit</span>
                                                 </a>
-                                                <a href="#" class="btn btn-danger btn-icon-split">
+
+                                                @csrf
+                                                @method('DELETE')
+
+                                                <button type="submit" class="btn btn-danger btn-icon-split" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
                                                     <span class="icon text-white-50">
                                                         <i class="fas fa-trash"></i>
                                                     </span>
-                                                    <span class="text">Delete</span>
+                                                </button> --}}
+                                                {{-- @if ($pk->status_perusahaan == 0)
+                                                <a href="{{ route('pencariKerja.accepted',$pk->id) }}" class="btn btn-warning btn-icon-split" data-toggle="tooltip" title="Klik untuk menerima">
+                                                    <span class="icon text-white-50">
+                                                        <i class="fas fa-check"></i>
+                                                    </span>
                                                 </a>
+                                                <a href="{{ route('pencariKerja.decline',$pk->id) }}" class="btn btn-danger btn-icon-split" data-toggle="tooltip" title="Klik untuk menolak">
+                                                    <span class="icon text-white-50">
+                                                        <i class="fa fa-ban"></i>
+                                                    </span>
+                                                </a>
+                                                @endif --}}
+                                                </form>
                                             </td>
                                         </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

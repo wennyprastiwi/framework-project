@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBiodataPendidikanTable extends Migration
+class CreateJenisPendidikanTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateBiodataPendidikanTable extends Migration
      */
     public function up()
     {
-        Schema::create('biodata_pendidikan', function (Blueprint $table) {
+        Schema::create('jenis_pendidikan', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_pencari_kerja')->constrained('pencari_kerja')->onUpdate('cascade')->onDelete('cascade');
-            $table->integer('pendidikan_terakhir')->unsigned();
-            $table->date('tahun_lulus');
+            $table->string('nama_jenis_pendidikan');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateBiodataPendidikanTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('biodata_pendidikan');
+        Schema::dropIfExists('jenis_pendidikan');
     }
 }

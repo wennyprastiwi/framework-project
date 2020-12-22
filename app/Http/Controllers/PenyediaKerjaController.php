@@ -145,16 +145,17 @@ class PenyediaKerjaController extends Controller
             $npwp->storeAs('public/npwp', $npwpFileName);
             $sop->storeAs('public/sop', $sopFileName);
             $surat->storeAs('public/surat', $suratFileName);
+
+            DB::commit();
+
+            return redirect()->route('admin.penyediaKerja')
+                            ->with('success','Penyedia Kerja created successfully.');
+
         } catch(\Exception $e)
         {
             DB::rollback();
-            throw $e;
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
-
-        DB::commit();
-
-        return redirect()->route('admin.penyediaKerja')
-                        ->with('success','Penyedia Kerja created successfully.');
     }
 
     public function show($id)
@@ -274,16 +275,37 @@ class PenyediaKerjaController extends Controller
                 };
 
             $bidangPerusahaan->update($updateBid);
+
+            DB::commit();
+
+            return redirect()->route('admin.penyediaKerja')
+                            ->with('success','Penyedia Kerja updated successfully.');
+
         } catch(\Exception $e)
         {
             DB::rollback();
-            throw $e;
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
+    }
 
-        DB::commit();
+    public function accepted($id)
+    {
+        $penyediaKerja = PenyediaKerja::findOrFail($id);
+        $penyediaKerja->status_perusahaan = 1;
+        $penyediaKerja->save();
 
         return redirect()->route('admin.penyediaKerja')
-                        ->with('success','Penyedia Kerja created successfully.');
+                        ->with('success','Penyedia Kerja accepted successfully.');
+    }
+
+    public function decline ($id)
+    {
+        $penyediaKerja = PenyediaKerja::findOrFail($id);
+        $penyediaKerja->status_perusahaan = 2;
+        $penyediaKerja->save();
+
+        return redirect()->route('admin.penyediaKerja')
+                        ->with('success','Penyedia Kerja decline  successfully.');
     }
 
     public function delete($id)

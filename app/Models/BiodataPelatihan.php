@@ -10,10 +10,9 @@ class BiodataPelatihan extends Model
     use HasFactory;
     protected $table = 'biodata_pelatihan';
     protected $fillable = [
-        'id', 
-        'nama_pelatihan', 
-        'bidang_keahlian', 
-        'tahun_pelatihan', 
-        'deskripsi_singkat_pelatihan'
+        'id',
+        'nama_pelatihan',
+        'tahun_pelatihan',
+        'deskripsi_pelatihan'
     ];
 }

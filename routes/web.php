@@ -30,10 +30,8 @@ Route::group(['prefix' => 'admin'], function() {
     Route::get('kategori-pekerjaan', 'AdminController@kategoriPekerjaan')->name('admin.kategoriPekerjaan');
     Route::get('penyedia-kerja', 'AdminController@penyediaKerja')->name('admin.penyediaKerja');
     Route::get('pencari-kerja', 'AdminController@pencariKerja')->name('admin.pencariKerja');
-    Route::get('lokasi', 'AdminController@lokasi')->name('admin.lokasi');
     Route::get('about-us', 'AdminController@aboutUs')->name('admin.aboutUs');
     Route::get('kontak', 'AdminController@kontak')->name('admin.kontak');
-    Route::get('push-notifikasi', 'AdminController@pushNotifikasi')->name('admin.pushNotifikasi');
     Route::get('login', 'AdminController@login')->name('admin.login');
     Route::post('auth','AdminController@authCheck')->name('admin.auth');
 
@@ -62,6 +60,9 @@ Route::group(['prefix' => 'user'], function() {
         Route::get('create', 'PenyediaKerjaController@create')->name('penyediaKerja.create');
         Route::get('{id}/show', 'PenyediaKerjaController@show')->name('penyediaKerja.show');
         Route::get('{id}/edit', 'PenyediaKerjaController@edit')->name('penyediaKerja.edit');
+        Route::get('{id}/accepted', 'PenyediaKerjaController@accepted')->name('penyediaKerja.accepted');
+        Route::get('{id}/decline', 'PenyediaKerjaController@decline')->name('penyediaKerja.decline');
+
 
         Route::post('getkota', 'PenyediaKerjaController@getKota')->name('penyediaKerja.kota');
         Route::post('getkecamatan', 'PenyediaKerjaController@getKecamatan')->name('penyediaKerja.kecamatan');
@@ -71,6 +72,20 @@ Route::group(['prefix' => 'user'], function() {
         Route::post('update', 'PenyediaKerjaController@update')->name('penyediaKerja.update');
 
         Route::delete('{id}/delete', 'PenyediaKerjaController@delete')->name('penyediaKerja.delete');
+    });
+
+
+    Route::group(['prefix' => 'pencariKerja'], function() {
+        Route::get('create', 'PencariKerjaController@create')->name('pencariKerja.create');
+        Route::get('{id}/show', 'PencariKerjaController@show')->name('pencariKerja.show');
+        Route::get('{id}/edit', 'PencariKerjaController@edit')->name('pencariKerja.edit');
+        Route::get('{id}/accepted', 'PencariKerjaController@accepted')->name('pencariKerja.accepted');
+        Route::get('{id}/decline', 'PencariKerjaController@decline')->name('pencariKerja.decline');
+
+        Route::post('store', 'PencariKerjaController@store')->name('pencariKerja.store');
+        Route::post('update', 'PencariKerjaController@update')->name('pencariKerja.update');
+
+        Route::delete('{id}/delete', 'PencariKerjaController@delete')->name('pencariKerja.delete');
     });
 });
 
