@@ -15,8 +15,11 @@ class CreateBiodataPekerjaanTable extends Migration
     {
         Schema::create('biodata_pekerjaan', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('id_pencari_kerja')->constrained('pencari_kerja')->onUpdate('cascade')->onDelete('cascade');
             $table->string('nama_pekerjaan', 100);
-            $table->string('tempat_pekerjaan', 200);
+            $table->string('lokasi_kerja', 200);
+            $table->time('tanggal_masuk');
+            $table->time('tanggal_keluar');
             $table->timestamps();
         });
     }

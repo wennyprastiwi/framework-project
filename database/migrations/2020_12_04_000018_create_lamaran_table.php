@@ -16,8 +16,8 @@ class CreateLamaranTable extends Migration
         Schema::create('lamaran', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_lowongan')->constrained('lowongan')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('status_lamaran');
             $table->foreignId('id_pencari_kerja')->constrained('pencari_kerja')->onUpdate('cascade')->onDelete('cascade');
+            $table->integer('status_lamaran')->unsigned();
             $table->timestamps();
         });
     }

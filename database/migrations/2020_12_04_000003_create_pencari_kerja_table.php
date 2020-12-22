@@ -19,13 +19,8 @@ class CreatePencariKerjaTable extends Migration
             $table->string('nik',100);
             $table->string('tempat_lahir',50);
             $table->date('tanggal_lahir');
+            $table->integer('agama')->unsigned();
             $table->string('status_pernikahan',20);
-            $table->foreignId('id_agama')->constrained('agama');
-            $table->foreignId('id_lokasi')->constrained('lokasi');
-            $table->foreignId('id_kontak')->constrained('kontak');
-            $table->foreignId('id_pekerjaan')->constrained('biodata_pekerjaan');
-            $table->foreignId('id_sertifikasi')->constrained('biodata_pelatihan');
-            $table->foreignId('id_pendidikan')->constrained('biodata_pendidikan');
             $table->string('file_cv');
             $table->timestamps();
         });

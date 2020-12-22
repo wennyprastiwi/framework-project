@@ -15,10 +15,10 @@ class CreateBiodataPelatihanTable extends Migration
     {
         Schema::create('biodata_pelatihan', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('id_pencari_kerja')->constrained('pencari_kerja')->onUpdate('cascade')->onDelete('cascade');
             $table->string('nama_pelatihan', 200);
-            $table->string('bidang_keahlian', 200);
             $table->date('tahun_pelatihan');
-            $table->string('deskripsi_singkat_pelatihan');
+            $table->text('deskripsi_pelatihan');
             $table->timestamps();
         });
     }
