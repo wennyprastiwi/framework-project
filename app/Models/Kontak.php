@@ -12,6 +12,7 @@ class Kontak extends Model
     protected $fillable = [
         'no_hp',
         'email',
-        'jenis_kontak'
+        'jenis_kontak',
+        'id_penyedia_kerja'
     ];
 }

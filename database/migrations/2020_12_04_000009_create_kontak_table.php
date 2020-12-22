@@ -14,13 +14,15 @@ class CreateKontakTable extends Migration
     public function up()
     {
         Schema::create('kontak', function (Blueprint $table) {
-            $table->id();   
+            $table->id();
+            $table->foreignId('id_penyedia_kerja')->constrained('penyedia_kerja')->onUpdate('cascade')->onDelete('cascade')->nullable();
             $table->string('no_hp',20);
-            $table->string('nama_email',100);
-            $table->string('nama_ig',100);
-            $table->string('nama_twitter',100);
-            $table->string('nama_linkedin',100);
-            $table->string('nama_facebook',100);
+            $table->string('email',100);
+            $table->string('link_ig',100)->nullable();
+            $table->string('link_twitter',100)->nullable();
+            $table->string('link_linkedin',100)->nullable();
+            $table->string('link_facebook',100)->nullable();
+            $table->char('jenis_kontak', 2);
             $table->timestamps();
         });
     }
