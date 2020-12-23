@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Admin - Login</title>
+    <title>Karir - Login</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('sb-admin/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -39,8 +39,15 @@
                                 <div class="p-5">
                                     <div class="text-center mb-4">
                                         <h1 class="h4 text-gray-900">Halo! Silahkan Login </h1>
-                                        @if(Session::has('failed'))
-                                            <div class="card bg-danger text-white shadow mb-2 py-2">Username Atau Password Anda Salah</div>
+                                        @if ($message = Session::get('success'))
+                                        <div class="alert alert-success">
+                                            <p>{{ $message }}</p>
+                                        </div>
+                                        @endif
+                                        @if($message = Session::get('failed'))
+                                        <div class="alert alert-danger">
+                                            <p>{{ $message }}</p>
+                                        </div>
                                         @endif
                                     </div>
                                     <form class="user" action="{{ route('login.auth') }}" method="post">
@@ -59,6 +66,9 @@
                                         </button>
                                     </form>
                                     <hr>
+                                    <div class="text-center">
+                                        <a class="small" href="{{ url('registrasi') }}">Buat Akun</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
