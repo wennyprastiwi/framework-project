@@ -54,9 +54,23 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Password:</strong>
-                                        <input type="password" name="password" value="{{ $u->password }}" class="form-control" >
+                                        <input type="password" name="password" class="form-control" >
                                     </div>
                                 </div>
+                                <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                                        <strong for="type" id="type">Jenis User</strong>
+                                        <select class="form-control" id="type" name="type">
+                                            @foreach ($type as $type)
+                                            @php
+                                                $selected = "";
+                                                    if ($u->type == $type->id) {
+                                                    $selected = "selected='selected'";
+                                                }
+                                            @endphp
+                                            <option {{ $selected }} value="{{ $type->id }}">{{ $type->nama_type }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                                 <button type="submit" class="btn btn-primary">Update</button>
                                 </div>

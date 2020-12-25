@@ -53,6 +53,15 @@
                                             <input type="password" name="password" class="form-control" placeholder="Masukkan password">
                                         </div>
                                     </div>
+                                    <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                                        <strong for="type" id="type">Jenis User</strong>
+                                        <select class="form-control" id="type" name="type">
+                                            <option value="">-- Plih Jenis User --</option>
+                                            @foreach ($type as $type)
+                                            <option value="{{ $type->id }}">{{ $type->nama_type }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                                         <button type="submit" class="btn btn-primary">Submit</button>
                                     </div>
