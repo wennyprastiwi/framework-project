@@ -53,14 +53,20 @@
                                     <form class="user" action="{{ route('login.auth') }}" method="post">
                                         @csrf
                                         <div class="form-group">
-                                            <input type="email" name="email_user" class="form-control form-control-user"
-                                                id="login-email" aria-describedby="emailHelp"
-                                                placeholder="Enter Email Address...">
+                                            <input type="text" name="identity" class="form-control form-control-user"
+                                                id="login-identity" value="{{ old('identity') }}"
+                                                placeholder="Masukkan Email atau Username">
                                         </div>
+                                        @if ($errors->has('identity'))
+                                            <div class="alert alert-danger">{{ $errors->first('identity') }}</div>
+                                        @endif
                                         <div class="form-group">
                                             <input type="password" name="password" class="form-control form-control-user"
                                                 id="login-pass" placeholder="Password">
                                         </div>
+                                        @if ($errors->has('password'))
+                                            <div class="alert alert-danger">{{ $errors->first('password') }}</div>
+                                        @endif
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
                                             Login
                                         </button>

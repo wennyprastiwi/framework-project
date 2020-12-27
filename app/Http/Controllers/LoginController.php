@@ -11,8 +11,7 @@ class LoginController extends Controller
 {
     public function login()
     {
-        $admin = Auth::user();
-      return view('login')->with(['admin' => $admin]);
+      return view('login');
     }
 
     public function register()
@@ -23,20 +22,23 @@ class LoginController extends Controller
     public function store(Request $request)
     {
       $validateData = $this->validate($request, [
-			  'nama_user' => 'required',
+        'nama_user' => 'required',
+        'username' => 'required|unique:users',
         'email_user' => 'required|email|unique:users',
         'password' => 'required|same:repassword',
         'repassword' => 'required',
         'type' => 'required',
 		  ]);
 
-		  $nama_user = $request->nama_user;
-      $email_user   = $request->email_user;
+      $nama_user = $request->nama_user;
+      $username = $request->username;
+      $email_user  = $request->email_user;
       $password = $request->password;
       $type = $request->type;
 
       $saveData = User::create([
         'nama_user' => $nama_user,
+        'username' => $username,
         'email_user' => $email_user,
         'password' => Hash::make($password),
         'type' => $type,
@@ -46,34 +48,49 @@ class LoginController extends Controller
                           ->with('success','User berhasil dibuat.');
     }
 
-    public function AuthCheck(Request $request) 
+    public function authCheck(Request $request) 
     {
-      $this->validate($request,
+      $validateData = $this->validate($request, [
+        'identity' => 'required',
+        'password' => 'required',
+		  ]);
 
-        ['email_user'=>'required'],
+      $identity = $request->identity;
+      $pass = $request->password;
 
-        ['password'=>'required']
-            
-      );
+      $useEmail = User::where('email_user', $identity)->first();
+      $useUsername = User::where('username', $identity)->first();
 
-      $email = $request->input('email_user');
-      $pass = $request->input('password');
-
-      $users = User::where('email_user', $email)->first();
-          if($users == NULL){
-        
+          if($useEmail == NULL && $useUsername == NULL){       
             return redirect('/login')->with('failed','Akun tidak ditemukan');
           } else
-          if($users->email_user == $email AND Hash::check($pass , $users->password)){
-            Auth::login($users);
+          if($useEmail != NULL AND Hash::check($pass , $useEmail->password)){
+            Auth::login($useEmail);
             $request->session()->regenerate();
 
-            if($users->type == 1){
+            if($useEmail->type == 99){
               return redirect()->intended('admin');
-            }else{
+            }else 
+            if ($useEmail->type == 2) {
+              return redirect('perusahaan');
+            }
+            else{
               return redirect('landing-page');
             }
-        
+          } else 
+          if($useUsername != NULL AND Hash::check($pass , $useUsername->password)){
+            Auth::login($useUsername);
+            $request->session()->regenerate();
+
+            if($useUsername->type == 99){
+              return redirect()->intended('admin');
+            }else 
+            if ($useUsername->type == 2) {
+              return redirect('perusahaan');
+            }
+            else{
+              return redirect('landing-page');
+            }
           } else {
                      
             return redirect('/login')->with('failed','Password salah');
