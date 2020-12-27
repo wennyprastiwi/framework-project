@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Type;
+use App\Models\KategoriPekerjaan as mKP;
+use App\Models\PenyediaKerja as mPK;
+use App\Models\PencariKerja as mPencari;
 use Illuminate\Http\Request;
 use Illuminate\Session;
 use Illuminate\Support\Facades\DB;
@@ -38,7 +41,13 @@ class AdminController extends Controller
 
   public function index()
   {
-    return view('admin.dashboard')->with(['admin' => $this->getAdminData()]);
+    return view('admin.dashboard')
+      ->with(['admin' => $this->getAdminData(), 
+              'jmlUser' => User::count(),
+              'jmlKP' => mKP::count(),
+              'jmlPK' => mPK::count(),
+              'jmlPencari' => mPencari::count(),
+              ]);
   }
 
     public function user() {

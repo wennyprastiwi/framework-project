@@ -14,6 +14,7 @@ class CreateUpdateUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->string('username')->unique();
             $table->foreignId('type')->constrained('type');
         });
     }
@@ -26,6 +27,7 @@ class CreateUpdateUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('username');
             $table->dropColumn('type');
         });
     }

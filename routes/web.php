@@ -24,11 +24,16 @@ Route::get('/landing-page', function () {
     $user = Auth::user();
     return view('landing-page')->with(['user' => $user]);
 });
+
 Route::get('login', 'LoginController@login')->name('login.login');
 Route::post('auth','LoginController@authCheck')->name('login.auth');
 Route::get('registrasi', 'LoginController@register')->name('login.regist');
 Route::post('store', 'LoginController@store')->name('login.store');
 Route::post('logout','LoginController@logout')->name('login.logout');
+
+Route::prefix('perusahaan')->group(function () {
+    Route::get('', 'PerusahaanController@index');
+});
 
 Route::group(['prefix' => 'admin'], function() {
     Route::get('', 'AdminController@index')->name('admin.index');

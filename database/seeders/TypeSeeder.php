@@ -14,16 +14,18 @@ class TypeSeeder extends Seeder
      */
     public function run()
     {
+        
         $type1 = new Type;
-        $type1->nama_type = "Admin";
+        $type1->nama_type = "Pencari Kerja";
         $type1->save();
-
+        
         $type2 = new Type;
-        $type2->nama_type = "Pencari Kerja";
+        $type2->nama_type = "Penyedia Kerja";
         $type2->save();
 
         $type3 = new Type;
-        $type3->nama_type = "Penyedia Kerja";
+        $type3->id = 99;
+        $type3->nama_type = "Admin";
         $type3->save();
     }
 }

@@ -38,13 +38,22 @@
                             </div>
                             <form class="user" action="{{ route('login.store') }}" method="POST">
                                 @csrf
-                                <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" id="nama_user" name="nama_user"
-                                        placeholder="Nama" value="{{ old('nama_user') }}">
+                                <div class="form-group row">
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control form-control-user" id="nama_user" name="nama_user"
+                                            placeholder="Nama" value="{{ old('nama_user') }}">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control form-control-user" id="username" name="username"
+                                            placeholder="Username" value="{{ old('username') }}">
+                                    </div>
                                 </div>
                                 @if ($errors->has('nama_user'))
                                     <div class="alert alert-danger">{{ $errors->first('nama_user') }}</div>
-                                @endif                                        
+                                @endif
+                                @if ($errors->has('username'))
+                                    <div class="alert alert-danger">{{ $errors->first('username') }}</div>
+                                @endif                                             
                                 <div class="form-group">
                                     <input type="email" class="form-control form-control-user" id="email_user" name="email_user"
                                         placeholder="Alamat Email" value="{{ old('email_user') }}">
@@ -69,11 +78,11 @@
                                     <div class="alert alert-danger">{{ $errors->first('repassword') }}</div>
                                 @endif
                                 <div class="form-check form-check-inline ml-2 mb-3">
-                                    <input class="form-check-input" type="radio" name="type" id="inlineRadio1" value=2>
+                                    <input class="form-check-input" type="radio" name="type" id="inlineRadio1" value=1>
                                     <label class="form-check-label" for="inlineRadio1">Pencari Kerja</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="type" id="inlineRadio2" value=3>
+                                    <input class="form-check-input" type="radio" name="type" id="inlineRadio2" value=2>
                                     <label class="form-check-label" for="inlineRadio2">Perusahaan</label>
                                 </div>
                                 @if ($errors->has('type'))
@@ -84,9 +93,6 @@
                                 </button>
                                 <hr>
                             </form>
-                            <!-- <div class="text-center">
-                                <a class="small" href="">Forgot Password?</a>
-                            </div> -->
                             <div class="text-center">
                                 <a class="small" href="{{ route('login.login') }}">Sudah punya akun? Login!</a>
                             </div>
