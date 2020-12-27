@@ -38,10 +38,11 @@ Route::group(['prefix' => 'admin'], function() {
     Route::get('pencari-kerja', 'AdminController@pencariKerja')->name('admin.pencariKerja');
     Route::get('about-us', 'AdminController@aboutUs')->name('admin.aboutUs');
     Route::get('kontak', 'AdminController@kontak')->name('admin.kontak');
-    Route::get('login', 'AdminController@login')->name('admin.login');
-    Route::post('auth','AdminController@authCheck')->name('admin.auth');
+    Route::get('push-notifikasi', 'AdminController@pushNotifikasi')->name('admin.pushNotifikasi');
+    Route::get('profile', 'AdminController@profile')->name('admin.profile');
+    Route::get('setting', 'AdminController@setting')->name('admin.setting');
 
-Route::group(['prefix' => 'user'], function() {
+    Route::group(['prefix' => 'user'], function() {
         Route::get('create', 'UserController@create')->name('user.create');
         Route::get('{id}/show', 'UserController@show')->name('user.show');
         Route::get('{id}/edit', 'UserController@edit')->name('user.edit');

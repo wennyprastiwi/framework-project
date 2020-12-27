@@ -14,10 +14,15 @@ use Illuminate\Http\Request;
 use App\Models\PenyediaKerja;
 use App\Models\Provinsi;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class PenyediaKerjaController extends Controller
 {
+    private function getAdminData()
+    {
+      return $admin = Auth::user();
+    }
 
     public static function get($filter = NULL) {
 		if ($filter == NULL) {
@@ -30,7 +35,7 @@ class PenyediaKerjaController extends Controller
     {
         $provinsi = Provinsi::all();
         $ktgPekerjaan = KategoriPekerjaan::orderBy('nama_kategori_pekerjaan')->pluck('nama_kategori_pekerjaan', 'id');
-        return view('admin.penyedia-kerja.create', ['provinsi' => $provinsi , 'ktgPekerjaan' => $ktgPekerjaan]);
+        return view('admin.penyedia-kerja.create', ['provinsi' => $provinsi , 'ktgPekerjaan' => $ktgPekerjaan , 'admin' => $this->getAdminData()]);
     }
 
     public function getKota(Request $request)
@@ -162,7 +167,7 @@ class PenyediaKerjaController extends Controller
     {
         $penyediaKerja = PenyediaKerja::where('id' , $id)->first();
         // dd($penyediaKerja->bidang);
-        return view('admin.penyedia-kerja.show',['penyediaKerja' => $penyediaKerja]);
+        return view('admin.penyedia-kerja.show',['penyediaKerja' => $penyediaKerja, 'admin' => $this->getAdminData()]);
     }
 
     public function edit($id)
@@ -176,7 +181,8 @@ class PenyediaKerjaController extends Controller
             'penyediaKerja' => $penyediaKerja ,
             'provinsi' => $provinsi,
             'ktgPekerjaan' => $ktgPekerjaan,
-            'bidKerja' => $bidangKerja
+            'bidKerja' => $bidangKerja,
+            'admin' => $this->getAdminData()
         ]);
     }
 
@@ -196,10 +202,10 @@ class PenyediaKerjaController extends Controller
             'alamat_web' => 'required',
             'alamat_perusahaan' => 'required',
             'deskripsi_perusahaan' => 'required',
-            'logo_perusahaan' => 'required|max:4096',
-            'npwp' =>  'required|max:4096',
-            'sop' => 'required|max:4096',
-            'surat_domisili' => 'required|max:4096',
+            'logo_perusahaan' => 'max:4096',
+            'npwp' =>  'max:4096',
+            'sop' => 'max:4096',
+            'surat_domisili' => 'max:4096',
 
             'no_hp'  => 'required',
             'email'  => 'required',

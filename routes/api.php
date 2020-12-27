@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\KPController;
+use App\Http\Controllers\api\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +26,11 @@ Route::group(['prefix' => 'kp'], function() {
     Route::post('edit',[KPController::class, 'edit']);
     Route::delete('{id}', [KPController::class, 'destroy']);
 });
+
+Route::post('login', [UserController::class,'login']);
+Route::post('register', [UserController::class,'register']);
+
+Route::group(['middleware' => 'auth:api'], function(){
+    Route::get('user/detail', [UserController::class,'details']);
+    Route::post('logout', [UserController::class,'logout']);
+}); 

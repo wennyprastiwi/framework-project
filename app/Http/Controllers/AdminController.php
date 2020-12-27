@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Session;
 use Illuminate\Support\Facades\DB;
@@ -15,86 +16,68 @@ use App\Http\Controllers\PenyediaKerjaController as pnydKerjaCtrl;
 class AdminController extends Controller
 {
   function __construct()
-    {
-      $this->middleware('admin');
-    }
+  {
+    $this->middleware('admin');
+  }
 
-    public function index()
-    {
-        $admin = Auth::user();
-        return view('admin.dashboard')->with(['admin' => $admin]);
+  private function getAdminData()
+  {
+    return $admin = Auth::user();
+  }
 
-    }
+  public function getType(Request $request)
+  {
+      $id = $request->type;
+      $type = Type::where('id', $id)
+          ->orderBy('nama_type')
+          ->pluck('nama_type', 'id');
+
+      return response()->json($type);
+
+  }
+
+  public function index()
+  {
+    return view('admin.dashboard')->with(['admin' => $this->getAdminData()]);
+  }
 
     public function user() {
 		$user = userCtrl::get();
-		return view('admin.users.index')->with(['user' => $user]);
+		return view('admin.users.index')->with(['user' => $user, 'admin' => $this->getAdminData()]);
     }
 
     public function kategoriPekerjaan() {
 		$ktgPekerjaan = ktgPekerjaanCtrl::get();
-		return view('admin.kategori-pekerjaan.index')->with(['ktgPekerjaan' => $ktgPekerjaan]);
+		return view('admin.kategori-pekerjaan.index')->with(['ktgPekerjaan' => $ktgPekerjaan, 'admin' => $this->getAdminData()]);
 	}
 
     public function penyediaKerja() {
 		$penyediaKerja = pnydKerjaCtrl::get();
-		return view('admin.penyedia-kerja.index')->with(['penyediaKerja' => $penyediaKerja]);
+		return view('admin.penyedia-kerja.index')->with(['penyediaKerja' => $penyediaKerja, 'admin' => $this->getAdminData()]);
     }
 
     public function pencariKerja() {
 		$pencariKerja = pncrKerjaCtrl::get();
-		return view('admin.pencari-kerja.index')->with(['pencariKerja' => $pencariKerja]);
+		return view('admin.pencari-kerja.index')->with(['pencariKerja' => $pencariKerja, 'admin' => $this->getAdminData()]);
     }
 
 
     public function aboutUs() {
-		return view('admin.about-us');
+		return view('admin.about-us')->with(['admin' => $this->getAdminData()]);
     }
 
     public function pushNotifikasi() {
-		return view('admin.push-notifikasi');
+		return view('admin.push-notifikasi')->with(['admin' => $this->getAdminData()]);
 	}
 
     public function profile()
     {
-      return view('admin.profile');
+      return view('admin.profile')->with(['admin' => $this->getAdminData()]);
     }
 
     public function setting()
     {
-      return view('admin.setting');
-    }
-
-    public function AuthCheck(Request $request)
-    {
-        $this->validate($request,
-
-          ['email_user'=>'required'],
-
-          ['password'=>'required']
-
-        );
-
-        $user = $request->input('email_user');
-        $pass = $request->input('password');
-
-        $users = Admin::where('email_user', $user)->first();
-          if($users == NULL){
-
-            return redirect('/admin/login')->with('failed');
-
-          } else
-
-          if($users->email_user == $user AND $users->password == $pass ){
-
-            // Session::put('login', 'Selamat anda berhasil login');
-            return redirect('admin');
-
-          } else {
-
-            return redirect('/admin/login')->with('failed','Login gagal');
-
-          }
+      return view('admin.setting')->with(['admin' => $this->getAdminData()]);
     }
 
 }
