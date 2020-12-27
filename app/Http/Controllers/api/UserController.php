@@ -14,16 +14,22 @@ class UserController extends Controller
     public $successStatus = 200;
 
     public function login(){
-        $email = request('email_user');
+        $identity = request('identity');
         $pass = request('password');
 
-        $users = User::where('email_user', $email)->first();
-        if($users == NULL){
+        $useEmail = User::where('email_user', $identity)->first();
+        $useUsername = User::where('email_user', $identity)->first();
+        if($useUsername == NULL && $useEmail == NULL){
             return response()->json(['error'=>'Akun tidak ditemukan.'], 401);
         } else
-        if($users->email_user == $email AND Hash::check($pass, $users->password)){
-            Auth::login($users);
-            $success['token'] =  $users->createToken('nApp')->accessToken;
+        if($useEmail->email_user == $identity AND Hash::check($pass, $useEmail->password)){
+            Auth::login($useEmail);
+            $success['token'] =  $useEmail->createToken('nApp')->accessToken;
+            return response()->json(['success' => $success], $this->successStatus);
+        } else
+        if($useUsername->email_user == $identity AND Hash::check($pass, $useUsername->password)){
+            Auth::login($useUsername);
+            $success['token'] =  $useUsername->createToken('nApp')->accessToken;
             return response()->json(['success' => $success], $this->successStatus);
         } else {                    
             return response()->json(['error'=>'Unauthorised'], 401);
@@ -34,6 +40,7 @@ class UserController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama_user' => 'required',
+            'username' => 'required|unique:users',
             'email_user' => 'required|email|unique:users',
             'password' => 'required',
             'repassword' => 'required|same:password',
