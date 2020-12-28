@@ -16,6 +16,7 @@ use App\Http\Controllers\UserController as userCtrl;
 use App\Http\Controllers\KategoriPekerjaanController as ktgPekerjaanCtrl;
 use App\Http\Controllers\PencariKerjaController as pncrKerjaCtrl;
 use App\Http\Controllers\PenyediaKerjaController as pnydKerjaCtrl;
+use App\Models\Admin;
 
 class AdminController extends Controller
 {
@@ -43,7 +44,7 @@ class AdminController extends Controller
     public function index()
     {
       return view('admin.dashboard')
-        ->with(['admin' => $this->getAdminData(), 
+        ->with(['admin' => $this->getAdminData(),
                 'jmlUser' => User::count(),
                 'jmlKP' => mKP::count(),
                 'jmlPK' => mPK::count(),
@@ -145,5 +146,4 @@ class AdminController extends Controller
     {
       return view('admin.setting')->with(['admin' => $this->getAdminData()]);
     }
-
 }

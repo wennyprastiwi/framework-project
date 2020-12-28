@@ -10,6 +10,7 @@ class PenyediaKerja extends Model
     use HasFactory;
     protected $table = 'penyedia_kerja';
     protected $fillable = [
+        'id_user',
         'nama_perusahaan',
         'alamat_web',
         'deskripsi_perusahaan',

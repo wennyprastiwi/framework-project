@@ -48,7 +48,7 @@ class LoginController extends Controller
                           ->with('success','User berhasil dibuat.');
     }
 
-    public function authCheck(Request $request) 
+    public function authCheck(Request $request)
     {
       $validateData = $this->validate($request, [
         'identity' => 'required',
@@ -61,7 +61,7 @@ class LoginController extends Controller
       $useEmail = User::where('email_user', $identity)->first();
       $useUsername = User::where('username', $identity)->first();
 
-          if($useEmail == NULL && $useUsername == NULL){       
+          if($useEmail == NULL && $useUsername == NULL){
             return redirect('login')->with('failed','Akun tidak ditemukan');
           } else
           if($useEmail != NULL AND Hash::check($pass , $useEmail->password)){
@@ -70,21 +70,21 @@ class LoginController extends Controller
 
             if($useEmail->type == 99){
               return redirect()->intended('admin');
-            }else 
+            }else
             if ($useEmail->type == 2) {
               return redirect('perusahaan');
             }
             else{
               return redirect('landing-page');
             }
-          } else 
+          } else
           if($useUsername != NULL AND Hash::check($pass , $useUsername->password)){
             Auth::login($useUsername);
             $request->session()->regenerate();
 
             if($useUsername->type == 99){
               return redirect()->intended('admin');
-            }else 
+            }else
             if ($useUsername->type == 2) {
               return redirect('perusahaan');
             }
@@ -92,9 +92,9 @@ class LoginController extends Controller
               return redirect('landing-page');
             }
           } else {
-                     
+
             return redirect('login')->with('failed','Password salah');
-          
+
           }
     }
 
@@ -105,6 +105,6 @@ class LoginController extends Controller
 
       $request->session()->regenerateToken();
 
-      return redirect('/');
+      return redirect('/login');
     }
 }

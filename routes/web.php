@@ -5,8 +5,9 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserAdminController;
 use App\Http\Controllers\KategoriPekerjaanAdminController;
 use App\Http\Controllers\PenyediaKerjaAdminController;
+use Illuminate\Support\Facades\Auth;
 
- /*
+/*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
@@ -100,6 +101,10 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('{id}/edit', 'PencariKerjaController@edit')->name('pencariKerja.edit');
         Route::get('{id}/accepted', 'PencariKerjaController@accepted')->name('pencariKerja.accepted');
         Route::get('{id}/decline', 'PencariKerjaController@decline')->name('pencariKerja.decline');
+
+        Route::post('getkota', 'PencariKerjaController@getKota')->name('pencariKerja.kota');
+        Route::post('getkecamatan', 'PencariKerjaController@getKecamatan')->name('pencariKerja.kecamatan');
+        Route::post('getkelurahan', 'PencariKerjaController@getKelurahan')->name('pencariKerja.kelurahan');
 
         Route::post('store', 'PencariKerjaController@store')->name('pencariKerja.store');
         Route::post('update', 'PencariKerjaController@update')->name('pencariKerja.update');

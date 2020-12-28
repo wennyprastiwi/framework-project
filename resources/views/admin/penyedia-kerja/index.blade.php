@@ -47,64 +47,90 @@ Master Penyedia Kerja
                             @else
                             Ditolak
                             @endif
-                        </td>
-                        <td>
-                            <form action="{{ route('penyediaKerja.delete',$pk->id) }}" method="POST">
-                                <a href="{{ route('penyediaKerja.show',$pk->id) }}" class="btn btn-info btn-icon-split">
-                                    <span class="icon text-white-50">
-                                        <i class="fas fa-eye"></i>
-                                    </span>
-                                </a>
-                                <a href="{{ route('penyediaKerja.edit',$pk->id) }}"
-                                    class="btn btn-secondary btn-icon-split">
-                                    <span class="icon text-white-50">
-                                        <i class="far fa-edit"></i>
-                                    </span>
-                                </a>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover" id="dataTable" width="100%">
+                                    <thead aria-rowspan="2">
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Nama Perusahaan</th>
+                                            <th>E-mail</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($penyediaKerja as $pk)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $pk->nama_perusahaan }}</td>
+                                            <td>{{ $pk->kontak->email }}</td>
+                                            <td>@if($pk->status_perusahaan == 1)
+                                                Diterima
+                                                @elseif ($pk->status_perusahaan == 2)
+                                                Ditolak
+                                                @else
+                                                Menunggu
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <form action="{{ route('penyediaKerja.delete',$pk->id) }}"
+                                                    method="POST">
+                                                    <a href="{{ route('penyediaKerja.show',$pk->id) }}"
+                                                        class="btn btn-info btn-icon-split">
+                                                        <span class="icon text-white-50">
+                                                            <i class="fas fa-eye"></i>
+                                                        </span>
+                                                    </a>
+                                                    <a href="{{ route('penyediaKerja.edit',$pk->id) }}"
+                                                        class="btn btn-secondary btn-icon-split">
+                                                        <span class="icon text-white-50">
+                                                            <i class="far fa-edit"></i>
+                                                        </span>
+                                                    </a>
 
-                                @csrf
-                                @method('DELETE')
+                                                    @csrf
+                                                    @method('DELETE')
 
-                                <button type="submit" class="btn btn-danger btn-icon-split"
-                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
-                                    <span class="icon text-white-50">
-                                        <i class="fas fa-trash"></i>
-                                    </span>
-                                </button>
-                                @if ($pk->status_perusahaan == 0)
-                                <a href="{{ route('penyediaKerja.accepted',$pk->id) }}"
-                                    class="btn btn-warning btn-icon-split" data-toggle="tooltip"
-                                    title="Klik untuk menerima">
-                                    <span class="icon text-white-50">
-                                        <i class="fas fa-check"></i>
-                                    </span>
-                                </a>
-                                <a href="{{ route('penyediaKerja.decline',$pk->id) }}"
-                                    class="btn btn-danger btn-icon-split" data-toggle="tooltip"
-                                    title="Klik untuk menolak">
-                                    <span class="icon text-white-50">
-                                        <i class="fa fa-ban"></i>
-                                    </span>
-                                </a>
-                                @endif
-                            </form>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                                                    <button type="submit" class="btn btn-danger btn-icon-split"
+                                                        onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                                        <span class="icon text-white-50">
+                                                            <i class="fas fa-trash"></i>
+                                                        </span>
+                                                    </button>
+                                                    @if ($pk->status_perusahaan == 0)
+                                                    <a href="{{ route('penyediaKerja.accepted',$pk->id) }}"
+                                                        class="btn btn-warning btn-icon-split" data-toggle="tooltip"
+                                                        title="Klik untuk menerima">
+                                                        <span class="icon text-white-50">
+                                                            <i class="fas fa-check"></i>
+                                                        </span>
+                                                    </a>
+                                                    <a href="{{ route('penyediaKerja.decline',$pk->id) }}"
+                                                        class="btn btn-danger btn-icon-split" data-toggle="tooltip"
+                                                        title="Klik untuk menolak">
+                                                        <span class="icon text-white-50">
+                                                            <i class="fa fa-ban"></i>
+                                                        </span>
+                                                    </a>
+                                                    @endif
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
         </div>
     </div>
-</div>
-@endsection
+    @endsection
 
-@section('pagejs')
+    @section('pagejs')
 
-<!-- Page level plugins -->
-<script src="{{ asset('sb-admin/vendor/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('sb-admin/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+    <!-- Page level plugins -->
+    <script src="{{ asset('sb-admin/vendor/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('sb-admin/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
 
-<!-- Page level custom scripts -->
-<script src="{{ asset('sb-admin/js/demo/datatables-demo.js') }}"></script>
+    <!-- Page level custom scripts -->
+    <script src="{{ asset('sb-admin/js/demo/datatables-demo.js') }}"></script>
 
-@endsection
+    @endsection

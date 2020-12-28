@@ -68,7 +68,7 @@ Master Kategori Pekerjaan
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>Alamat: </strong>
-                        <input type="text" value={{ $penyediaKerja->lokasi->nama_lokasi }} name="alamat_perusahaan"
+                        <input type="text" value="{{ $penyediaKerja->lokasi->nama_lokasi }}" name="alamat_perusahaan"
                             class="form-control" placeholder="Masukkan Alamat Perusahaan" required>
                     </div>
                 </div>
@@ -107,21 +107,21 @@ Master Kategori Pekerjaan
                 <div class="col-xs-12 col-sm-12 col-md-12 mt-3">
                     <div class="form-group">
                         <strong>Website: </strong>
-                        <input type="text"  value={{ $penyediaKerja->alamat_web }} name="alamat_web" class="form-control" placeholder="Masukkan Alamat Website"
+                        <input type="text"  value="{{ $penyediaKerja->alamat_web }}" name="alamat_web" class="form-control" placeholder="Masukkan Alamat Website"
                             required>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>Email: </strong>
-                        <input type="text" value={{ $penyediaKerja->kontak->email }} name="email" class="form-control"
+                        <input type="text" value="{{ $penyediaKerja->kontak->email }}" name="email" class="form-control"
                             placeholder="Masukkan Email" required>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>No Telepon: </strong>
-                        <input type="text" value={{ $penyediaKerja->kontak->no_hp }} name="no_hp" class="form-control"
+                        <input type="text" value="{{ $penyediaKerja->kontak->no_hp }}" name="no_hp" class="form-control"
                             placeholder="Masukkan No Telp" required>
                     </div>
                 </div>

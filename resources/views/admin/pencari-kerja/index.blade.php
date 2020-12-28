@@ -13,73 +13,77 @@ Master Pencari kerja
             class="fas fa-plus-square fa-sm text-white-50"></i> Tambah</a>
 </div>
 
-<!-- DataTales Example -->
-<div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Data Pencari kerja</h6>
-    </div>
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>NIK</th>
-                        <th>Nama</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($pencariKerja as $pk)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $pk->nik }}</td>
-                        <td>{{ $pk->nama_lengkap }}</td>
-                        <td>
-                            {{-- <form action="{{ route('pencariKerja.delete',$pk->id) }}" method="POST">
-                            <a href="{{ route('pencariKerja.show',$pk->id) }}" class="btn btn-info btn-icon-split">
-                                <span class="icon text-white-50">
-                                    <i class="fas fa-eye"></i>
-                                </span>
-                            </a>
-                            <a href="{{ route('pencariKerja.edit',$pk->id) }}" class="btn btn-secondary btn-icon-split">
-                                <span class="icon text-white-50">
-                                    <i class="far fa-edit"></i>
-                                </span>
-                            </a>
-
-                            @csrf
-                            @method('DELETE')
-
-                            <button type="submit" class="btn btn-danger btn-icon-split"
-                                onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
-                                <span class="icon text-white-50">
-                                    <i class="fas fa-trash"></i>
-                                </span>
-                            </button> --}}
-                            {{-- @if ($pk->status_perusahaan == 0)
-                                                <a href="{{ route('pencariKerja.accepted',$pk->id) }}" class="btn
-                            btn-warning btn-icon-split" data-toggle="tooltip" title="Klik untuk menerima">
-                            <span class="icon text-white-50">
-                                <i class="fas fa-check"></i>
-                            </span>
-                            </a>
-                            <a href="{{ route('pencariKerja.decline',$pk->id) }}" class="btn btn-danger btn-icon-split"
-                                data-toggle="tooltip" title="Klik untuk menolak">
-                                <span class="icon text-white-50">
-                                    <i class="fa fa-ban"></i>
-                                </span>
-                            </a>
-                            @endif --}}
-                            </form>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Data Pencari kerja</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>NIK</th>
+                                            <th>Nama</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($pencariKerja as $pk)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $pk->nik }}</td>
+                                            <td>{{ $pk->nama_lengkap }}</td>
+                                            <td>@if($pk->status_pencari == 1)
+                                                Diterima
+                                                @elseif ($pk->status_pencari == 2)
+                                                Ditolak
+                                                @else
+                                                Menunggu
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <form action="{{ route('pencariKerja.delete',$pk->id) }}" method="POST">
+                                                <a href="{{ route('pencariKerja.show',$pk->id) }}" class="btn btn-info btn-icon-split">
+                                                    <span class="icon text-white-50">
+                                                        <i class="fas fa-eye"></i>
+                                                    </span>
+                                                </a>
+                                                <a href="{{ route('pencariKerja.edit',$pk->id) }}" class="btn btn-secondary btn-icon-split">
+                                                    <span class="icon text-white-50">
+                                                        <i class="far fa-edit"></i>
+                                                    </span>
+                                                </a>
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-icon-split" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                                    <span class="icon text-white-50">
+                                                        <i class="fas fa-trash"></i>
+                                                    </span>
+                                                </button>
+                                                @if ($pk->status_pencari == 0)
+                                                <a href="{{ route('pencariKerja.accepted',$pk->id) }}" class="btn btn-warning btn-icon-split" data-toggle="tooltip" title="Klik untuk menerima">
+                                                    <span class="icon text-white-50">
+                                                        <i class="fas fa-check"></i>
+                                                    </span>
+                                                </a>
+                                                <a href="{{ route('pencariKerja.decline',$pk->id) }}" class="btn btn-danger btn-icon-split" data-toggle="tooltip" title="Klik untuk menolak">
+                                                    <span class="icon text-white-50">
+                                                        <i class="fa fa-ban"></i>
+                                                    </span>
+                                                </a>
+                                                @endif
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
 
 @endsection
 

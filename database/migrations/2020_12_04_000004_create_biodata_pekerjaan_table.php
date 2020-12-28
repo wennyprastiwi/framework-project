@@ -18,8 +18,8 @@ class CreateBiodataPekerjaanTable extends Migration
             $table->foreignId('id_pencari_kerja')->constrained('pencari_kerja')->onUpdate('cascade')->onDelete('cascade');
             $table->string('nama_pekerjaan', 100);
             $table->string('lokasi_kerja', 200);
-            $table->time('tanggal_masuk');
-            $table->time('tanggal_keluar');
+            $table->date('tanggal_masuk');
+            $table->date('tanggal_keluar');
             $table->timestamps();
         });
     }

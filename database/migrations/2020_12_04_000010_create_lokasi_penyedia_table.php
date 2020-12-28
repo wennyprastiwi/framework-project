@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLokasiTable extends Migration
+class CreateLokasiPenyediaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateLokasiTable extends Migration
      */
     public function up()
     {
-        Schema::create('lokasi', function (Blueprint $table) {
+        Schema::create('lokasi_penyedia', function (Blueprint $table) {
             $table->id();
             $table->string('nama_lokasi');
-            $table->foreignId('id_penyedia_kerja')->constrained('penyedia_kerja')->onUpdate('cascade')->onDelete('cascade')->nullable();
+            $table->foreignId('id_penyedia_kerja')->constrained('penyedia_kerja')->onUpdate('cascade')->onDelete('cascade');
             $table->char('id_provinsi', 2);
             $table->char('id_kota', 4);
             $table->char('id_kecamatan', 7);
