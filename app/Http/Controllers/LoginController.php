@@ -62,7 +62,7 @@ class LoginController extends Controller
       $useUsername = User::where('username', $identity)->first();
 
           if($useEmail == NULL && $useUsername == NULL){       
-            return redirect('/login')->with('failed','Akun tidak ditemukan');
+            return redirect('login')->with('failed','Akun tidak ditemukan');
           } else
           if($useEmail != NULL AND Hash::check($pass , $useEmail->password)){
             Auth::login($useEmail);
@@ -93,7 +93,7 @@ class LoginController extends Controller
             }
           } else {
                      
-            return redirect('/login')->with('failed','Password salah');
+            return redirect('login')->with('failed','Password salah');
           
           }
     }

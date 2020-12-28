@@ -1,15 +1,15 @@
-@extends('layouts.back-end_layout')
+@extends('layouts.perusahaan_layout')
 
 @section('title')
-Master Penyedia Kerja
+Perusahaan - Lowongan
 @endsection
 
 @section('content')
 
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Master Penyedia Kerja</h1>
-    <a href="{{ route('penyediaKerja.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+    <h1 class="h3 mb-0 text-gray-800">Lowongan</h1>
+    <a href="{{ route('perusahaan.lowongan.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
             class="fas fa-plus-square fa-sm text-white-50"></i> Tambah</a>
 </div>
 
@@ -17,7 +17,7 @@ Master Penyedia Kerja
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Data Penyedia Pekerjaan</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Daftar Lowongan</h6>
     </div>
     <div class="card-body">
         @if ($message = Session::get('success'))
@@ -30,32 +30,33 @@ Master Penyedia Kerja
                 <thead aria-rowspan="2">
                     <tr>
                         <th>No</th>
-                        <th>Nama Perusahaan</th>
-                        <th>E-mail</th>
+                        <th>Nama Pekerjaan</th>
                         <th>Status</th>
+                        <th>Lokasi</th>
+                        <th>Gaji</th>
+                        <th>Tanggal Dibuka</th>
+                        <th>Tanggal Ditutup</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($penyediaKerja as $pk)
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $pk->nama_perusahaan }}</td>
-                        <td>{{ $pk->kontak->email }}</td>
-                        <td>@if ($pk->status_perusahaan == 1)
-                            Diterima
-                            @else
-                            Ditolak
-                            @endif
-                        </td>
+                        <td>1</td>
+                        <td>Aktif</td>
+                        <td>Coba</td>
+                        <td>Jauh</td>
+                        <td>xxxxxx</td>
+                        <td>11-11-1111</td>
+                        <td>12-12-1212</td>
+
                         <td>
-                            <form action="{{ route('penyediaKerja.delete',$pk->id) }}" method="POST">
-                                <a href="{{ route('penyediaKerja.show',$pk->id) }}" class="btn btn-info btn-icon-split">
+                            <form action="" method="POST">
+                                <a href="{{ route('perusahaan.lowongan.view',1) }}" class="btn btn-info btn-icon-split">
                                     <span class="icon text-white-50">
                                         <i class="fas fa-eye"></i>
                                     </span>
                                 </a>
-                                <a href="{{ route('penyediaKerja.edit',$pk->id) }}"
+                                <a href=""
                                     class="btn btn-secondary btn-icon-split">
                                     <span class="icon text-white-50">
                                         <i class="far fa-edit"></i>
@@ -71,26 +72,9 @@ Master Penyedia Kerja
                                         <i class="fas fa-trash"></i>
                                     </span>
                                 </button>
-                                @if ($pk->status_perusahaan == 0)
-                                <a href="{{ route('penyediaKerja.accepted',$pk->id) }}"
-                                    class="btn btn-warning btn-icon-split" data-toggle="tooltip"
-                                    title="Klik untuk menerima">
-                                    <span class="icon text-white-50">
-                                        <i class="fas fa-check"></i>
-                                    </span>
-                                </a>
-                                <a href="{{ route('penyediaKerja.decline',$pk->id) }}"
-                                    class="btn btn-danger btn-icon-split" data-toggle="tooltip"
-                                    title="Klik untuk menolak">
-                                    <span class="icon text-white-50">
-                                        <i class="fa fa-ban"></i>
-                                    </span>
-                                </a>
-                                @endif
                             </form>
                         </td>
                     </tr>
-                    @endforeach
                 </tbody>
             </table>
         </div>

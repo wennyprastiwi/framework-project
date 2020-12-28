@@ -14,7 +14,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="{{ url('/admin') }}">
+                <a class="nav-link" href="{{ url('/perusahaan') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -24,56 +24,21 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Master
+                Kelola
             </div>
 
             <!-- Nav Item - User -->
             <li class="nav-item">
-                <a class="nav-link" href="{{ url('/admin/user') }}">
-                    <i class="fas fa-fw fa-users"></i>
-                    <span>User</span></a>
+                <a class="nav-link" href="{{ route('perusahaan.data') }}">
+                    <i class="far fa-fw fa-building"></i>
+                    <span>Data Perusahaan</span></a>
             </li>
 
             <!-- Nav Item - Jenis Pekerhaan -->
             <li class="nav-item">
-                <a class="nav-link" href="{{ url('/admin/kategori-pekerjaan') }}">
+                <a class="nav-link" href="{{ route('perusahaan.lowongan') }}">
                     <i class="fas fa-fw fa-briefcase"></i>
-                    <span>Kategori Pekerjaan</span></a>
-            </li>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url('/admin/penyedia-kerja') }}">
-                    <i class="fas fa-fw fa-building"></i>
-                    <span>Penyedia Kerja</span></a>
-            </li>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url('/admin/pencari-kerja') }}">
-                    <i class="fas fa-fw fa-user-tie"></i>
-                    <span>Pencari Kerja</span></a>
-            </li>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url('/admin/about-us') }}">
-                    <i class="fas fa-fw fa-info-circle"></i>
-                    <span>About Us</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Kirim
-            </div>
-
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url('/admin/push-notifikasi') }}">
-                    <i class="fas fa-fw fa-paper-plane"></i>
-                    <span>Push Notifikasi</span></a>
+                    <span>Lowongan</span></a>
             </li>
 
             <!-- Divider -->

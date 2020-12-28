@@ -33,6 +33,11 @@ Route::post('logout','LoginController@logout')->name('login.logout');
 
 Route::prefix('perusahaan')->group(function () {
     Route::get('', 'PerusahaanController@index');
+    Route::get('data-perusahaan', 'PerusahaanController@perusahaan')->name('perusahaan.data');
+    Route::get('data-perusahaan/edit', 'PerusahaanController@perusahaanEdit')->name('perusahaan.edit');
+    Route::get('lowongan', 'PerusahaanController@lowongan')->name('perusahaan.lowongan');
+    Route::get('lowongan/create', 'PerusahaanController@LowonganCreate')->name('perusahaan.lowongan.create');
+    Route::get('lowongan/view/{id}', 'PerusahaanController@lowonganView')->name('perusahaan.lowongan.view');
 });
 
 Route::group(['prefix' => 'admin'], function() {
@@ -45,7 +50,9 @@ Route::group(['prefix' => 'admin'], function() {
     Route::get('kontak', 'AdminController@kontak')->name('admin.kontak');
     Route::get('push-notifikasi', 'AdminController@pushNotifikasi')->name('admin.pushNotifikasi');
     Route::get('profile', 'AdminController@profile')->name('admin.profile');
-    Route::get('setting', 'AdminController@setting')->name('admin.setting');
+    Route::get('profile-edit', 'AdminController@profileEdit')->name('admin.profile-edit');
+    Route::post('profile-update', 'AdminController@profileUpdate')->name('admin.profile-update');
+    Route::post('pass-update', 'AdminController@updatePassword')->name('admin.profile-pass');
 
     Route::group(['prefix' => 'user'], function() {
         Route::get('create', 'UserController@create')->name('user.create');

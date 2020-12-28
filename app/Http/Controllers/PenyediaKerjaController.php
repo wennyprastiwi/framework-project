@@ -74,19 +74,7 @@ class PenyediaKerjaController extends Controller
     public function store(Request $request)
     {
         DB::beginTransaction();
-
-
-        $logo = $request->file('logo_perusahaan');
-        $npwp = $request->file('npwp');
-        $sop  = $request->file('sop');
-        $surat= $request->file('surat_domisili');
-
-        $logoFileName = $logo->getClientOriginalName();
-        $npwpFileName = $npwp->getClientOriginalName();
-        $sopFileName = $sop->getClientOriginalName();
-        $suratFileName = $surat->getClientOriginalName();
-
-
+        
         $validateData = $this->validate($request, [
             'nama_perusahaan' => 'required',
             'alamat_web' => 'required',
@@ -100,6 +88,16 @@ class PenyediaKerjaController extends Controller
             'no_hp'  => 'required',
             'email'  => 'required',
 		]);
+
+        $logo = $request->file('logo_perusahaan');
+        $npwp = $request->file('npwp');
+        $sop  = $request->file('sop');
+        $surat= $request->file('surat_domisili');
+
+        $logoFileName = $logo->getClientOriginalName();
+        $npwpFileName = $npwp->getClientOriginalName();
+        $sopFileName = $sop->getClientOriginalName();
+        $suratFileName = $surat->getClientOriginalName();
 
         try {
 
