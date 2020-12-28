@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -14,34 +15,34 @@ class LoginController extends Controller
       return view('admin.login')->with(['admin' => $admin]);
     }
 
-    public function AuthCheck(Request $request) 
+    public function AuthCheck(Request $request)
     {
       $this->validate($request,
 
-        ['email_user'=>'required'],
+        ['username'=>'required'],
 
         ['password'=>'required']
-            
+
       );
 
-      $email = $request->input('email_user');
+      $email = $request->input('username');
       $pass = $request->input('password');
 
-      $users = User::where('email_user', $email)->first();
+      $users = User::where('username', $email)->first();
           if($users == NULL){
-        
+
             return redirect('/login')->with('failed','Login gagal');
           } else
-          if($users->email_user == $email AND $users->password == $pass){
+          if($users->username == $email && Hash::check($pass, $users->password)){
             Auth::login($users);
             $request->session()->regenerate();
 
             return redirect()->intended('admin');
-        
+
           } else {
-                     
+
             return redirect('/login')->with('failed','Login gagal');
-          
+
           }
     }
 
@@ -52,6 +53,6 @@ class LoginController extends Controller
 
       $request->session()->regenerateToken();
 
-      return redirect('/');
+      return redirect('/login');
     }
 }

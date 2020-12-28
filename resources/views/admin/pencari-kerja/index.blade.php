@@ -36,7 +36,7 @@
                                             <td>{{ $pk->nik }}</td>
                                             <td>{{ $pk->nama_lengkap }}</td>
                                             <td>
-                                                {{-- <form action="{{ route('pencariKerja.delete',$pk->id) }}" method="POST">
+                                                <form action="{{ route('pencariKerja.delete',$pk->id) }}" method="POST">
                                                 <a href="{{ route('pencariKerja.show',$pk->id) }}" class="btn btn-info btn-icon-split">
                                                     <span class="icon text-white-50">
                                                         <i class="fas fa-eye"></i>
@@ -47,15 +47,13 @@
                                                         <i class="far fa-edit"></i>
                                                     </span>
                                                 </a>
-
                                                 @csrf
                                                 @method('DELETE')
-
                                                 <button type="submit" class="btn btn-danger btn-icon-split" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
                                                     <span class="icon text-white-50">
                                                         <i class="fas fa-trash"></i>
                                                     </span>
-                                                </button> --}}
+                                                </button>
                                                 {{-- @if ($pk->status_perusahaan == 0)
                                                 <a href="{{ route('pencariKerja.accepted',$pk->id) }}" class="btn btn-warning btn-icon-split" data-toggle="tooltip" title="Klik untuk menerima">
                                                     <span class="icon text-white-50">

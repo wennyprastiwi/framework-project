@@ -17,7 +17,7 @@ class CreateLowonganTable extends Migration
             $table->id();
             $table->foreignId('id_kategori')->constrained('kategori_pekerjaan')->onUpdate('cascade')->onDelete('cascade');
             $table->string('nama_pekerjaan',100);
-            $table->foreignId('id_lokasi')->constrained('lokasi')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('id_lokasi')->constrained('lokasi_penyedia')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('id_penyedia_kerja')->constrained('penyedia_kerja')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('gaji')->unsigned();
             $table->date('tanggal_dibuka');

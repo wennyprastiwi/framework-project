@@ -82,6 +82,10 @@ Route::group(['prefix' => 'user'], function() {
         Route::get('{id}/accepted', 'PencariKerjaController@accepted')->name('pencariKerja.accepted');
         Route::get('{id}/decline', 'PencariKerjaController@decline')->name('pencariKerja.decline');
 
+        Route::post('getkota', 'PencariKerjaController@getKota')->name('pencariKerja.kota');
+        Route::post('getkecamatan', 'PencariKerjaController@getKecamatan')->name('pencariKerja.kecamatan');
+        Route::post('getkelurahan', 'PencariKerjaController@getKelurahan')->name('pencariKerja.kelurahan');
+
         Route::post('store', 'PencariKerjaController@store')->name('pencariKerja.store');
         Route::post('update', 'PencariKerjaController@update')->name('pencariKerja.update');
 

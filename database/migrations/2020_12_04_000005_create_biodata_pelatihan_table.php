@@ -17,8 +17,8 @@ class CreateBiodataPelatihanTable extends Migration
             $table->id();
             $table->foreignId('id_pencari_kerja')->constrained('pencari_kerja')->onUpdate('cascade')->onDelete('cascade');
             $table->string('nama_pelatihan', 200);
-            $table->date('tahun_pelatihan');
-            $table->text('deskripsi_pelatihan');
+            $table->year('tahun_pelatihan');
+            $table->text('deskripsi_singkat');
             $table->timestamps();
         });
     }

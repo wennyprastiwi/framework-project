@@ -11,6 +11,8 @@ use App\Http\Controllers\UserController as userCtrl;
 use App\Http\Controllers\KategoriPekerjaanController as ktgPekerjaanCtrl;
 use App\Http\Controllers\PencariKerjaController as pncrKerjaCtrl;
 use App\Http\Controllers\PenyediaKerjaController as pnydKerjaCtrl;
+use App\Models\Admin;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -69,23 +71,21 @@ class AdminController extends Controller
     {
         $this->validate($request,
 
-          ['email_user'=>'required'],
+          ['username'=>'required'],
 
           ['password'=>'required']
 
         );
 
-        $user = $request->input('email_user');
+        $user = $request->input('username');
         $pass = $request->input('password');
 
-        $users = Admin::where('email_user', $user)->first();
-          if($users == NULL){
+        $users = Admin::where('username', $user)->first();
+          if(!empty($users)){
+                return redirect('/admin/login')->with('failed');
+          } else {
 
-            return redirect('/admin/login')->with('failed');
-
-          } else
-
-          if($users->email_user == $user AND $users->password == $pass ){
+          if($users->username == $user && Hash::check($pass, $users->password) ){
 
             // Session::put('login', 'Selamat anda berhasil login');
             return redirect('admin');
@@ -93,8 +93,7 @@ class AdminController extends Controller
           } else {
 
             return redirect('/admin/login')->with('failed','Login gagal');
-
           }
+        }
     }
-
 }

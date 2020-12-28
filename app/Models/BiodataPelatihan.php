@@ -11,8 +11,9 @@ class BiodataPelatihan extends Model
     protected $table = 'biodata_pelatihan';
     protected $fillable = [
         'id',
+        'id_pencari_kerja',
         'nama_pelatihan',
         'tahun_pelatihan',
-        'deskripsi_pelatihan'
+        'deskripsi_singkat'
     ];
 }

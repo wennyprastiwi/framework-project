@@ -15,6 +15,7 @@ class CreatePenyediaKerjaTable extends Migration
     {
         Schema::create('penyedia_kerja', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('id_user')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->string('nama_perusahaan',200);
             $table->string('alamat_web');
             $table->longText('deskripsi_perusahaan');

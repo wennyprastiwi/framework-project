@@ -10,19 +10,20 @@ class PencariKerja extends Model
     use HasFactory;
     protected $table = 'pencari_kerja';
     protected $fillable = [
-        'id', 
-        'nama_lengkap', 
-        'nik', 
-        'jenis_kelamin', 
-        'tempat_lahir', 
-        'tanggal_lahir', 
-        'status_pernikahan', 
-        'agama', 
-        'id_lokasi', 
-        'id_kontak', 
-        'id_pekerjaan', 
-        'id_sertifikasi', 
-        'id_pendidikan', 
-        'file_cv'
+        'id_user',
+        'nama_lengkap',
+        'nik',
+        'jenis_kelamin',
+        'tempat_lahir',
+        'tanggal_lahir',
+        'status_pernikahan',
+        'agama',
+        'file_cv',
+        'status_pencari'
     ];
+
+    public function lokasi()
+    {
+        return $this->hasOne('App\Models\LokasiPencari', 'id_pencari_kerja');
+    }
 }

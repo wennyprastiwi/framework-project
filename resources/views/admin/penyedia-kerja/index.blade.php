@@ -42,11 +42,13 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $pk->nama_perusahaan }}</td>
                                             <td>{{ $pk->kontak->email }}</td>
-                                            <td>@if ($pk->status_perusahaan == 1)
-                                                    Diterima
-                                                @else
-                                                    Ditolak
-                                                @endif
+                                            <td>@if($pk->status_perusahaan == 1)
+                                                Diterima
+                                            @elseif ($pk->status_perusahaan == 2)
+                                                Ditolak
+                                            @else
+                                                Menunggu
+                                            @endif
                                             </td>
                                             <td>
                                                 <form action="{{ route('penyediaKerja.delete',$pk->id) }}" method="POST">

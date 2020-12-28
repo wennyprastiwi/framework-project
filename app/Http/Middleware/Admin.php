@@ -17,7 +17,7 @@ class Admin
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->type == 1) {
+        if (Auth::check() && Auth::user()->type == 99) {
             return $next($request);
           }
         return redirect('/login');
