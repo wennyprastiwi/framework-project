@@ -19,6 +19,10 @@ use Illuminate\Support\Facades\Storage;
 
 class PenyediaKerjaController extends Controller
 {
+    private function getAdminData()
+    {
+      return $admin = Auth::user();
+    }
 
     public static function get($filter = NULL)
     {
@@ -32,7 +36,12 @@ class PenyediaKerjaController extends Controller
     {
         $provinsi = Provinsi::all();
         $ktgPekerjaan = KategoriPekerjaan::orderBy('nama_kategori_pekerjaan')->pluck('nama_kategori_pekerjaan', 'id');
-        return view('admin.penyedia-kerja.create', ['provinsi' => $provinsi, 'ktgPekerjaan' => $ktgPekerjaan]);
+
+        return view('admin.penyedia-kerja.create', [
+            'ktgPekerjaan' => $ktgPekerjaan,
+            'provinsi' => $provinsi,
+            'admin' => $this->getAdminData()
+        ]);
     }
 
     public function getKota(Request $request)
@@ -167,7 +176,7 @@ class PenyediaKerjaController extends Controller
     {
         $penyediaKerja = PenyediaKerja::where('id', $id)->first();
         // dd($penyediaKerja->bidang);
-        return view('admin.penyedia-kerja.show', ['penyediaKerja' => $penyediaKerja]);
+        return view('admin.penyedia-kerja.show', ['penyediaKerja' => $penyediaKerja , 'admin' => $this->getAdminData()]);
     }
 
     public function edit($id)
@@ -181,7 +190,8 @@ class PenyediaKerjaController extends Controller
             'penyediaKerja' => $penyediaKerja,
             'provinsi' => $provinsi,
             'ktgPekerjaan' => $ktgPekerjaan,
-            'bidKerja' => $bidangKerja
+            'bidKerja' => $bidangKerja,
+            'admin' => $this->getAdminData()
         ]);
     }
 

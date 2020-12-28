@@ -2,15 +2,17 @@
 
 namespace App\Models;
 
+use Laravel\Passport\HasApiTokens;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Type;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -20,8 +22,10 @@ class User extends Authenticatable
     protected $table = 'users';
     protected $fillable = [
         'nama_user',
+        'username',
         'email_user',
         'password',
+        'type'
     ];
 
     /**
@@ -44,4 +48,9 @@ class User extends Authenticatable
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    public function type()
+    {
+        return $this->hasOne(Type::class, 'type');
+    }
 }

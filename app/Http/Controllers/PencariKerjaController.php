@@ -21,6 +21,12 @@ use Illuminate\Support\Facades\Storage;
 
 class PencariKerjaController extends Controller
 {
+
+    private function getAdminData()
+    {
+        return $admin = Auth::user();
+    }
+
     public static function get($filter = NULL)
     {
         if ($filter == NULL) {
@@ -40,7 +46,8 @@ class PencariKerjaController extends Controller
             'jnsPendidikan' => $jnsPendidikan,
             'agama' => $agama,
             'provinsi' => $provinsi,
-            'kota' => $kota
+            'kota' => $kota,
+            'admin' => $this->getAdminData()
         ]);
     }
 
@@ -342,6 +349,26 @@ class PencariKerjaController extends Controller
             DB::rollback();
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
+    }
+
+    public function accepted($id)
+    {
+        $pencariKerja = PencariKerja::findOrFail($id);
+        $pencariKerja->status_pencari = 1;
+        $pencariKerja->save();
+
+        return redirect()->route('admin.pencariKerja')
+            ->with('success', 'Pencari Kerja accepted successfully.');
+    }
+
+    public function decline($id)
+    {
+        $pencariKerja = PencariKerja::findOrFail($id);
+        $pencariKerja->status_pencari = 2;
+        $pencariKerja->save();
+
+        return redirect()->route('admin.pencariKerja')
+            ->with('success', 'Pencari Kerja decline successfully.');
     }
 
     public function delete($id)

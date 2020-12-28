@@ -1,7 +1,7 @@
-@extends('layouts.back-end_layout')
+@extends('layouts.perusahaan_layout')
 
 @section('title')
-    Admin Panel
+    Perusahaan Panel
 @endsection
 
 @section('content')
@@ -21,7 +21,7 @@
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                             Users</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $jmlUser }}</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">xxx</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-users fa-2x text-gray-300"></i>
@@ -38,8 +38,8 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                            Kategori Pekerjaan</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $jmlKP }}</div>
+                            Jenis Pekerjaan</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">xxx</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-briefcase fa-2x text-gray-300"></i>
@@ -58,7 +58,7 @@
                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
                             Penyedia Kerja
                         </div>
-                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ $jmlPK }}</div>
+                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">xxx</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-building fa-2x text-gray-300"></i>
@@ -76,7 +76,7 @@
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                             Pencari Kerja</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $jmlPencari }}</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">xxx</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-user-tie fa-2x text-gray-300"></i>

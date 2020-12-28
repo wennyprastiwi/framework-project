@@ -30,7 +30,8 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Username</th>
+                                            <th>Nama User</th>
+                                            <th>Jenis</th>
                                             <th>Email</th>
                                             <th>Action</th>
                                         </tr>
@@ -40,6 +41,7 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $usr->nama_user }}</td>
+                                            <td>{{ $usr->type }}</td>
                                             <td>{{ $usr->email_user }}</td>
                                             <td>
                                                 <form action="{{ route('user.delete',$usr->id) }}" method="POST">

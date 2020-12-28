@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Admin - Login</title>
+    <title>Karir - Login</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('sb-admin/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -39,26 +39,42 @@
                                 <div class="p-5">
                                     <div class="text-center mb-4">
                                         <h1 class="h4 text-gray-900">Halo! Silahkan Login </h1>
-                                        @if(Session::has('failed'))
-                                            <div class="card bg-danger text-white shadow mb-2 py-2">Username Atau Password Anda Salah</div>
+                                        @if ($message = Session::get('success'))
+                                        <div class="alert alert-success">
+                                            <p>{{ $message }}</p>
+                                        </div>
+                                        @endif
+                                        @if($message = Session::get('failed'))
+                                        <div class="alert alert-danger">
+                                            <p>{{ $message }}</p>
+                                        </div>
                                         @endif
                                     </div>
                                     <form class="user" action="{{ route('login.auth') }}" method="post">
                                         @csrf
                                         <div class="form-group">
-                                            <input type="text" name="username" class="form-control form-control-user"
-                                                id="login-username" aria-describedby="emailHelp"
-                                                placeholder="Enter Username...">
+                                            <input type="text" name="identity" class="form-control form-control-user"
+                                                id="login-identity" value="{{ old('identity') }}"
+                                                placeholder="Masukkan Email atau Username">
                                         </div>
+                                        @if ($errors->has('identity'))
+                                            <div class="alert alert-danger">{{ $errors->first('identity') }}</div>
+                                        @endif
                                         <div class="form-group">
                                             <input type="password" name="password" class="form-control form-control-user"
                                                 id="login-pass" placeholder="Password">
                                         </div>
+                                        @if ($errors->has('password'))
+                                            <div class="alert alert-danger">{{ $errors->first('password') }}</div>
+                                        @endif
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
                                             Login
                                         </button>
                                     </form>
                                     <hr>
+                                    <div class="text-center">
+                                        <a class="small" href="{{ url('registrasi') }}">Buat Akun</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>

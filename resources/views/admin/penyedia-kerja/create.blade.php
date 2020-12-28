@@ -39,14 +39,14 @@ Tambah Penyedia Kerja
                     <div class="form-group">
                         <strong>Nama Perusahaan: </strong>
                         <input type="text" name="nama_perusahaan" class="form-control"
-                            placeholder="Masukkan Nama Perusahaan" required>
+                            placeholder="Masukkan Nama Perusahaan" value="{{ old('nama_perusahaan') }}" required>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>Bidang Usaha: </strong>
-                        <select name="bidang_usaha[]" class="form-control" id="bidangusaha"
-                            multiple="multiple" required>
+                        <select name="bidang_usaha[]" class="form-control" id="bidangusaha" multiple="multiple"
+                            required>
                             <option value="">-- Plih Kategori Usaha --</option>
                             @foreach ($ktgPekerjaan as $key => $value)
                             <option value="{{ $key }}">{{ $value }}</option>
@@ -58,7 +58,7 @@ Tambah Penyedia Kerja
                     <div class="form-group">
                         <strong>Alamat: </strong>
                         <input type="text" name="alamat_perusahaan" class="form-control"
-                            placeholder="Masukkan Alamat Perusahaan" required>
+                            placeholder="Masukkan Alamat Perusahaan" value="{{ old('alamat_perusahaan') }}" required>
                     </div>
                 </div>
                 <div class="col-xs-3 col-sm-3 col-md-3">
@@ -91,26 +91,27 @@ Tambah Penyedia Kerja
                 <div class="col-xs-12 col-sm-12 col-md-12 mt-3">
                     <div class="form-group">
                         <strong>Website: </strong>
-                        <input type="text" name="alamat_web" class="form-control" placeholder="Masukkan Alamat Website" required>
+                        <input type="text" name="alamat_web" class="form-control" placeholder="Masukkan Alamat Website"
+                        value="{{ old('alamat_web') }}" required>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>Email: </strong>
-                        <input type="text" name="email" class="form-control" placeholder="Masukkan Email" required>
+                        <input type="text" name="email" class="form-control" placeholder="Masukkan Email" value="{{ old('email') }}" required>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>No Telepon: </strong>
-                        <input type="text" name="no_hp" class="form-control" placeholder="Masukkan No Telp" required>
+                        <input type="text" name="no_hp" class="form-control" placeholder="Masukkan No Telp" value="{{ old('no_hp') }}" required>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>Deskripsi: </strong>
                         <textarea type="text" class="form-control" name="deskripsi_perusahaan" id="address" rows="5"
-                            placeholder="Masukkan Deskripsi Perusahaan" required></textarea>
+                            placeholder="Masukkan Deskripsi Perusahaan" value="{{ old('deskripsi_perusahaan') }}" required></textarea>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12 mt-3">
@@ -155,112 +156,106 @@ Tambah Penyedia Kerja
 @endsection
 @section('pagejs')
 <script>
-    $(document).ready(function ()
-    {
-            $(".custom-file-input").on("change", function() {
-                var fileName = $(this).val().split("\\").pop();
-                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-            });
+    $(document).ready(function () {
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
 
-            $('#bidangusaha').select2();
+        $('#bidangusaha').select2();
 
-            $('#bidangusaha').on('change', function() {
-                var bidangUsaha = $(this).val();
-                console.log(bidangUsaha);
-            })
+        $('#bidangusaha').on('change', function () {
+            var bidangUsaha = $(this).val();
+            console.log(bidangUsaha);
+        })
 
-            $('select[name="indonesia_provinces"]').on('change',function(){
-               var provinsiID = $(this).val();
-               console.log(provinsiID);
-               if(provinsiID)
-               {
-                  $.ajax({
-                    url : "{{ route('penyediaKerja.kota') }}",
-                    type : "POST",
+        $('select[name="indonesia_provinces"]').on('change', function () {
+            var provinsiID = $(this).val();
+            console.log(provinsiID);
+            if (provinsiID) {
+                $.ajax({
+                    url: "{{ route('penyediaKerja.kota') }}",
+                    type: "POST",
                     data: {
                         provinsi_id: provinsiID
                     },
                     headers: {
                         "X-CSRF-Token": $("input[name='_token']").val()
                     },
-                     dataType : "json",
-                     success:function(data)
-                     {
+                    dataType: "json",
+                    success: function (data) {
                         console.log(data);
                         $('select[name="indonesia_cities"]').empty();
-                        $.each(data, function(key,value){
-                           $('select[name="indonesia_cities"]').append('<option value="'+ key +'">'+ value +'</option>');
+                        $.each(data, function (key, value) {
+                            $('select[name="indonesia_cities"]').append(
+                                '<option value="' + key + '">' + value +
+                                '</option>');
                         });
-                     }
-                  });
-               }
-               else
-               {
-                  $('select[name="indonesia_cities"]').empty();
-               }
-            });
+                    }
+                });
+            } else {
+                $('select[name="indonesia_cities"]').empty();
+            }
+        });
 
-            $('select[name="indonesia_cities"]').on('change',function(){
-               var kotaID = $(this).val();
-               console.log(kotaID);
-               if(kotaID)
-               {
-                  $.ajax({
-                     url : "{{ route('penyediaKerja.kecamatan') }}",
-                     type : "POST",
-                     data: {
+        $('select[name="indonesia_cities"]').on('change', function () {
+            var kotaID = $(this).val();
+            console.log(kotaID);
+            if (kotaID) {
+                $.ajax({
+                    url: "{{ route('penyediaKerja.kecamatan') }}",
+                    type: "POST",
+                    data: {
                         kota_id: kotaID
-                     },
-                     headers: {
+                    },
+                    headers: {
                         "X-CSRF-Token": $("input[name='_token']").val()
-                     },
-                     dataType : "json",
-                     success:function(data)
-                     {
+                    },
+                    dataType: "json",
+                    success: function (data) {
                         console.log(data);
                         $('select[name="indonesia_districts"]').empty();
-                        $.each(data, function(key,value){
-                           $('select[name="indonesia_districts"]').append('<option value="'+ key +'">'+ value +'</option>');
+                        $.each(data, function (key, value) {
+                            $('select[name="indonesia_districts"]').append(
+                                '<option value="' + key + '">' + value +
+                                '</option>');
                         });
-                     }
-                  });
-               }
-               else
-               {
-                  $('select[name="indonesia_districts"]').empty();
-               }
-            });
+                    }
+                });
+            } else {
+                $('select[name="indonesia_districts"]').empty();
+            }
+        });
 
-            $('select[name="indonesia_districts"]').on('change',function(){
-               var kecamatanID = $(this).val();
-               console.log(kecamatanID);
-               if(kecamatanID)
-               {
-                  $.ajax({
-                     url : "{{ route('penyediaKerja.kelurahan') }}",
-                     type : "POST",
-                     data: {
+        $('select[name="indonesia_districts"]').on('change', function () {
+            var kecamatanID = $(this).val();
+            console.log(kecamatanID);
+            if (kecamatanID) {
+                $.ajax({
+                    url: "{{ route('penyediaKerja.kelurahan') }}",
+                    type: "POST",
+                    data: {
                         kecamatan_id: kecamatanID
-                     },
-                     headers: {
+                    },
+                    headers: {
                         "X-CSRF-Token": $("input[name='_token']").val()
-                     },
-                     dataType : "json",
-                     success:function(data)
-                     {
+                    },
+                    dataType: "json",
+                    success: function (data) {
                         console.log(data);
                         $('select[name="indonesia_villages"]').empty();
-                        $.each(data, function(key,value){
-                           $('select[name="indonesia_villages"]').append('<option value="'+ key +'">'+ value +'</option>');
+                        $.each(data, function (key, value) {
+                            $('select[name="indonesia_villages"]').append(
+                                '<option value="' + key + '">' + value +
+                                '</option>');
                         });
-                     }
-                  });
-               }
-               else
-               {
-                  $('select[name="indonesia_villages"]').empty();
-               }
-            });
+                    }
+                });
+            } else {
+                $('select[name="indonesia_villages"]').empty();
+            }
+        });
     });
+
 </script>
 @endsection

@@ -1,17 +1,17 @@
 @extends('layouts.back-end_layout')
 
 @section('title')
-    Master Pencari kerja
+Master Pencari kerja
 @endsection
 
 @section('content')
 
 <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Master Pencari Kerja</h1>
-                        <a href={{ route('pencariKerja.create') }} class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-plus-square fa-sm text-white-50"></i> Tambah</a>
-                    </div>
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Master Pencari Kerja</h1>
+    <a href={{ route('pencariKerja.create') }} class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+            class="fas fa-plus-square fa-sm text-white-50"></i> Tambah</a>
+</div>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
@@ -26,6 +26,7 @@
                                             <th>No</th>
                                             <th>NIK</th>
                                             <th>Nama</th>
+                                            <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -35,6 +36,14 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $pk->nik }}</td>
                                             <td>{{ $pk->nama_lengkap }}</td>
+                                            <td>@if($pk->status_pencari == 1)
+                                                Diterima
+                                                @elseif ($pk->status_pencari == 2)
+                                                Ditolak
+                                                @else
+                                                Menunggu
+                                                @endif
+                                            </td>
                                             <td>
                                                 <form action="{{ route('pencariKerja.delete',$pk->id) }}" method="POST">
                                                 <a href="{{ route('pencariKerja.show',$pk->id) }}" class="btn btn-info btn-icon-split">
@@ -54,7 +63,7 @@
                                                         <i class="fas fa-trash"></i>
                                                     </span>
                                                 </button>
-                                                {{-- @if ($pk->status_perusahaan == 0)
+                                                @if ($pk->status_pencari == 0)
                                                 <a href="{{ route('pencariKerja.accepted',$pk->id) }}" class="btn btn-warning btn-icon-split" data-toggle="tooltip" title="Klik untuk menerima">
                                                     <span class="icon text-white-50">
                                                         <i class="fas fa-check"></i>
@@ -65,7 +74,7 @@
                                                         <i class="fa fa-ban"></i>
                                                     </span>
                                                 </a>
-                                                @endif --}}
+                                                @endif
                                                 </form>
                                             </td>
                                         </tr>
@@ -80,12 +89,11 @@
 
 @section('pagejs')
 
-    <!-- Page level plugins -->
-    <script src="{{ asset('sb-admin/vendor/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('sb-admin/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+<!-- Page level plugins -->
+<script src="{{ asset('sb-admin/vendor/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('sb-admin/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
 
-    <!-- Page level custom scripts -->
-    <script src="{{ asset('sb-admin/js/demo/datatables-demo.js') }}"></script>
+<!-- Page level custom scripts -->
+<script src="{{ asset('sb-admin/js/demo/datatables-demo.js') }}"></script>
 
 @endsection
-

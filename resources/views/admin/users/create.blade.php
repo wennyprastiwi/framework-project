@@ -37,21 +37,40 @@
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
+                                            <strong>Nama User</strong>
+                                            <input type="text" name="nama_user" class="form-control" placeholder="Masukkan Nama"
+                                            value="{{ old('nama_user') }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group">
                                             <strong>Username</strong>
-                                            <input type="text" name="nama_user" class="form-control" placeholder="Masukkan username">
+                                            <input type="text" name="username" class="form-control" placeholder="Masukkan username"
+                                            value="{{ old('username') }}">
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
                                             <strong>email:</strong>
-                                            <input type="text" name="email_user" class="form-control" placeholder="Masukkan email">
+                                            <input type="text" name="email_user" class="form-control" placeholder="Masukkan email"
+                                            value="{{ old('email_user') }}">
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
                                             <strong>Password:</strong>
-                                            <input type="password" name="password" class="form-control" placeholder="Masukkan password">
+                                            <input type="password" name="password" class="form-control" placeholder="Masukkan password"
+                                            value="{{ old('password') }}">
                                         </div>
+                                    </div>
+                                    <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                                        <strong for="type" id="type">Jenis User</strong>
+                                        <select class="form-control" id="type" name="type">
+                                            <option value="">-- Plih Jenis User --</option>
+                                            @foreach ($type as $type)
+                                            <option value="{{ $type->id }}">{{ $type->nama_type }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                                         <button type="submit" class="btn btn-primary">Submit</button>

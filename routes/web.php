@@ -5,8 +5,9 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserAdminController;
 use App\Http\Controllers\KategoriPekerjaanAdminController;
 use App\Http\Controllers\PenyediaKerjaAdminController;
+use Illuminate\Support\Facades\Auth;
 
- /*
+/*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
@@ -20,9 +21,25 @@ use App\Http\Controllers\PenyediaKerjaAdminController;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/landing-page', function () {
+    $user = Auth::user();
+    return view('landing-page')->with(['user' => $user]);
+});
+
 Route::get('login', 'LoginController@login')->name('login.login');
 Route::post('auth','LoginController@authCheck')->name('login.auth');
+Route::get('registrasi', 'LoginController@register')->name('login.regist');
+Route::post('store', 'LoginController@store')->name('login.store');
 Route::post('logout','LoginController@logout')->name('login.logout');
+
+Route::prefix('perusahaan')->group(function () {
+    Route::get('', 'PerusahaanController@index');
+    Route::get('data-perusahaan', 'PerusahaanController@perusahaan')->name('perusahaan.data');
+    Route::get('data-perusahaan/edit', 'PerusahaanController@perusahaanEdit')->name('perusahaan.edit');
+    Route::get('lowongan', 'PerusahaanController@lowongan')->name('perusahaan.lowongan');
+    Route::get('lowongan/create', 'PerusahaanController@LowonganCreate')->name('perusahaan.lowongan.create');
+    Route::get('lowongan/view/{id}', 'PerusahaanController@lowonganView')->name('perusahaan.lowongan.view');
+});
 
 Route::group(['prefix' => 'admin'], function() {
     Route::get('', 'AdminController@index')->name('admin.index');
@@ -32,10 +49,13 @@ Route::group(['prefix' => 'admin'], function() {
     Route::get('pencari-kerja', 'AdminController@pencariKerja')->name('admin.pencariKerja');
     Route::get('about-us', 'AdminController@aboutUs')->name('admin.aboutUs');
     Route::get('kontak', 'AdminController@kontak')->name('admin.kontak');
-    Route::get('login', 'AdminController@login')->name('admin.login');
-    Route::post('auth','AdminController@authCheck')->name('admin.auth');
+    Route::get('push-notifikasi', 'AdminController@pushNotifikasi')->name('admin.pushNotifikasi');
+    Route::get('profile', 'AdminController@profile')->name('admin.profile');
+    Route::get('profile-edit', 'AdminController@profileEdit')->name('admin.profile-edit');
+    Route::post('profile-update', 'AdminController@profileUpdate')->name('admin.profile-update');
+    Route::post('pass-update', 'AdminController@updatePassword')->name('admin.profile-pass');
 
-Route::group(['prefix' => 'user'], function() {
+    Route::group(['prefix' => 'user'], function() {
         Route::get('create', 'UserController@create')->name('user.create');
         Route::get('{id}/show', 'UserController@show')->name('user.show');
         Route::get('{id}/edit', 'UserController@edit')->name('user.edit');
