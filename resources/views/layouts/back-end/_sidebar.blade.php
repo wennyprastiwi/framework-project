@@ -48,6 +48,13 @@
                     <span>Penyedia Kerja</span></a>
             </li>
 
+             <!-- Nav Item - Charts -->
+             <li class="nav-item">
+                <a class="nav-link" href="{{ url('/admin/lowongan') }}">
+                    <i class="fas fa-fw fa-briefcase"></i>
+                    <span>Lowongan</span></a>
+            </li>
+
             <!-- Nav Item - Charts -->
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('/admin/pencari-kerja') }}">

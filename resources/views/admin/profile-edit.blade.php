@@ -38,18 +38,11 @@
           <div class="row">
               <div class="col-xs-12 col-sm-12 col-md-12">
                   <div class="form-group">
-                      <input type="hidden" name="id" value="{{ $admin->id }}"> <br />
-                      <strong>Nama User:</strong>
-                      <input type="text" name="nama_user" value="{{ $admin->nama_user }}" class="form-control">
-                  </div>
-              </div>
-              <div class="col-xs-12 col-sm-12 col-md-12">
-                  <div class="form-group">
                       <strong>Username:
                           <i class="fas fa-info-circle fa-sm" data-toggle="tooltip" title="Kosongi jika tidak update"
                               style="color: Tomato;"></i>
                       </strong>
-                      <input type="text" name="username" class="form-control">
+                      <input type="text" name="username" value="{{ $admin->username }}" class="form-control">
                   </div>
               </div>
               <div class="col-xs-12 col-sm-12 col-md-12">
@@ -58,10 +51,11 @@
                           <i class="fas fa-info-circle fa-sm" data-toggle="tooltip" title="Kosongi jika tidak update"
                               style="color: Tomato;"></i>
                       </strong>
-                      <input type="text" name="email_user" class="form-control">
+                      <input type="text" name="email_user" value="{{ $admin->email_user }}" class="form-control">
                   </div>
               </div>
               <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                  @if ($admin->type != 99)
                   <strong for="type" id="type">Jenis User</strong>
                   <select class="form-control" id="type" name="type">
                       @foreach ($type as $type)
@@ -74,6 +68,9 @@
                       <option {{ $selected }} value="{{ $type->id }}">{{ $type->nama_type }}</option>
                       @endforeach
                   </select>
+                  @else
+                  <input type="hidden" name="type" value="{{ $admin->type }}" class="form-control">
+                  @endif
               </div>
               <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                   <button type="submit" class="btn btn-primary">Update</button>

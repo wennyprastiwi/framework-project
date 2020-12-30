@@ -19,7 +19,6 @@ class UserSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            'nama_user' => 'Admin Kita',
             'username' => 'admin',
             'email_user' => 'admin@gmail.com',
             'password' => Hash::make('admin'),
@@ -27,21 +26,19 @@ class UserSeeder extends Seeder
         ]);
 
         $faker = Faker::create('id_ID');
- 
+
     	for($i = 1; $i <= 10; $i++){
- 
-    	      // insert data ke table pegawai menggunakan Faker
+
     		DB::table('users')->insert([
-    			'nama_user' => $faker->name,
     			'username' => Str::random(5),
                 'email_user' => $faker->unique()->safeEmail,
                 'email_verified_at' => now(),
                 'password' => Hash::make(Str::random(5)),
                 'type' => $faker->numberBetween(1,2),
     		]);
- 
+
     	}
 
-        
+
     }
 }

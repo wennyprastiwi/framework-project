@@ -367,6 +367,8 @@ class PencariKerjaController extends Controller
         $pencariKerja->status_pencari = 2;
         $pencariKerja->save();
 
+        $pencariKerja = PencariKerja::where('id', $id)->delete();
+
         return redirect()->route('admin.pencariKerja')
             ->with('success', 'Pencari Kerja decline successfully.');
     }

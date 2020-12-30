@@ -23,7 +23,7 @@ class UserController extends Controller
 
     public static function get($filter = NULL) {
 		if ($filter == NULL) {
-			return User::all();
+			return User::all()->where('type' , '!=' , 99);
 		}
 		return User::where($filter)->get();
 	}
@@ -110,6 +110,30 @@ class UserController extends Controller
 
         return redirect()->route('admin.user')
                         ->with('success','User updated successfully');
+    }
+
+    public function accepted($id)
+    {
+        $user = User::findOrFail($id);
+        $user->status = 1;
+        $user->email_verified_at = date('Y-m-d H:i:s');
+        $user->save();
+
+        return redirect()->route('admin.user')
+            ->with('success', 'User accepted successfully.');
+    }
+
+    public function decline($id)
+    {
+        $user = User::findOrFail($id);
+        $user->status = 2;
+        $user->email_verified_at = date('Y-m-d H:i:s');
+        $user->save();
+
+        User::where('id' , $id)->delete();
+
+        return redirect()->route('admin.user')
+            ->with('success', 'User decline successfully.');
     }
 
     public function delete($id)

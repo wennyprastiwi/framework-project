@@ -23,13 +23,31 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Nama:</strong>
-                                        {{ $u->nama_user }}
+                                        {{ $u->username }}
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Email:</strong>
                                         {{ $u->email_user }}
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <strong>Jenis:</strong>
+                                        @if ($u->type == 1)
+                                            Pencari
+                                        @else
+                                            Perusahaan
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <strong>Status:</strong>
+                                        @if ($u->status == 1)
+                                            Aktif
+                                        @endif
                                     </div>
                                 </div>
                             </div>

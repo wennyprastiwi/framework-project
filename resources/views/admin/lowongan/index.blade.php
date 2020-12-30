@@ -1,22 +1,22 @@
 @extends('layouts.back-end_layout')
 
 @section('title')
-Master Penyedia kerja
+Master Lowongan
 @endsection
 
 @section('content')
 
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Master Penyedia Kerja</h1>
-    <a href={{ route('penyediaKerja.create') }} class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+    <h1 class="h3 mb-0 text-gray-800">Master Lowongan</h1>
+    <a href={{ route('lowongan.create') }} class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
             class="fas fa-plus-square fa-sm text-white-50"></i> Tambah</a>
 </div>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Data Penyedia kerja</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Data Lowongan</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -25,33 +25,32 @@ Master Penyedia kerja
                                         <tr>
                                             <th>No</th>
                                             <th>Nama Perusahaan</th>
-                                            <th>E-mail</th>
-                                            <th>Status</th>
+                                            <th>Nama Pekerjaan</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($penyediaKerja as $pk)
+                                        {{-- @foreach ($lowongan as $lw)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $pk->nama_perusahaan }}</td>
-                                            <td>{{ $pk->kontak->email }}</td>
-                                            <td>@if($pk->status_perusahaan == 1)
+                                            <td>{{ $lw->nama_perusahaan }}</td>
+                                            <td>{{ $lw->kontak->email }}</td>
+                                            <td>@if($lw->status_perusahaan == 1)
                                                 Diterima
-                                                @elseif ($pk->status_perusahaan == 2)
+                                                @elseif ($lw->status_perusahaan == 2)
                                                 Ditolak
                                                 @else
                                                 Menunggu
                                                 @endif
                                             </td>
                                             <td>
-                                                <form action="{{ route('penyediaKerja.delete',$pk->id) }}" method="POST">
-                                                <a href="{{ route('penyediaKerja.show',$pk->id) }}" class="btn btn-info btn-icon-split">
+                                                <form action="{{ route('lowongan.delete',$lw->id) }}" method="POST">
+                                                <a href="{{ route('lowongan.show',$lw->id) }}" class="btn btn-info btn-icon-split">
                                                     <span class="icon text-white-50">
                                                         <i class="fas fa-eye"></i>
                                                     </span>
                                                 </a>
-                                                <a href="{{ route('penyediaKerja.edit',$pk->id) }}" class="btn btn-secondary btn-icon-split">
+                                                <a href="{{ route('lowongan.edit',$lw->id) }}" class="btn btn-secondary btn-icon-split">
                                                     <span class="icon text-white-50">
                                                         <i class="far fa-edit"></i>
                                                     </span>
@@ -63,13 +62,13 @@ Master Penyedia kerja
                                                         <i class="fas fa-trash"></i>
                                                     </span>
                                                 </button>
-                                                @if ($pk->status_penyedia == 0)
-                                                <a href="{{ route('penyediaKerja.accepted',$pk->id) }}" class="btn btn-warning btn-icon-split" data-toggle="tooltip" title="Klik untuk menerima">
+                                                @if ($lw->status_penyedia == 0)
+                                                <a href="{{ route('lowongan.accepted',$lw->id) }}" class="btn btn-warning btn-icon-split" data-toggle="tooltip" title="Klik untuk menerima">
                                                     <span class="icon text-white-50">
                                                         <i class="fas fa-check"></i>
                                                     </span>
                                                 </a>
-                                                <a href="{{ route('penyediaKerja.decline',$pk->id) }}" class="btn btn-danger btn-icon-split" data-toggle="tooltip" title="Klik untuk menolak">
+                                                <a href="{{ route('lowongan.decline',$lw->id) }}" class="btn btn-danger btn-icon-split" data-toggle="tooltip" title="Klik untuk menolak">
                                                     <span class="icon text-white-50">
                                                         <i class="fa fa-ban"></i>
                                                     </span>
@@ -78,7 +77,7 @@ Master Penyedia kerja
                                                 </form>
                                             </td>
                                         </tr>
-                                        @endforeach
+                                        @endforeach --}}
                                     </tbody>
                                 </table>
                             </div>
