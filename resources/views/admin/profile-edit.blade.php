@@ -54,24 +54,6 @@
                       <input type="text" name="email_user" value="{{ $admin->email_user }}" class="form-control">
                   </div>
               </div>
-              <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                  @if ($admin->type != 99)
-                  <strong for="type" id="type">Jenis User</strong>
-                  <select class="form-control" id="type" name="type">
-                      @foreach ($type as $type)
-                      @php
-                      $selected = "";
-                      if ($admin->type == $type->id) {
-                      $selected = "selected='selected'";
-                      }
-                      @endphp
-                      <option {{ $selected }} value="{{ $type->id }}">{{ $type->nama_type }}</option>
-                      @endforeach
-                  </select>
-                  @else
-                  <input type="hidden" name="type" value="{{ $admin->type }}" class="form-control">
-                  @endif
-              </div>
               <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                   <button type="submit" class="btn btn-primary">Update</button>
               </div>

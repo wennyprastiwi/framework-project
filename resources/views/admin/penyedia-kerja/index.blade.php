@@ -63,7 +63,7 @@ Master Penyedia kerja
                                                         <i class="fas fa-trash"></i>
                                                     </span>
                                                 </button>
-                                                @if ($pk->status_penyedia == 0)
+                                                @if ($pk->status_perusahaan == 0)
                                                 <a href="{{ route('penyediaKerja.accepted',$pk->id) }}" class="btn btn-warning btn-icon-split" data-toggle="tooltip" title="Klik untuk menerima">
                                                     <span class="icon text-white-50">
                                                         <i class="fas fa-check"></i>

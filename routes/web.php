@@ -35,7 +35,17 @@ Route::post('logout','LoginController@logout')->name('login.logout');
 Route::prefix('perusahaan')->group(function () {
     Route::get('', 'PerusahaanController@index');
     Route::get('data-perusahaan', 'PerusahaanController@perusahaan')->name('perusahaan.data');
+    Route::get('data-perusahaan/add', 'PerusahaanController@perusahaanAdd')->name('perusahaan.add');
     Route::get('data-perusahaan/edit', 'PerusahaanController@perusahaanEdit')->name('perusahaan.edit');
+
+
+    Route::post('getkota', 'PerusahaanController@getKota')->name('perusahaan.kota');
+    Route::post('getkecamatan', 'PerusahaanController@getKecamatan')->name('perusahaan.kecamatan');
+    Route::post('getkelurahan', 'PerusahaanController@getKelurahan')->name('perusahaan.kelurahan');
+
+    Route::post('store', 'PerusahaanController@store')->name('perusahaan.store');
+    Route::post('update', 'PerusahaanController@update')->name('perusahaan.update');
+
     Route::get('lowongan', 'PerusahaanController@lowongan')->name('perusahaan.lowongan');
     Route::get('lowongan/create', 'PerusahaanController@LowonganCreate')->name('perusahaan.lowongan.create');
     Route::get('lowongan/view/{id}', 'PerusahaanController@lowonganView')->name('perusahaan.lowongan.view');
