@@ -78,7 +78,7 @@ Master Kategori Pekerjaan
                         @foreach ($provinsi as $prov)
                         @php
                             $selected = "";
-                                if ($prov->id == $penyediaKerja->lokasi->provinsi->id) {
+                                if ($prov->id == $penyediaKerja->lokasi->id_provinsi) {
                                 $selected = "selected='selected'";
                             }
                         @endphp
@@ -180,19 +180,15 @@ Master Kategori Pekerjaan
     $(document).ready(function ()
     {
         $('[data-toggle="tooltip"]').tooltip();
-
         $(".custom-file-input").on("change", function() {
             var fileName = $(this).val().split("\\").pop();
             $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
         });
-
         $('#bidangusaha').select2();
-
         $('#bidangusaha').on('change', function() {
             var bidangUsaha = $(this).val();
             console.log(bidangUsaha);
         })
-
         const getKota = (provinsiID, callback) => {
             $.ajax({
                 url : "{{ route('penyediaKerja.kota') }}",
@@ -210,7 +206,6 @@ Master Kategori Pekerjaan
                 }
             });
         }
-
         const setKota = () => {
             let provinsiID = "{{ $penyediaKerja->lokasi->id_provinsi }}";
             getKota(provinsiID, data => {
@@ -222,7 +217,6 @@ Master Kategori Pekerjaan
             })
         }
         setKota();
-
         $('select[name="indonesia_provinces"]').on('change',function(){
             var provinsiID = $(this).val();
             console.log(provinsiID);
@@ -241,7 +235,6 @@ Master Kategori Pekerjaan
                 $('select[name="indonesia_cities"]').empty();
             }
         });
-
         const getKecamatan = (kotaID, callback) => {
             $.ajax({
                 url : "{{ route('penyediaKerja.kecamatan') }}",
@@ -259,7 +252,6 @@ Master Kategori Pekerjaan
                 }
             });
         }
-
         const setKecamatan = () => {
             let kotaID = "{{ $penyediaKerja->lokasi->id_kota }}";
             getKecamatan(kotaID, data => {
@@ -271,7 +263,6 @@ Master Kategori Pekerjaan
             })
         }
         setKecamatan();
-
         $('select[name="indonesia_cities"]').on('change',function(){
             var kotaID = $(this).val();
             console.log(kotaID);
@@ -290,7 +281,6 @@ Master Kategori Pekerjaan
                 $('select[name="indonesia_districts"]').empty();
             }
         });
-
         const getKelurahan = (kecamatanID, callback) => {
             $.ajax({
                 url : "{{ route('penyediaKerja.kelurahan') }}",
@@ -308,7 +298,6 @@ Master Kategori Pekerjaan
                 }
             });
         }
-
         const setKelurahan = () => {
             let kecamatanID = "{{ $penyediaKerja->lokasi->id_kecamatan }}";
             getKelurahan(kecamatanID, data => {
@@ -320,7 +309,6 @@ Master Kategori Pekerjaan
             })
         }
         setKelurahan();
-
         $('select[name="indonesia_districts"]').on('change',function(){
             var kecamatanID = $(this).val();
             console.log(kecamatanID);

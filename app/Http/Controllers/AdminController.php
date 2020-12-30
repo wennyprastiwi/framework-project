@@ -100,12 +100,7 @@ class AdminController extends Controller
 
           $username = $request->username;
           $email_user = $request->email_user;
-          $type = $request->type;
 
-      $saveData = User::where('id', $id)
-      ->update([
-              'type' => $type,
-          ]);
           if($username != NULL){
               $saveData = User::where('id', $id)
               ->update(['username' => $username]);

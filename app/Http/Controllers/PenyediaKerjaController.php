@@ -48,7 +48,6 @@ class PenyediaKerjaController extends Controller
     {
         $id = $request->provinsi_id;
         $kota = Kota::where('province_id', $id)
-            ->orderBy('name')
             ->pluck('name', 'id');
 
         return response()->json($kota);
@@ -58,7 +57,6 @@ class PenyediaKerjaController extends Controller
     {
         $id = $request->kota_id;
         $kecamatan = Kecamatan::where('city_id', $id)
-            ->orderBy('name')
             ->pluck('name', 'id');
 
         return response()->json($kecamatan);
@@ -68,7 +66,6 @@ class PenyediaKerjaController extends Controller
     {
         $id = $request->kecamatan_id;
         $kelurahan = Kelurahan::where('district_id', $id)
-            ->orderBy('name')
             ->pluck('name', 'id');
 
         return response()->json($kelurahan);
