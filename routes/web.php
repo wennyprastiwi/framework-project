@@ -47,6 +47,7 @@ Route::group(['prefix' => 'admin'], function() {
     Route::get('kategori-pekerjaan', 'AdminController@kategoriPekerjaan')->name('admin.kategoriPekerjaan');
     Route::get('penyedia-kerja', 'AdminController@penyediaKerja')->name('admin.penyediaKerja');
     Route::get('pencari-kerja', 'AdminController@pencariKerja')->name('admin.pencariKerja');
+    Route::get('lowongan', 'AdminController@lowongan')->name('admin.lowongan');
     Route::get('about-us', 'AdminController@aboutUs')->name('admin.aboutUs');
     Route::get('kontak', 'AdminController@kontak')->name('admin.kontak');
     Route::get('push-notifikasi', 'AdminController@pushNotifikasi')->name('admin.pushNotifikasi');
@@ -59,9 +60,13 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('create', 'UserController@create')->name('user.create');
         Route::get('{id}/show', 'UserController@show')->name('user.show');
         Route::get('{id}/edit', 'UserController@edit')->name('user.edit');
+        Route::get('{id}/accepted', 'UserController@accepted')->name('user.accepted');
+        Route::get('{id}/decline', 'UserController@decline')->name('user.decline');
+
 
         Route::post('store', 'UserController@store')->name('user.store');
         Route::post('update', 'UserController@update')->name('user.update');
+
         Route::delete('{id}/delete', 'UserController@delete')->name('user.delete');
     });
 
@@ -92,6 +97,20 @@ Route::group(['prefix' => 'admin'], function() {
         Route::post('update', 'PenyediaKerjaController@update')->name('penyediaKerja.update');
 
         Route::delete('{id}/delete', 'PenyediaKerjaController@delete')->name('penyediaKerja.delete');
+    });
+
+
+    Route::group(['prefix' => 'lowongan'], function() {
+        Route::get('create', 'LowonganController@create')->name('lowongan.create');
+        Route::get('{id}/show', 'LowonganController@show')->name('lowongan.show');
+        Route::get('{id}/edit', 'LowonganController@edit')->name('lowongan.edit');
+        Route::get('{id}/accepted', 'LowonganController@accepted')->name('lowongan.accepted');
+        Route::get('{id}/decline', 'LowonganController@decline')->name('lowongan.decline');
+
+        Route::post('store', 'LowonganController@store')->name('lowongan.store');
+        Route::post('update', 'LowonganController@update')->name('lowongan.update');
+
+        Route::delete('{id}/delete', 'LowonganController@delete')->name('lowongan.delete');
     });
 
 

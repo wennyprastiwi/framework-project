@@ -40,30 +40,53 @@
                                         @foreach ($user as $usr)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $usr->nama_user }}</td>
-                                            <td>{{ $usr->type }}</td>
+                                            <td>{{ $usr->username }}</td>
+                                            <td>
+                                                @if ($usr->type == 1)
+                                                    Pencari Kerja
+                                                @else
+                                                    Perusahaan
+                                                @endif
+                                            </td>
                                             <td>{{ $usr->email_user }}</td>
                                             <td>
                                                 <form action="{{ route('user.delete',$usr->id) }}" method="POST">
-                                                <a href="{{ route('user.show',$usr->id) }}" class="btn btn-info btn-icon-split">
-                                                    <span class="icon text-white-50">
-                                                        <i class="fas fa-eye"></i>
-                                                    </span>
-                                                </a>
-                                                <a href="{{ route('user.edit',$usr->id) }}" class="btn btn-success btn-icon-split">
-                                                    <span class="icon text-white-50">
-                                                        <i class="far fa-edit"></i>
-                                                    </span>
-                                                </a>
+                                                    @if ($usr->status == 0 && $usr->type == 2 || $usr->type == 1)
+                                                    <a href="{{ route('user.accepted',$usr->id) }}"
+                                                        class="btn btn-warning btn-icon-split" data-toggle="tooltip"
+                                                        title="Klik untuk menerima">
+                                                        <span class="icon text-white-50">
+                                                            <i class="fas fa-check"></i>
+                                                        </span>
+                                                    </a>
+                                                    <a href="{{ route('user.decline',$usr->id) }}"
+                                                        class="btn btn-danger btn-icon-split" data-toggle="tooltip"
+                                                        title="Klik untuk menolak">
+                                                        <span class="icon text-white-50">
+                                                            <i class="fa fa-ban"></i>
+                                                        </span>
+                                                    </a>
+                                                    @elseif($usr->status == 1 && $usr->type == 1 || $usr->type == 2)
+                                                    <a href="{{ route('user.show',$usr->id) }}" class="btn btn-info btn-icon-split">
+                                                        <span class="icon text-white-50">
+                                                            <i class="fas fa-eye"></i>
+                                                        </span>
+                                                    </a>
+                                                    <a href="{{ route('user.edit',$usr->id) }}" class="btn btn-success btn-icon-split">
+                                                        <span class="icon text-white-50">
+                                                            <i class="far fa-edit"></i>
+                                                        </span>
+                                                    </a>
 
-                                                @csrf
-                                                @method('DELETE')
+                                                    @csrf
+                                                    @method('DELETE')
 
-                                                <button type="submit" class="btn btn-danger btn-icon-split" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
-                                                    <span class="icon text-white-50">
-                                                        <i class="fas fa-trash"></i>
-                                                    </span>
-                                                </button>
+                                                    <button type="submit" class="btn btn-danger btn-icon-split" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                                        <span class="icon text-white-50">
+                                                            <i class="fas fa-trash"></i>
+                                                        </span>
+                                                    </button>
+                                                    @endif
                                                 </form>
                                             </td>
                                         </tr>

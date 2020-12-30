@@ -2,21 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Type;
 use App\Models\KategoriPekerjaan as mKP;
 use App\Models\PenyediaKerja as mPK;
 use App\Models\PencariKerja as mPencari;
 use Illuminate\Http\Request;
-use Illuminate\Session;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\UserController as userCtrl;
 use App\Http\Controllers\KategoriPekerjaanController as ktgPekerjaanCtrl;
 use App\Http\Controllers\PencariKerjaController as pncrKerjaCtrl;
 use App\Http\Controllers\PenyediaKerjaController as pnydKerjaCtrl;
-use App\Models\Admin;
+use App\Http\Controllers\LowonganController as lwngCtrl;
+use App\Models\User;
 
 class AdminController extends Controller
 {
@@ -72,6 +70,11 @@ class AdminController extends Controller
 		return view('admin.pencari-kerja.index')->with(['pencariKerja' => $pencariKerja, 'admin' => $this->getAdminData()]);
     }
 
+    public function lowongan() {
+		$lowongan = lwngCtrl::get();
+		return view('admin.lowongan.index')->with(['lowongan' => $lowongan, 'admin' => $this->getAdminData()]);
+    }
+
 
     public function aboutUs() {
 		return view('admin.about-us')->with(['admin' => $this->getAdminData()]);
@@ -93,23 +96,14 @@ class AdminController extends Controller
 
     public function profileUpdate(Request $request)
     {
-      $id = $request->id;
+          $id = $request->id;
 
-      $validateData = $this->validate($request, [
-              'nama_user' => 'required',
-              'username' => 'unique:users',
-              'email_user' => 'unique:users',
-              'type' => 'required',
-      ]);
-
-          $nama_user = $request->nama_user;
           $username = $request->username;
           $email_user = $request->email_user;
           $type = $request->type;
 
       $saveData = User::where('id', $id)
       ->update([
-              'nama_user' => $nama_user,
               'type' => $type,
           ]);
           if($username != NULL){

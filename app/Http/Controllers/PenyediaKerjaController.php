@@ -319,6 +319,8 @@ class PenyediaKerjaController extends Controller
         $penyediaKerja->status_perusahaan = 2;
         $penyediaKerja->save();
 
+        $penyediaKerja = PenyediaKerja::where('id', $id)->delete();
+
         return redirect()->route('admin.penyediaKerja')
             ->with('success', 'Penyedia Kerja decline  successfully.');
     }
