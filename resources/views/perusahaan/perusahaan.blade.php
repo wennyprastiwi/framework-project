@@ -7,7 +7,11 @@
 @section('content')
 
 <h1 class="h3 mb-4 text-gray-800">Profile Perusahaan</h1>
-
+@if($message = Session::get('failed'))
+<div class="alert alert-danger">
+    <p>{{ $message }}</p>
+</div>
+@endif
 <div class="row">
   <div class="col">
     <div class="card shadow">
@@ -17,17 +21,9 @@
             Data Perusahaan
           </div>
           <div class="text-left">
-            @if (!empty($perusahaan))
-                @if ($perusahaan->status_perusahaan == 0)
-                <a class="btn btn-primary" href="{{ route('perusahaan.add') }}">
-                    Tambah Data Perusahaan
-                  </a>
-                @elseif ($perusahaan->status_perusahaan == 1)
                 <a class="btn btn-primary" href="{{ route('perusahaan.edit') }}">
                     Edit Data Perusahaan
-                  </a>
-                @endif
-            @endif
+                </a>
           </div>
         </div>
       </div>

@@ -137,7 +137,6 @@ Perusahaan - Buat Lowongan
 
     </div>
 </div>
-
 @endsection
 @section('pagejs')
 <script>
