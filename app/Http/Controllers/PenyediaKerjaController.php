@@ -172,7 +172,6 @@ class PenyediaKerjaController extends Controller
     public function show($id)
     {
         $penyediaKerja = PenyediaKerja::where('id', $id)->first();
-        // dd($penyediaKerja->bidang);
         return view('admin.penyedia-kerja.show', ['penyediaKerja' => $penyediaKerja , 'admin' => $this->getAdminData()]);
     }
 

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\PenyediaKerja;
+use App\Models\PencariKerja;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -42,9 +45,12 @@ class LoginController extends Controller
         'type' => $type,
         'status' => $status
       ]);
+      $url = route('email.verify',$email_user);
+      \Mail::to($email_user)
+      ->send(new \App\Mail\VerifikasiMail($username, $url));
 
           return redirect()->route('login.login')
-                          ->with('success','User berhasil dibuat. Tunggu  verifikasi admin');
+                          ->with('success','User berhasil dibuat. Silahkan cek email anda untuk verifikasi akun!');
     }
 
     public function authCheck(Request $request)
@@ -75,6 +81,11 @@ class LoginController extends Controller
             }
             elseif ($useEmail->type == 1 && $useEmail->status == 1 ){
               return redirect('landing-page');
+            }else {
+              Auth::logout();
+              $request->session()->invalidate();
+              $request->session()->regenerateToken();
+              return redirect('/login')->with('failed','Verifikasi email anda terlebih dahulu!');
             }
           } else
           if($useUsername != NULL AND Hash::check($pass , $useUsername->password)){
@@ -89,12 +100,26 @@ class LoginController extends Controller
             }
             elseif ($useUsername->type == 1 && $useUsername->status == 1) {
               return redirect('landing-page');
+            }else {
+              Auth::logout();
+              $request->session()->invalidate();
+              $request->session()->regenerateToken();
+              return redirect('/login')->with('failed','Verifikasi email anda terlebih dahulu!');
             }
           } else {
 
             return redirect('login')->with('failed','Password salah');
 
           }
+    }
+
+    public function verifyEmail($email){
+      $user = User::where('email_user',$email)->first();
+      $user->status = 1;
+      $user->email_verified_at = date('Y-m-d H:i:s');
+      $user->save();
+
+      return view('verifikasi');
     }
 
     public function logout(Request $request){

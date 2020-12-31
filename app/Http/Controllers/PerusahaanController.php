@@ -34,11 +34,14 @@ class PerusahaanController extends Controller
     {
 
       $perusahaan = PenyediaKerja::where('id_user' , Auth::user()->id)->first();
-
-      return view('perusahaan.perusahaan')->with([
-          'data' => $this->getUserData(),
-          'perusahaan' => $perusahaan
-        ]);
+      if ($perusahaan == NULL) {
+        return redirect('perusahaan/data-perusahaan/add');
+      }else {
+          return view('perusahaan.perusahaan')->with([
+              'data' => $this->getUserData(),
+              'perusahaan' => $perusahaan,
+            ]);
+      }
     }
 
     public function perusahaanAdd()
@@ -309,7 +312,13 @@ class PerusahaanController extends Controller
 
     public function lowongan()
     {
-      return view('perusahaan.lowongan.index')->with(['data' => $this->getUserData()]);
+      $user = $this->getUserData();
+      $perusahaan = PenyediaKerja::where('id_user', $user->id)->first();
+      if ($perusahaan->status_perusahaan == 0) {
+        return redirect('perusahaan/data-perusahaan')->with(['failed' => 'Perusahaan anda belum disetujui!']);
+      }else {
+        return view('perusahaan.lowongan.index')->with(['data' => $this->getUserData()]);
+      }
     }
 
     public function lowonganCreate()
