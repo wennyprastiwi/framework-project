@@ -36,26 +36,26 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $validateData = $this->validate($request, [
-            'nama_user' => 'required',
             'username' => 'required|unique:users',
             'email_user' => 'required|email|unique:users',
             'password' => 'required',
             'type' => 'required',
 		]);
-
-        $nama_user = $request->nama_user;
         $username = $request->username;
         $email_user = $request->email_user;
         $password = $request->password;
         $type = $request->type;
 
 		$saveData = User::create([
-            'nama_user' => $nama_user,
             'username' => $username,
             'email_user' => $email_user,
             'password' => Hash::make($password),
             'type' => $type,
-		]);
+        ]);
+        
+        $url = route('email.verify',$email_user);
+        \Mail::to($email_user)
+        ->send(new \App\Mail\VerifikasiMail($username, $url));
 
         return redirect()->route('admin.user')
                         ->with('success','User created successfully.');
@@ -78,13 +78,11 @@ class UserController extends Controller
         $id = $request->id;
 
 		$validateData = $this->validate($request, [
-            'nama_user' => 'required',
             'username' => 'unique:users',
             'email_user' => 'unique:users',
             'type' => 'required',
-		]);
-
-        $nama_user = $request->nama_user;
+        ]);
+        
         $username = $request->username;
         $email_user = $request->email_user;
         $password = $request->password;
@@ -92,7 +90,6 @@ class UserController extends Controller
 
 		$saveData = User::where('id', $id)
 		->update([
-            'nama_user' => $nama_user,
             'type' => $type,
         ]);
         if($username != NULL){

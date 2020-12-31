@@ -18,13 +18,6 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
-            'username' => 'admin',
-            'email_user' => 'admin@gmail.com',
-            'password' => Hash::make('admin'),
-            'type' => 99,
-        ]);
-
         $faker = Faker::create('id_ID');
 
     	for($i = 1; $i <= 10; $i++){
@@ -38,7 +31,6 @@ class UserSeeder extends Seeder
     		]);
 
     	}
-
 
     }
 }
