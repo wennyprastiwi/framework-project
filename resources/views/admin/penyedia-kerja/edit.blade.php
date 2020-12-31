@@ -184,12 +184,15 @@ Master Kategori Pekerjaan
             var fileName = $(this).val().split("\\").pop();
             $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
         });
+
         $('#bidangusaha').select2();
+
         $('#bidangusaha').on('change', function() {
             var bidangUsaha = $(this).val();
             console.log(bidangUsaha);
-        })
-        const getKota = (provinsiID, callback) => {
+        });
+
+         const getKota = (provinsiID, callback) => {
             $.ajax({
                 url : "{{ route('penyediaKerja.kota') }}",
                 type : "POST",
@@ -206,7 +209,8 @@ Master Kategori Pekerjaan
                 }
             });
         }
-        const setKota = () => {
+
+        const setKota = (idKota) => {
             let provinsiID = "{{ $penyediaKerja->lokasi->id_provinsi }}";
             getKota(provinsiID, data => {
                 console.log(data);
@@ -214,9 +218,11 @@ Master Kategori Pekerjaan
                 $.each(data, function(key,value){
                     $('select[name="indonesia_cities"]').append('<option value="'+ key +'">'+ value +'</option>');
                 });
+                if(typeof idKota !== 'undefined')  $('select[name="indonesia_cities"] option[value="' + idKota + '"]').attr('selected','selected');
             })
         }
-        setKota();
+        setKota('{{ $penyediaKerja->lokasi->kota->id }}');
+
         $('select[name="indonesia_provinces"]').on('change',function(){
             var provinsiID = $(this).val();
             console.log(provinsiID);
@@ -224,7 +230,7 @@ Master Kategori Pekerjaan
             {
                 getKota(provinsiID, (data) => {
                     console.log(data);
-                    $('select[name="indonesia_cities"]').empty();
+                    $('select[name="indonesia_cities"]');
                     $.each(data, function(key,value){
                         $('select[name="indonesia_cities"]').append('<option value="'+ key +'">'+ value +'</option>');
                     });
@@ -235,6 +241,7 @@ Master Kategori Pekerjaan
                 $('select[name="indonesia_cities"]').empty();
             }
         });
+
         const getKecamatan = (kotaID, callback) => {
             $.ajax({
                 url : "{{ route('penyediaKerja.kecamatan') }}",
@@ -252,7 +259,8 @@ Master Kategori Pekerjaan
                 }
             });
         }
-        const setKecamatan = () => {
+
+         const setKecamatan = (idKecamatan) => {
             let kotaID = "{{ $penyediaKerja->lokasi->id_kota }}";
             getKecamatan(kotaID, data => {
                 console.log(data);
@@ -260,9 +268,11 @@ Master Kategori Pekerjaan
                 $.each(data, function(key,value){
                     $('select[name="indonesia_districts"]').append('<option value="'+ key +'">'+ value +'</option>');
                 });
+                if(typeof idKecamatan !== 'undefined')  $('select[name="indonesia_districts"] option[value="' + idKecamatan + '"]').attr('selected','selected');
             })
         }
-        setKecamatan();
+        setKecamatan('{{ $penyediaKerja->lokasi->kecamatan->id }}');
+
         $('select[name="indonesia_cities"]').on('change',function(){
             var kotaID = $(this).val();
             console.log(kotaID);
@@ -281,6 +291,7 @@ Master Kategori Pekerjaan
                 $('select[name="indonesia_districts"]').empty();
             }
         });
+
         const getKelurahan = (kecamatanID, callback) => {
             $.ajax({
                 url : "{{ route('penyediaKerja.kelurahan') }}",
@@ -298,7 +309,8 @@ Master Kategori Pekerjaan
                 }
             });
         }
-        const setKelurahan = () => {
+
+        const setKelurahan = (idKelurahan) => {
             let kecamatanID = "{{ $penyediaKerja->lokasi->id_kecamatan }}";
             getKelurahan(kecamatanID, data => {
                 console.log(data);
@@ -306,9 +318,11 @@ Master Kategori Pekerjaan
                 $.each(data, function(key,value){
                     $('select[name="indonesia_villages"]').append('<option value="'+ key +'">'+ value +'</option>');
                 });
+                if(typeof idKelurahan !== 'undefined')  $('select[name="indonesia_villages"] option[value="' + idKelurahan + '"]').attr('selected','selected');
             })
         }
-        setKelurahan();
+        setKelurahan('{{ $penyediaKerja->lokasi->kelurahan->id }}');
+
         $('select[name="indonesia_districts"]').on('change',function(){
             var kecamatanID = $(this).val();
             console.log(kecamatanID);

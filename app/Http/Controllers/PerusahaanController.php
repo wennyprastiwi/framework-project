@@ -233,7 +233,6 @@ class PerusahaanController extends Controller
                 'nama_perusahaan' => $request->nama_perusahaan,
                 'alamat_web' => $request->alamat_web,
                 'deskripsi_perusahaan' => $request->deskripsi_perusahaan,
-                'status_perusahaan' => 0
             ];
 
             if ($logo) {
@@ -301,7 +300,7 @@ class PerusahaanController extends Controller
 
             DB::commit();
 
-            return redirect()->route('admin.penyediaKerja')
+            return redirect()->route('perusahaan.data')
                 ->with('success', 'Data Perusahaan updated successfully.');
         } catch (\Exception $e) {
             DB::rollback();
@@ -323,7 +322,17 @@ class PerusahaanController extends Controller
 
     public function lowonganCreate()
     {
-      return view('perusahaan.lowongan.create')->with(['data' => $this->getUserData()]);
+        $user = Auth::user();
+        $ktgPekerjaan = KategoriPekerjaan::orderBy('nama_kategori_pekerjaan')->pluck('nama_kategori_pekerjaan', 'id');
+        $perusahaan = PenyediaKerja::where('id_user', $user->id)->first();
+        $kota = Kota::all();
+
+      return view('perusahaan.lowongan.create')->with([
+        'ktgPekerjaan' => $ktgPekerjaan,
+        'perusahaan' => $perusahaan,
+        'kota' => $kota,
+        'data' => $this->getUserData()
+      ]);
     }
 
     public function lowonganView()

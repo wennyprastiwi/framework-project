@@ -761,7 +761,7 @@ Edit Pencari Kerja
             });
         }
 
-        const setKota = () => {
+        const setKota = (idKota) => {
             let provinsiID = "{{ $pencariKerja->lokasi->id_provinsi }}";
             getKota(provinsiID, data => {
                 console.log(data);
@@ -769,9 +769,10 @@ Edit Pencari Kerja
                 $.each(data, function(key,value){
                     $('select[name="indonesia_cities"]').append('<option value="'+ key +'">'+ value +'</option>');
                 });
+                if(typeof idKota !== 'undefined')  $('select[name="indonesia_cities"] option[value="' + idKota + '"]').attr('selected','selected');
             })
         }
-        setKota();
+        setKota('{{ $pencariKerja->lokasi->kota->id }}');
 
         $('select[name="indonesia_provinces"]').on('change',function(){
             var provinsiID = $(this).val();
@@ -780,7 +781,7 @@ Edit Pencari Kerja
             {
                 getKota(provinsiID, (data) => {
                     console.log(data);
-                    $('select[name="indonesia_cities"]').empty();
+                    $('select[name="indonesia_cities"]');
                     $.each(data, function(key,value){
                         $('select[name="indonesia_cities"]').append('<option value="'+ key +'">'+ value +'</option>');
                     });
@@ -810,7 +811,7 @@ Edit Pencari Kerja
             });
         }
 
-        const setKecamatan = () => {
+         const setKecamatan = (idKecamatan) => {
             let kotaID = "{{ $pencariKerja->lokasi->id_kota }}";
             getKecamatan(kotaID, data => {
                 console.log(data);
@@ -818,9 +819,10 @@ Edit Pencari Kerja
                 $.each(data, function(key,value){
                     $('select[name="indonesia_districts"]').append('<option value="'+ key +'">'+ value +'</option>');
                 });
+                if(typeof idKecamatan !== 'undefined')  $('select[name="indonesia_districts"] option[value="' + idKecamatan + '"]').attr('selected','selected');
             })
         }
-        setKecamatan();
+        setKecamatan('{{ $pencariKerja->lokasi->kecamatan->id }}');
 
         $('select[name="indonesia_cities"]').on('change',function(){
             var kotaID = $(this).val();
@@ -859,7 +861,7 @@ Edit Pencari Kerja
             });
         }
 
-        const setKelurahan = () => {
+        const setKelurahan = (idKelurahan) => {
             let kecamatanID = "{{ $pencariKerja->lokasi->id_kecamatan }}";
             getKelurahan(kecamatanID, data => {
                 console.log(data);
@@ -867,9 +869,10 @@ Edit Pencari Kerja
                 $.each(data, function(key,value){
                     $('select[name="indonesia_villages"]').append('<option value="'+ key +'">'+ value +'</option>');
                 });
+                if(typeof idKelurahan !== 'undefined')  $('select[name="indonesia_villages"] option[value="' + idKelurahan + '"]').attr('selected','selected');
             })
         }
-        setKelurahan();
+        setKelurahan('{{ $pencariKerja->lokasi->kelurahan->id }}');
 
         $('select[name="indonesia_districts"]').on('change',function(){
             var kecamatanID = $(this).val();

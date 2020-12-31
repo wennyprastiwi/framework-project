@@ -16,7 +16,6 @@ class CreateLowonganTable extends Migration
         Schema::create('lowongan', function (Blueprint $table) {
             $table->id();
             $table->string('nama_pekerjaan',100);
-            $table->foreignId('id_lokasi')->constrained('lokasi_penyedia')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('id_penyedia_kerja')->constrained('penyedia_kerja')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('gaji')->unsigned();
             $table->date('tanggal_dibuka');
