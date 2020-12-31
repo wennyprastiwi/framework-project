@@ -180,7 +180,6 @@
     $(document).ready(function ()
     {
         $('[data-toggle="tooltip"]').tooltip();
-
         $(".custom-file-input").on("change", function() {
             var fileName = $(this).val().split("\\").pop();
             $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
@@ -191,9 +190,9 @@
         $('#bidangusaha').on('change', function() {
             var bidangUsaha = $(this).val();
             console.log(bidangUsaha);
-        })
+        });
 
-        const getKota = (provinsiID, callback) => {
+         const getKota = (provinsiID, callback) => {
             $.ajax({
                 url : "{{ route('perusahaan.kota') }}",
                 type : "POST",
@@ -211,7 +210,7 @@
             });
         }
 
-        const setKota = () => {
+        const setKota = (idKota) => {
             let provinsiID = "{{ $perusahaan->lokasi->id_provinsi }}";
             getKota(provinsiID, data => {
                 console.log(data);
@@ -219,9 +218,10 @@
                 $.each(data, function(key,value){
                     $('select[name="indonesia_cities"]').append('<option value="'+ key +'">'+ value +'</option>');
                 });
+                if(typeof idKota !== 'undefined')  $('select[name="indonesia_cities"] option[value="' + idKota + '"]').attr('selected','selected');
             })
         }
-        setKota();
+        setKota('{{ $perusahaan->lokasi->kota->id }}');
 
         $('select[name="indonesia_provinces"]').on('change',function(){
             var provinsiID = $(this).val();
@@ -230,7 +230,7 @@
             {
                 getKota(provinsiID, (data) => {
                     console.log(data);
-                    $('select[name="indonesia_cities"]').empty();
+                    $('select[name="indonesia_cities"]');
                     $.each(data, function(key,value){
                         $('select[name="indonesia_cities"]').append('<option value="'+ key +'">'+ value +'</option>');
                     });
@@ -260,7 +260,7 @@
             });
         }
 
-        const setKecamatan = () => {
+         const setKecamatan = (idKecamatan) => {
             let kotaID = "{{ $perusahaan->lokasi->id_kota }}";
             getKecamatan(kotaID, data => {
                 console.log(data);
@@ -268,9 +268,10 @@
                 $.each(data, function(key,value){
                     $('select[name="indonesia_districts"]').append('<option value="'+ key +'">'+ value +'</option>');
                 });
+                if(typeof idKecamatan !== 'undefined')  $('select[name="indonesia_districts"] option[value="' + idKecamatan + '"]').attr('selected','selected');
             })
         }
-        setKecamatan();
+        setKecamatan('{{ $perusahaan->lokasi->kecamatan->id }}');
 
         $('select[name="indonesia_cities"]').on('change',function(){
             var kotaID = $(this).val();
@@ -309,7 +310,7 @@
             });
         }
 
-        const setKelurahan = () => {
+        const setKelurahan = (idKelurahan) => {
             let kecamatanID = "{{ $perusahaan->lokasi->id_kecamatan }}";
             getKelurahan(kecamatanID, data => {
                 console.log(data);
@@ -317,9 +318,10 @@
                 $.each(data, function(key,value){
                     $('select[name="indonesia_villages"]').append('<option value="'+ key +'">'+ value +'</option>');
                 });
+                if(typeof idKelurahan !== 'undefined')  $('select[name="indonesia_villages"] option[value="' + idKelurahan + '"]').attr('selected','selected');
             })
         }
-        setKelurahan();
+        setKelurahan('{{ $perusahaan->lokasi->kelurahan->id }}');
 
         $('select[name="indonesia_districts"]').on('change',function(){
             var kecamatanID = $(this).val();

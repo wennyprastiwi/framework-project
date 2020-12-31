@@ -48,7 +48,8 @@ class PenyediaKerjaController extends Controller
     {
         $id = $request->provinsi_id;
         $kota = Kota::where('province_id', $id)
-            ->pluck('name', 'id');
+            ->pluck('name', 'id')
+            ->sortBy('name');
 
         return response()->json($kota);
     }
@@ -57,7 +58,8 @@ class PenyediaKerjaController extends Controller
     {
         $id = $request->kota_id;
         $kecamatan = Kecamatan::where('city_id', $id)
-            ->pluck('name', 'id');
+            ->pluck('name', 'id')
+            ->sortBy('name');
 
         return response()->json($kecamatan);
     }
@@ -66,7 +68,8 @@ class PenyediaKerjaController extends Controller
     {
         $id = $request->kecamatan_id;
         $kelurahan = Kelurahan::where('district_id', $id)
-            ->pluck('name', 'id');
+            ->pluck('name', 'id')
+            ->sortBy('name');
 
         return response()->json($kelurahan);
     }
@@ -224,7 +227,6 @@ class PenyediaKerjaController extends Controller
                 'nama_perusahaan' => $request->nama_perusahaan,
                 'alamat_web' => $request->alamat_web,
                 'deskripsi_perusahaan' => $request->deskripsi_perusahaan,
-                'status_perusahaan' => 0
             ];
 
             if ($logo) {

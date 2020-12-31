@@ -24,21 +24,5 @@ class UserSeeder extends Seeder
             'password' => Hash::make('admin'),
             'type' => 99,
         ]);
-
-        $faker = Faker::create('id_ID');
-
-    	for($i = 1; $i <= 10; $i++){
-
-    		DB::table('users')->insert([
-    			'username' => Str::random(5),
-                'email_user' => $faker->unique()->safeEmail,
-                'email_verified_at' => now(),
-                'password' => Hash::make(Str::random(5)),
-                'type' => $faker->numberBetween(1,2),
-    		]);
-
-    	}
-
-
     }
 }

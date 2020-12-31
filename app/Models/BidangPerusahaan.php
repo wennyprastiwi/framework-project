@@ -10,7 +10,6 @@ class BidangPerusahaan extends Model
     use HasFactory;
     protected $table = 'bidang_perusahaan';
     protected $fillable = [
-        'id',
         'id_kategori_pekerjaan',
         'id_penyedia_kerja'
     ];
