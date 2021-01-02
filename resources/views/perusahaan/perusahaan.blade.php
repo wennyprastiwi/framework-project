@@ -7,11 +7,6 @@
 @section('content')
 
 <h1 class="h3 mb-4 text-gray-800">Profile Perusahaan</h1>
-@if($message = Session::get('failed'))
-<div class="alert alert-danger">
-    <p>{{ $message }}</p>
-</div>
-@endif
 <div class="row">
   <div class="col">
     <div class="card shadow">

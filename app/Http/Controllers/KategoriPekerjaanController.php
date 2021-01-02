@@ -30,18 +30,26 @@ class KategoriPekerjaanController extends Controller
     {
         $validateData = $this->validate($request, [
 			'nama_kategori_pekerjaan' => 'required',
-		]);
+        ]);
 
-		$ktgKerja = $request->nama_kategori_pekerjaan;
+        $ktgKerja = $request->nama_kategori_pekerjaan;
         $email_user   = $request->email_user;
         $password = $request->password;
 
-		$saveData = KategoriPekerjaan::create([
-			'nama_kategori_pekerjaan' => $ktgKerja,
-		]);
+        $kategori = KategoriPekerjaan::where('nama_kategori_pekerjaan', $ktgKerja)->first();
 
-        return redirect()->route('admin.kategoriPekerjaan')
-                        ->with('success','Kategori Pekerjaan created successfully.');
+        if(!empty($kategori)){
+                return redirect()->route('admin.kategoriPekerjaan')
+                    ->with(['error' => 'Kategori Pekerjaan available.']);
+        } else {
+                $saveData = KategoriPekerjaan::create([
+                    'nama_kategori_pekerjaan' => $ktgKerja,
+                ]);
+                return redirect()->route('admin.kategoriPekerjaan')
+                                ->with('success','Kategori Pekerjaan created successfully.');
+        }
+
+
     }
 
     public function show($id)

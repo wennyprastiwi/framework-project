@@ -9,7 +9,7 @@ class KategoriLowongan extends Model
 {
     use HasFactory;
     use HasFactory;
-    protected $table = 'bidang_perusahaan';
+    protected $table = 'kategori_lowongan';
     protected $fillable = [
         'id',
         'id_kategori_pekerjaan',

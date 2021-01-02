@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Type;
 use App\Models\KategoriPekerjaan as mKP;
 use App\Models\PenyediaKerja as mPK;
 use App\Models\PencariKerja as mPencari;
@@ -26,17 +25,6 @@ class AdminController extends Controller
   private function getAdminData()
   {
     return $admin = Auth::user();
-  }
-
-  public function getType(Request $request)
-  {
-      $id = $request->type;
-      $type = Type::where('id', $id)
-          ->orderBy('nama_type')
-          ->pluck('nama_type', 'id');
-
-      return response()->json($type);
-
   }
 
     public function index()
@@ -91,7 +79,7 @@ class AdminController extends Controller
 
     public function profileEdit()
     {
-      return view('admin.profile-edit')->with(['admin' => $this->getAdminData(), 'type' => Type::all()]);
+      return view('admin.profile-edit')->with(['admin' => $this->getAdminData()]);
     }
 
     public function profileUpdate(Request $request)

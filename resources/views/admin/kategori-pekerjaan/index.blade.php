@@ -21,11 +21,6 @@ Master Jenis Pekerjaan
         <h6 class="m-0 font-weight-bold text-primary">Data Jenis Pekerjaan</h6>
     </div>
     <div class="card-body">
-        @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
-        </div>
-        @endif
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>

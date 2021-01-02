@@ -16,6 +16,6 @@ class LokasiLowongan extends Model
 
     public function kota()
     {
-        return $this->hasMany('App\Models\Kota', 'id_lokasi');
+        return $this->belongsTo('App\Models\Kota', 'id_lokasi');
     }
 }

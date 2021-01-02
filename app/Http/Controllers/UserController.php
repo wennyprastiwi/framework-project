@@ -16,11 +16,6 @@ class UserController extends Controller
       return Auth::user();
     }
 
-    private function getType()
-    {
-      return Type::all();
-    }
-
     public static function get($filter = NULL) {
 		if ($filter == NULL) {
 			return User::all()->where('type' , '!=' , 99);
@@ -52,7 +47,7 @@ class UserController extends Controller
             'password' => Hash::make($password),
             'type' => $type,
         ]);
-        
+
         $url = route('email.verify',$email_user);
         \Mail::to($email_user)
         ->send(new \App\Mail\VerifikasiMail($username, $url));
@@ -82,7 +77,7 @@ class UserController extends Controller
             'email_user' => 'unique:users',
             'type' => 'required',
         ]);
-        
+
         $username = $request->username;
         $email_user = $request->email_user;
         $password = $request->password;

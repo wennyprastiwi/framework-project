@@ -31,32 +31,26 @@ Perusahaan - Lowongan
                     <tr>
                         <th>No</th>
                         <th>Nama Pekerjaan</th>
-                        <th>Status</th>
-                        <th>Lokasi</th>
-                        <th>Gaji</th>
                         <th>Tanggal Dibuka</th>
                         <th>Tanggal Ditutup</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach ($lowongan as $loker)
                     <tr>
-                        <td>1</td>
-                        <td>Aktif</td>
-                        <td>Coba</td>
-                        <td>Jauh</td>
-                        <td>xxxxxx</td>
-                        <td>11-11-1111</td>
-                        <td>12-12-1212</td>
-
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $loker->nama_pekerjaan }}</td>
+                        <td>{{ $loker->tanggal_dibuka }}</td>
+                        <td>{{ $loker->tanggal_ditutup }}</td>
                         <td>
-                            <form action="" method="POST">
-                                <a href="{{ route('perusahaan.lowongan.view',1) }}" class="btn btn-info btn-icon-split">
+                            <form action="{{ route('perusahaan.lowongan.delete', $loker->id) }}" method="POST">
+                                <a href="{{ route('perusahaan.lowongan.show', $loker->id) }}" class="btn btn-info btn-icon-split">
                                     <span class="icon text-white-50">
                                         <i class="fas fa-eye"></i>
                                     </span>
                                 </a>
-                                <a href=""
+                                <a href="{{ route('perusahaan.lowongan.edit', $loker->id) }}"
                                     class="btn btn-secondary btn-icon-split">
                                     <span class="icon text-white-50">
                                         <i class="far fa-edit"></i>
@@ -75,6 +69,7 @@ Perusahaan - Lowongan
                             </form>
                         </td>
                     </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

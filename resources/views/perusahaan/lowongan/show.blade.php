@@ -27,14 +27,64 @@ Perusahaan - Lowongan
     <div class="card-body">
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="detail" role="tabpanel" aria-labelledby="detail-tab">
-                <h5 class="card-title">Nama Pekerjaan</h5>
-                <p class="card-text">Lokasi:</p>
-                <p class="card-text">Gaji:</p>
-                <p class="card-text">Tanggal Dibuka:</p>
-                <p class="card-text">Tanggal Ditutup:</p>
-                <p class="card-text">Deskripsi:</p>
-                <p class="card-text">Kualifikasi:</p>
-                <p class="card-text">Keaflian Dibutuhkan:</p>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>Nama Pekerjaan :</strong>
+                        {{ $lowongan->nama_pekerjaan }}
+                    </div>
+                    <div class="form-group">
+                        <strong>Nama Perusahaan :</strong>
+                        {{ $lowongan->perusahaan->nama_perusahaan }}
+                    </div>
+                    <div class="form-group">
+                        <strong>Gaji :</strong>
+                        {{ $lowongan->gaji }}
+                    </div>
+                    <div class="form-group">
+                        <strong>Tanggal dibuka :</strong>
+                        {{ $lowongan->tanggal_dibuka }}
+                    </div>
+                    <div class="form-group">
+                        <strong>Tanggal ditutup :</strong>
+                        {{ $lowongan->tanggal_ditutup }}
+                    </div>
+                    <div class="form-group">
+                        <strong>Lokasi Penempaten :</strong>
+                        @foreach ($lokasiLoker as $key => $lok)
+                        {{ $loop->first ? '' : ', ' }}
+                        {{ $lok->kota->name }}
+                        @endforeach
+                    </div>
+                    <div class="form-group">
+                        <strong>Kategori Lowongan :</strong>
+                        @foreach ($ktgLoker as $kat)
+                            {{ $loop->first ? '' : ', ' }}
+                            {{ $kat->kategori->nama_kategori_pekerjaan }}
+                        @endforeach
+                    </div>
+                    <div class="form-group">
+                        <strong>Deskripsi Pekerjaan :</strong>
+                        {{ $lowongan->deskripsi_pekerjaan }}
+                    </div>
+                    <div class="form-group">
+                        <strong>Gambaran Perusahaan :</strong>
+                        {{ $lowongan->gambaran_perusahaan }}
+                    </div>
+                    <div class="form-group">
+                        <strong>Kualifikasi :</strong>
+                        @foreach (json_decode($lowongan->kualifikasi) as $kua)
+                            {{ $loop->first ? '' : ', ' }}
+                            {{ $kua }}
+                        @endforeach
+                    </div>
+                    <div class="form-group">
+                        <strong>Skill :</strong>
+                        @foreach (json_decode($lowongan->keahlian_dibutuhkan) as $skill)
+                            {{ $loop->first ? '' : ', ' }}
+                            {{ $skill }}
+                        @endforeach
+                    </div>
+                </div>
             </div>
             <div class="tab-pane fade" id="pelamar" role="tabpanel" aria-labelledby="pelamar-tab">
                 <h5 class="card-title">Pelamar</h5>
