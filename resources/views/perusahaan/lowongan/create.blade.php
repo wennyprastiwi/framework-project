@@ -9,7 +9,7 @@ Perusahaan - Buat Lowongan
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Tambah Lowongan</h1>
-    <a href="{{ route('admin.lowongan') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+    <a href="{{ route('perusahaan.lowongan') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
             class="fas fa-arrow-left fa-sm text-white-50"></i> Kembali</a>
 </div>
 
@@ -31,20 +31,20 @@ Perusahaan - Buat Lowongan
         </div>
         @endif
 
-        <form action="{{ route('lowongan.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('perusahaan.lowongan.store') }}" method="POST">
             @csrf
 
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>Nama Perusahaan: </strong>
-                        <input type="text" name="nama_perusahaan" class="form-control"
-                            placeholder="Masukkan Nama Perusahaan" value="{{ old('nama_perusahaan') }}" required>
+                        <strong>Nama Pekerjaan: </strong>
+                        <input type="text" name="nama_pekerjaan" class="form-control"
+                            placeholder="Masukkan Nama Pekerjaan" value="{{ old('nama_pekerjaan') }}" required>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>Kategori Lowongan: </strong>
+                        <strong>Kategori Lowongan : </strong>
                         <select name="kategori_lowongan[]" class="form-control" id="kategorilowongan" multiple="multiple"
                             required placeholder="Masukkan Kategori Lowongan">
                             <option value="">-- Plih Kategori Lowongan --</option>
@@ -55,77 +55,72 @@ Perusahaan - Buat Lowongan
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>Alamat: </strong>
-                        <input type="text" name="alamat_perusahaan" class="form-control"
-                            placeholder="Masukkan Alamat Perusahaan" value="{{ old('alamat_perusahaan') }}" required>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <strong for="exampleFormControlSelect1">Kota / Kabupaten</strong>
-                    <select name="indonesia_cities[]" class="form-control" id="kota" multiple="multiple" placeholder="Masukkan Kota Lowongan">
+                    <strong for="exampleFormControlSelect1">Kota Penempatan</strong>
+                    <select name="kota_penempatan[]" class="form-control" id="kota" multiple="multiple" placeholder="Masukkan Kota Lowongan">
                         <option value="">-- Plih Kota / Kabupaten --</option>
                         @foreach ($kota as $kot)
                         <option value="{{ $kot->id }}">{{ $kot->name }}</option>
                         @endforeach
                     </select>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 mt-3">
+                <div class="col-xs-12 col-sm-12 col-md-4 mt-3">
                     <div class="form-group">
-                        <strong>Website: </strong>
-                        <input type="text" name="alamat_web" class="form-control" placeholder="Masukkan Alamat Website"
-                            value="{{ old('alamat_web') }}" required>
+                        <strong>Gaji : </strong><i class="fas fa-question fa-sm" data-toggle="tooltip"
+                        title="Isi '0' jika tidak disebutkan " style="color: Tomato;"></i>
+                        <input type="text" name="gaji" id="rupiah" class="form-control" placeholder="Masukkan Alamat Gaji"
+                            value="{{ old('gaji') }}" required>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4 mt-3">
+                    <div class="form-group">
+                        <strong>Tanggal Dibuka : </strong>
+                        <input type="text" name="tanggal_dibuka" class="date form-control" id="tanggaldibuka"
+                            value="{{ old('tanggal_dibuka') }}" placeholder="Tanggal Dibuka">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4 mt-3">
+                    <div class="form-group">
+                        <strong>Tanggal Ditutup : </strong>
+                        <input type="text" name="tanggal_ditutup" class="date form-control" id="tanggalditutup"
+                            value="{{ old('tanggal_ditutup') }}" placeholder="Tanggal Ditutup">
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>Email: </strong>
-                        <input type="text" name="email" class="form-control" placeholder="Masukkan Email"
-                            value="{{ old('email') }}" required>
+                        <strong>Deskripsi Pekerjaan : </strong>
+                        <textarea type="text" class="form-control" name="deskripsi_pekerjaan" id="deskripsi_pekerjaan" rows="5"
+                            placeholder="Masukkan Deskripsi Pekerjaan" value="{{ old('deskripsi_pekerjaan') }}"
+                            required></textarea>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>No Telepon: </strong>
-                        <input type="text" name="no_hp" class="form-control" placeholder="Masukkan No Telp"
-                            value="{{ old('no_hp') }}" required>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>Deskripsi: </strong>
-                        <textarea type="text" class="form-control" name="deskripsi_perusahaan" id="address" rows="5"
-                            placeholder="Masukkan Deskripsi Perusahaan" value="{{ old('deskripsi_perusahaan') }}"
+                        <strong>Gambaran Perusahaan : </strong>
+                        <textarea type="text" class="form-control" name="gambaran_perusahaan" id="gambaran_perusahaan" rows="5"
+                            placeholder="Masukkan Gambaran Perusahaan" value="{{ old('gambaran_perusahaan') }}"
                             required></textarea>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12 mt-3">
-                    <strong>SOP : </strong>
-                    <div class="custom-file">
-                        <input name="sop" type="file" class="custom-file-input" id="sop" accept=".pdf,.docx">
-                        <label class="custom-file-label" for="sop">Choose file</label>
+                    <div class="form-group" id="kualifikasiAddArea">
+                        <label for="kualifikasi">Kualifikasi :</label>
+                        <input type="hidden" name="kualifikasi" id="kualifikasi_add">
+                        <div class="area">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="kualifikasi_0" oninput="addKuaStore(this)">
+                                <button type="button" onclick="moreKuaStore()" id="moreKuaStoreBtn" class="btn btn-secondary ml-2"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 mt-3">
-                    <strong>Surat Domisili : </strong>
-                    <div class="custom-file">
-                        <input name="surat_domisili" type="file" class="custom-file-input" id="surat_domisili"
-                            accept=".pdf,.docx">
-                        <label class="custom-file-label" for="surat_domisili">Choose file</label>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 mt-3">
-                    <strong>NPWP : </strong>
-                    <div class="custom-file">
-                        <input name="npwp" type="file" class="custom-file-input" id="npwp" accept=".pdf,.docx">
-                        <label class="custom-file-label" for="npwp">Choose file</label>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 mt-3">
-                    <strong>Logo : </strong>
-                    <div class="custom-file">
-                        <input name="logo_perusahaan" type="file" class="custom-file-input" id="logo" accept="image/*">
-                        <label class="custom-file-label" for="logo">Choose file</label>
+                    <div class="form-group" id="skillAddArea">
+                        <label for="skill">Skill :</label>
+                        <input type="hidden" name="skill" id="skill_add">
+                        <div class="area">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="skill_0" oninput="addSkillStore(this)">
+                                <button type="button" id="moreSkillStoreBtn" class="btn btn-secondary ml-2" onclick="moreSkillStore()"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12 mt-3 text-right">
@@ -139,7 +134,79 @@ Perusahaan - Buat Lowongan
 </div>
 @endsection
 @section('pagejs')
+<script src="{{ asset('js/base.js') }}"></script>
 <script>
+
+let state = {
+        edit: {
+            skill: [],
+            kualifikasi: []
+        },
+        store: {
+            skill: [],
+            kualifikasi: []
+        }
+    }
+
+    const addKuaStore = dom => {
+        let index = dom.getAttribute('id').split('_')[1]
+        let value = dom.value
+        state['store']['kualifikasi'][index] = value
+        select("#kualifikasi_add").value = JSON.stringify(state['store']['kualifikasi'])
+
+        if (index == 0) {
+            let buttonVisibility = value != "" ? "block" : "none"
+            select("button#moreKuaStoreBtn").style.display = buttonVisibility
+        }
+    }
+    const addSkillStore = dom => {
+        let index = dom.getAttribute('id').split('_')[1]
+        let value = dom.value
+        state['store']['skill'][index] = value
+        select("#skill_add").value = JSON.stringify(state['store']['skill'])
+
+        if (index == 0) {
+            let buttonVisibility = value != "" ? "block" : "none"
+            select("button#moreSkillStoreBtn").style.display = buttonVisibility
+        }
+    }
+    const moreKuaStore = () => {
+        let index = state['store']['kualifikasi'].length
+        createElement({
+            el: 'div',
+            attributes: [
+                ['class', 'input-group mt-3'],
+                ['id', `store_req${index}`]
+            ],
+            html: `<input type="text" class="form-control" id="kualifikasi_${index}" oninput="addKuaStore(this)">
+<span class="btn btn-danger ml-1 text-white transparent" aria-hidden="true" onclick="removeKuaStore(${index})"><i class="fas fa-times"></i></span>`,
+            createTo: '#kualifikasiAddArea .area'
+        })
+    }
+    const moreSkillStore = () => {
+        let index = state['store']['skill'].length
+        createElement({
+            el: 'div',
+            attributes: [
+                ['class', 'input-group mt-3'],
+                ['id', `store_skill${index}`]
+            ],
+            html: `<input type="text" class="form-control" id="skill_${index}" oninput="addSkillStore(this)">
+<span class="btn btn-danger ml-1 text-white transparent" aria-hidden="true" onclick="removeSkillStore(${index})"><i class="fas fa-times"></i></span>`,
+            createTo: '#skillAddArea .area'
+        })
+    }
+    const removeKuaStore = i => {
+        select(`#store_req${i}`).remove()
+        state['store']['kualifikasi'].splice(i, 1)
+        select("#kualifikasi_add").value = JSON.stringify(state['store']['kualifikasi'])
+    }
+    const removeSkillStore = i => {
+        select(`#store_skill${i}`).remove()
+        state['store']['skill'].splice(i, 1)
+        select("#skill_add").value = JSON.stringify(state['store']['skill'])
+    }
+
     $(document).ready(function () {
         $(".custom-file-input").on("change", function () {
             var fileName = $(this).val().split("\\").pop();
@@ -159,6 +226,53 @@ Perusahaan - Buat Lowongan
             var kota = $(this).val();
             console.log(kota);
         })
+
+        $(document).on('click', '.date', function(){
+                $(this).datepicker({
+                    changeMonth: true,
+                    changeYear: true,
+                    format: 'yyyy-mm-dd',
+                    todayHighlight: true
+                }).focus();
+            });
+
+        $("#tanggaldibuka").on('changeDate', function(selected) {
+            var startDate = new Date(selected.date.valueOf());
+            $("#tanggalditutup").datepicker({
+                    changeMonth: true,
+                    changeYear: true,
+                    format: 'yyyy-mm-dd',
+                    todayHighlight: true,
+                    setStartDate: startDate
+            });
+            $("#tanggalditutup").datepicker('setStartDate', startDate);
+            if($("#tanggaldibuka").val() > $("#tanggalditutup").val()){
+                $("#tanggalditutup").val($("#tanggaldibuka").val());
+            }
+        });
+
+        var rupiah = document.getElementById('rupiah');
+		rupiah.addEventListener('keyup', function(e){
+			rupiah.value = formatRupiah(this.value, 'Rp. ');
+		});
+
+		function formatRupiah(angka, prefix){
+			var number_string = angka.replace(/[^,\d]/g, '').toString(),
+			split   		= number_string.split(','),
+			sisa     		= split[0].length % 3,
+			rupiah     		= split[0].substr(0, sisa),
+			ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
+
+			if(ribuan){
+				separator = sisa ? '.' : '';
+				rupiah += separator + ribuan.join('.');
+			}
+
+			rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+			return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+		}
     });
+
+
 </script>
 @endsection

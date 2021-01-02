@@ -25,6 +25,8 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
+                @include('layouts.back-end._flash-message')
+
                 @yield('content')
 
                 </div>

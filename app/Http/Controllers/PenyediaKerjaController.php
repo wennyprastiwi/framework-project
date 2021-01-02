@@ -116,7 +116,7 @@ class PenyediaKerjaController extends Controller
                     'alamat_web' => $request->alamat_web,
                     'deskripsi_perusahaan' => $request->deskripsi_perusahaan,
                     'logo_perusahaan' => $logoFileName,
-                    'status_perusahaan' => 0
+                    'status_perusahaan' => 1
                 ]);
 
                 $kontak = Kontak::create([

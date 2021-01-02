@@ -10,11 +10,8 @@ class Lowongan extends Model
     use HasFactory;
     protected $table = 'lowongan';
     protected $fillable = [
-        'id',
+        'id_penyedia_kerja',
         'nama_pekerjaan',
-        'jenis_pekerjaan',
-        'id_lokasi',
-        'id_kontak',
         'gaji',
         'tanggal_dibuka',
         'tanggal_ditutup',
@@ -27,5 +24,15 @@ class Lowongan extends Model
     public function kategoriLoker()
     {
     	return $this->belongsToMany('App\Models\KategoriPekerjaan');
+    }
+
+    public function lokasiLoker()
+    {
+    	return $this->belongsToMany('App\Models\LokasiLowongan');
+    }
+
+    public function perusahaan()
+    {
+        return $this->belongsTo('App\Models\PenyediaKerja', 'id_penyedia_kerja');
     }
 }

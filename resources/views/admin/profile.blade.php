@@ -31,7 +31,7 @@ Profile
                     <img class="mr-3" src="{{ asset('sb-admin/img/undraw_profile.svg') }}"
                         alt="Generic placeholder image">
                     <div class="media-body">
-                        <h5 class="mt-0">{{ $admin->nama_user }}</h5>
+                        <h5 class="mt-0">{{ $admin->username }}</h5>
                         <div class="row no-gutters">
                             <div class="col">Email: {{ $admin->email_user }}</div>
                         </div>

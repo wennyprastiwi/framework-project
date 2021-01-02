@@ -50,8 +50,15 @@ Route::prefix('perusahaan')->group(function () {
     Route::post('update', 'PerusahaanController@update')->name('perusahaan.update');
 
     Route::get('lowongan', 'PerusahaanController@lowongan')->name('perusahaan.lowongan');
-    Route::get('lowongan/create', 'PerusahaanController@LowonganCreate')->name('perusahaan.lowongan.create');
-    Route::get('lowongan/view/{id}', 'PerusahaanController@lowonganView')->name('perusahaan.lowongan.view');
+    Route::get('lowongan/create', 'PerusahaanController@lowonganCreate')->name('perusahaan.lowongan.create');
+    Route::get('lowongan/{id}/edit', 'PerusahaanController@lowonganEdit')->name('perusahaan.lowongan.edit');
+    Route::get('lowongan/{id}/view', 'PerusahaanController@lowonganShow')->name('perusahaan.lowongan.show');
+
+    Route::post('lowongan/store', 'PerusahaanController@lowonganStore')->name('perusahaan.lowongan.store');
+    Route::post('lowongan/update', 'PerusahaanController@lowonganUpdate')->name('perusahaan.lowongan.update');
+
+    Route::delete('lowongan/{id}/delete', 'PerusahaanController@lowonganDelete')->name('perusahaan.lowongan.delete');
+
 });
 
 Route::group(['prefix' => 'admin'], function() {
@@ -117,8 +124,6 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('create', 'LowonganController@create')->name('lowongan.create');
         Route::get('{id}/show', 'LowonganController@show')->name('lowongan.show');
         Route::get('{id}/edit', 'LowonganController@edit')->name('lowongan.edit');
-        Route::get('{id}/accepted', 'LowonganController@accepted')->name('lowongan.accepted');
-        Route::get('{id}/decline', 'LowonganController@decline')->name('lowongan.decline');
 
         Route::post('store', 'LowonganController@store')->name('lowongan.store');
         Route::post('update', 'LowonganController@update')->name('lowongan.update');

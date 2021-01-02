@@ -16,68 +16,54 @@ Master Lowongan
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Data Lowongan</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Data Penyedia kerja</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
+                                    <thead aria-rowspan="2">
                                         <tr>
                                             <th>No</th>
-                                            <th>Nama Perusahaan</th>
                                             <th>Nama Pekerjaan</th>
+                                            <th>Tanggal Dibuka</th>
+                                            <th>Tanggal Ditutup</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {{-- @foreach ($lowongan as $lw)
+                                        @foreach ($lowongan as $loker)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $lw->nama_perusahaan }}</td>
-                                            <td>{{ $lw->kontak->email }}</td>
-                                            <td>@if($lw->status_perusahaan == 1)
-                                                Diterima
-                                                @elseif ($lw->status_perusahaan == 2)
-                                                Ditolak
-                                                @else
-                                                Menunggu
-                                                @endif
-                                            </td>
+                                            <td>{{ $loker->nama_pekerjaan }}</td>
+                                            <td>{{ $loker->tanggal_dibuka }}</td>
+                                            <td>{{ $loker->tanggal_ditutup }}</td>
                                             <td>
-                                                <form action="{{ route('lowongan.delete',$lw->id) }}" method="POST">
-                                                <a href="{{ route('lowongan.show',$lw->id) }}" class="btn btn-info btn-icon-split">
-                                                    <span class="icon text-white-50">
-                                                        <i class="fas fa-eye"></i>
-                                                    </span>
-                                                </a>
-                                                <a href="{{ route('lowongan.edit',$lw->id) }}" class="btn btn-secondary btn-icon-split">
-                                                    <span class="icon text-white-50">
-                                                        <i class="far fa-edit"></i>
-                                                    </span>
-                                                </a>
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-icon-split" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
-                                                    <span class="icon text-white-50">
-                                                        <i class="fas fa-trash"></i>
-                                                    </span>
-                                                </button>
-                                                @if ($lw->status_penyedia == 0)
-                                                <a href="{{ route('lowongan.accepted',$lw->id) }}" class="btn btn-warning btn-icon-split" data-toggle="tooltip" title="Klik untuk menerima">
-                                                    <span class="icon text-white-50">
-                                                        <i class="fas fa-check"></i>
-                                                    </span>
-                                                </a>
-                                                <a href="{{ route('lowongan.decline',$lw->id) }}" class="btn btn-danger btn-icon-split" data-toggle="tooltip" title="Klik untuk menolak">
-                                                    <span class="icon text-white-50">
-                                                        <i class="fa fa-ban"></i>
-                                                    </span>
-                                                </a>
-                                                @endif
+                                                <form action="{{ route('lowongan.delete', $loker->id) }}" method="POST">
+                                                    <a href="{{ route('lowongan.show', $loker->id) }}" class="btn btn-info btn-icon-split">
+                                                        <span class="icon text-white-50">
+                                                            <i class="fas fa-eye"></i>
+                                                        </span>
+                                                    </a>
+                                                    <a href="{{ route('lowongan.edit', $loker->id) }}"
+                                                        class="btn btn-secondary btn-icon-split">
+                                                        <span class="icon text-white-50">
+                                                            <i class="far fa-edit"></i>
+                                                        </span>
+                                                    </a>
+
+                                                    @csrf
+                                                    @method('DELETE')
+
+                                                    <button type="submit" class="btn btn-danger btn-icon-split"
+                                                        onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                                        <span class="icon text-white-50">
+                                                            <i class="fas fa-trash"></i>
+                                                        </span>
+                                                    </button>
                                                 </form>
                                             </td>
                                         </tr>
-                                        @endforeach --}}
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
