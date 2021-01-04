@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\KPController;
 use App\Http\Controllers\api\UserController;
+use App\Http\Controllers\api\LowonganController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,5 +33,6 @@ Route::post('register', [UserController::class,'register']);
 
 Route::group(['middleware' => 'auth:api'], function(){
     Route::get('user/detail', [UserController::class,'details']);
+    Route::get('lowongan', [LowonganController::class,'index']);
     Route::post('logout', [UserController::class,'logout']);
 }); 

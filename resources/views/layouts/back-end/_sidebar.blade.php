@@ -70,20 +70,6 @@
             </li>
 
             <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Kirim
-            </div>
-
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url('/admin/push-notifikasi') }}">
-                    <i class="fas fa-fw fa-paper-plane"></i>
-                    <span>Push Notifikasi</span></a>
-            </li>
-
-            <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
             <!-- Sidebar Toggler (Sidebar) -->

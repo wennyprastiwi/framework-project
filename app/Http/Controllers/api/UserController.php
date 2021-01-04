@@ -18,16 +18,16 @@ class UserController extends Controller
         $pass = request('password');
 
         $useEmail = User::where('email_user', $identity)->first();
-        $useUsername = User::where('email_user', $identity)->first();
+        $useUsername = User::where('username', $identity)->first();
         if($useUsername == NULL && $useEmail == NULL){
             return response()->json(['error'=>'Akun tidak ditemukan.'], 401);
         } else
-        if($useEmail->email_user == $identity AND Hash::check($pass, $useEmail->password)){
+        if($useEmail != NULL AND Hash::check($pass, $useEmail->password)){
             Auth::login($useEmail);
             $success['token'] =  $useEmail->createToken('nApp')->accessToken;
             return response()->json(['success' => $success], $this->successStatus);
         } else
-        if($useUsername->email_user == $identity AND Hash::check($pass, $useUsername->password)){
+        if($useUsername != NULL AND Hash::check($pass, $useUsername->password)){
             Auth::login($useUsername);
             $success['token'] =  $useUsername->createToken('nApp')->accessToken;
             return response()->json(['success' => $success], $this->successStatus);

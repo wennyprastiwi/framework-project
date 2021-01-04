@@ -25,7 +25,7 @@ class UserController extends Controller
 
     public function create()
     {
-        return view('admin.users.create')->with(['admin' => $this->getAdminData(), 'type' => $this->getType()]);
+        return view('admin.users.create')->with(['admin' => $this->getAdminData()]);
     }
 
     public function store(Request $request)

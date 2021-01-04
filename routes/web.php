@@ -69,6 +69,7 @@ Route::group(['prefix' => 'admin'], function() {
     Route::get('pencari-kerja', 'AdminController@pencariKerja')->name('admin.pencariKerja');
     Route::get('lowongan', 'AdminController@lowongan')->name('admin.lowongan');
     Route::get('about-us', 'AdminController@aboutUs')->name('admin.aboutUs');
+    Route::post('about-us-store', 'AdminController@aboutUsStore')->name('admin.aboutUsStore');
     Route::get('kontak', 'AdminController@kontak')->name('admin.kontak');
     Route::get('push-notifikasi', 'AdminController@pushNotifikasi')->name('admin.pushNotifikasi');
     Route::get('profile', 'AdminController@profile')->name('admin.profile');

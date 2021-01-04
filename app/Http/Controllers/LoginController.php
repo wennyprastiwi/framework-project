@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Notifications\UserBaru;
 
 class LoginController extends Controller
 {
@@ -48,7 +49,6 @@ class LoginController extends Controller
       $url = route('email.verify',$email_user);
       \Mail::to($email_user)
       ->send(new \App\Mail\VerifikasiMail($username, $url));
-
           return redirect()->route('login.login')
                           ->with('success','User berhasil dibuat. Silahkan cek email anda untuk verifikasi akun!');
     }

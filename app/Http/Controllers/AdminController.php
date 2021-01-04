@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\KategoriPekerjaan as mKP;
 use App\Models\PenyediaKerja as mPK;
 use App\Models\PencariKerja as mPencari;
+use App\Models\AboutUs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\UserController as userCtrl;
 use App\Http\Controllers\KategoriPekerjaanController as ktgPekerjaanCtrl;
 use App\Http\Controllers\PencariKerjaController as pncrKerjaCtrl;
@@ -27,14 +29,21 @@ class AdminController extends Controller
     return $admin = Auth::user();
   }
 
+  public function getNotif(){
+    return User::find($this->getAdminData()->id);
+  }
+
     public function index()
     {
+
+
       return view('admin.dashboard')
         ->with(['admin' => $this->getAdminData(),
                 'jmlUser' => User::count(),
                 'jmlKP' => mKP::count(),
                 'jmlPK' => mPK::count(),
                 'jmlPencari' => mPencari::count(),
+                'user' => $this->getNotif(),
                 ]);
     }
 
@@ -65,7 +74,34 @@ class AdminController extends Controller
 
 
     public function aboutUs() {
-		return view('admin.about-us')->with(['admin' => $this->getAdminData()]);
+      $about = AboutUs::all()->sortByDesc('id')->first();
+      return view('admin.about-us')
+            ->with([
+              'admin' => $this->getAdminData(), 
+              'about' => $about
+              ]);
+    }
+
+    public function aboutUsStore(Request $request) {
+      $validateData = $this->validate($request, [
+        'sejarah' => 'required',
+        'visi' => 'required',
+        'misi' => 'required',
+        'kontak' => 'required',
+      ]);
+      $sejarah = $request->sejarah;
+      $visi = $request->visi;
+      $misi = $request->misi;
+      $kontak = $request->kontak;
+
+      $saveData = AboutUs::create([
+              'sejarah' => $sejarah,
+              'visi' => $visi,
+              'misi' => $misi,
+              'kontak' => $kontak,
+          ]);
+      $about = AboutUs::all()->sortByDesc('id')->first();
+      return view('admin.about-us')->with(['admin' => $this->getAdminData(), 'about' => $about]);
     }
 
     public function pushNotifikasi() {
