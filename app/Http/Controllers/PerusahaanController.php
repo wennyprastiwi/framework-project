@@ -400,7 +400,7 @@ class PerusahaanController extends Controller
 
                     DB::commit();
 
-                    return redirect()->route('lowongan')
+                    return redirect()->route('perusahaan.lowongan')
                         ->with('success', 'Lowongan created successfully.');
                 } else {
                     DB::rollback();

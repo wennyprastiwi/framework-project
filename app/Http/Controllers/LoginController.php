@@ -80,7 +80,7 @@ class LoginController extends Controller
               return redirect('perusahaan');
             }
             elseif ($useEmail->type == 1 && $useEmail->status == 1 ){
-              return redirect('landing-page');
+              return redirect('/');
             }else {
               Auth::logout();
               $request->session()->invalidate();
@@ -99,7 +99,7 @@ class LoginController extends Controller
               return redirect('perusahaan');
             }
             elseif ($useUsername->type == 1 && $useUsername->status == 1) {
-              return redirect('landing-page');
+              return redirect('/');
             }else {
               Auth::logout();
               $request->session()->invalidate();
