@@ -65,3 +65,12 @@ Lakukan langkah clone dulu. (WAJIB)
 	2. Migrate DB dengan cara ketik "php artisan migrate" dan tekan enter
 	3. Jalankan seed untuk agama dengan ketik "php artisan db:seed" dan tekan enter
 	4. Jalankan seed untuk lokasi indonesia dengan ketik "php artisan laravolt:indonesia:seed" dan enter
+
+-------------------------------------------------------------------------------------------
+
+
+
+
+
+----------------------- Langkah-langkah Awal Menjalankan Api  ------------------------------
+	1. php artisan passport::install

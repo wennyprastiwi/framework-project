@@ -17,8 +17,10 @@ use App\Models\Lokasi;
 use App\Models\LokasiLowongan;
 use App\Models\Lowongan;
 use App\Models\Provinsi;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use App\Notifications\PerusahaanBaru;
 
 class PerusahaanController extends Controller
 {
@@ -173,6 +175,12 @@ class PerusahaanController extends Controller
                 $surat->storeAs('public/surat', $suratFileName);
 
                 DB::commit();
+                //notif perusahaanbaru
+                $author = User::where('id', $pk->id_user)->first();
+                $users = User::all()->where('type',99);
+                foreach ($users as $user) {
+                    $user->notify(new PerusahaanBaru($pk,$author));
+                }
 
                 return redirect()->route('perusahaan.data')
                     ->with('success', 'Data Perusahaan created successfully.');

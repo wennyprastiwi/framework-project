@@ -87,4 +87,8 @@
     </div>
 </div>
 
+@foreach ($user->unreadNotifications as $notification)
+    {{ $notification }}
+@endforeach
+
 @endsection
