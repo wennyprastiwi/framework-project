@@ -325,8 +325,8 @@ class PerusahaanController extends Controller
     {
       $user = $this->getUserData();
       $perusahaan = PenyediaKerja::where('id_user', $user->id)->first();
-      $lowongan = Lowongan::all()->where('id_penyedia_kerja', $perusahaan->id);
       if(!empty($perusahaan)) {
+        $lowongan = Lowongan::all()->where('id_penyedia_kerja', $perusahaan->id);
         if ($perusahaan->status_perusahaan == 0) {
             return redirect()->route('perusahaan.data')->with(['error' => 'Perusahaan anda belum disetujui!']);
           }else {

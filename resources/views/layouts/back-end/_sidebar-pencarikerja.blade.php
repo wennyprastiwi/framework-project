@@ -41,6 +41,13 @@
                     <span>Lamaran</span></a>
             </li>
 
+             <!-- Nav Item - Jenis Pekerhaan -->
+             <li class="nav-item">
+                <a class="nav-link" href="{{ url('job-list') }}">
+                    <i class="fas fa-fw fa-search"></i>
+                    <span>Cari Kerja</span></a>
+            </li>
+
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 

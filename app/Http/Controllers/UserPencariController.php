@@ -85,11 +85,12 @@ class UserPencariController extends Controller
         $loker_id = $request->id;
         $biodata = PencariKerja::where('id_user', $user->id)->where('status_pencari', 1)->first();
 
-        $lamaran = Lamaran::where('id_pencari_kerja', $biodata->id)->first();
 
 
-        if (empty($lamaran)) {
-            if (!empty($biodata)) {
+
+        if (!empty($biodata)) {
+            $lamaran = Lamaran::where('id_pencari_kerja', $biodata->id)->first();
+            if (empty($lamaran)) {
                 Lamaran::create([
                     'id_lowongan' => $loker_id,
                     'id_pencari_kerja' => $biodata->id,
@@ -99,11 +100,11 @@ class UserPencariController extends Controller
                 return view('job-successApply');
             } else {
                 return redirect()->route('jobdetail', $loker_id)
-                    ->withErrors(["Apply Failed , Biodata Not Found or User not Accepted."]);
+                    ->withErrors(["Apply Failed , Lamaran Founded."]);
             }
         } else {
             return redirect()->route('jobdetail', $loker_id)
-                ->withErrors(["Apply Failed , Lamaran Founded."]);
+                ->withErrors(["Apply Failed , Biodata Not Found or User not Accepted."]);
         }
     }
 
@@ -117,10 +118,11 @@ class UserPencariController extends Controller
     {
 
         $pencari = PencariKerja::where('id_user', Auth::user()->id)->first();
-        $agama = Agama::where('id', $pencari->agama)->first();
         if ($pencari == NULL) {
             return redirect()->route('pencari.add');
         } else {
+            $agama = Agama::where('id', $pencari->agama)->first();
+
             return view('pencari.pencari')->with([
                 'data' => $this->getUserData(),
                 'pencari' => $pencari,
@@ -267,7 +269,7 @@ class UserPencariController extends Controller
                 DB::commit();
 
                 return redirect()->route('pencari.data')
-                    ->with('success', 'Penyedia Kerja created successfully.');
+                    ->with('success', 'Pencari Kerja created successfully.');
             } else {
                 DB::rollback();
                 return redirect()->back()->withErrors(['error' => "Role user tidak diizikan"]);
@@ -415,7 +417,7 @@ class UserPencariController extends Controller
 
                 DB::commit();
                 return redirect()->route('pencari.data')
-                    ->with('success', 'Penyedia Kerja updated successfully.');
+                    ->with('success', 'Pencari Kerja updated successfully.');
             } else {
                 DB::rollback();
                 return redirect()->back()->withErrors(['error' => "Role user tidak diizikan"]);

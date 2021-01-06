@@ -11,68 +11,65 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    public $successStatus = 200;
 
-    public function login(){
-        $identity = request('identity');
-        $pass = request('password');
-
-        $useEmail = User::where('email_user', $identity)->first();
-        $useUsername = User::where('username', $identity)->first();
-        if($useUsername == NULL && $useEmail == NULL){
-            return response()->json(['error'=>'Akun tidak ditemukan.'], 401);
-        } else
-        if($useEmail != NULL AND Hash::check($pass, $useEmail->password)){
-            Auth::login($useEmail);
-            $success['token'] =  $useEmail->createToken('nApp')->accessToken;
-            return response()->json(['success' => $success], $this->successStatus);
-        } else
-        if($useUsername != NULL AND Hash::check($pass, $useUsername->password)){
-            Auth::login($useUsername);
-            $success['token'] =  $useUsername->createToken('nApp')->accessToken;
-            return response()->json(['success' => $success], $this->successStatus);
-        } else {                    
-            return response()->json(['error'=>'Unauthorised'], 401);
-        }
-    }
-
-    public function register(Request $request)
+    public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nama_user' => 'required',
-            'username' => 'required|unique:users',
-            'email_user' => 'required|email|unique:users',
+            'email_user' => 'required|email',
             'password' => 'required',
-            'repassword' => 'required|same:password',
-            'type' => 'required',
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['error'=>$validator->errors()], 401);            
+            return response()->json(['error'=>$validator->errors()], 401);
         }
 
-        $input = $request->all();
-        $input['password'] = Hash::make($input['password']);
-        $user = User::create($input);
-        $success['token'] =  $user->createToken('nApp')->accessToken;
-        $success['nama_user'] =  $user->name;
+        $emailCredetials = request(['email_user', 'password']);
 
-        return response()->json(['success'=>$success], $this->successStatus);
+        if (!Auth::attempt($emailCredetials)) {
+            return response()->json([
+              'status_code' => 500,
+              'message' => 'Unauthorized'
+            ]);
+        }
+
+        $user = User::where('email_user', $request->email_user)->first();
+        if ( ! Hash::check($request->password, $user->password, [])) {
+            throw new \Exception('Error in Login');
+        }
+
+        $tokenResult = $user->createToken('authToken')->plainTextToken;
+
+            return response()->json([
+                'status_code' => 200,
+                'access_token' => $tokenResult,
+            ]);
+
     }
 
     public function logout(Request $request)
     {
-        $logout = $request->user()->token()->revoke();
-        if($logout){
+        $user = Auth::user();
+        if(!empty($user)) {
+            $request->user()->currentAccessToken()->delete();
             return response()->json([
-                'message' => 'Successfully logged out'
+                'status_code' => 200,
+                'message' => 'Logout Successfully',
+            ]);
+        } else {
+            return response()->json([
+                'status_code' => 400,
+                'message' => 'User Not Found',
             ]);
         }
+
     }
 
     public function details()
     {
         $user = Auth::user();
-        return response()->json(['success' => $user], $this->successStatus);
+        return response()->json([
+            'success' => $user,
+            'status_code' => 200,
+        ]);
     }
 }

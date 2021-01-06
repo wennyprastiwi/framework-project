@@ -20,19 +20,15 @@ use App\Http\Controllers\api\LowonganController;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::group(['prefix' => 'kp'], function() {
-    Route::get('', [KPController::class, 'index']);
-    Route::post('create', [KPController::class, 'create']);
-    Route::get('show/{id}', [KPController::class, 'show']);
-    Route::post('edit',[KPController::class, 'edit']);
-    Route::delete('{id}', [KPController::class, 'destroy']);
-});
 
 Route::post('login', [UserController::class,'login']);
-Route::post('register', [UserController::class,'register']);
 
-Route::group(['middleware' => 'auth:api'], function(){
+Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get('user/detail', [UserController::class,'details']);
     Route::get('lowongan', [LowonganController::class,'index']);
+    Route::get('lowongan/{id}/detail', [LowonganController::class,'detail']);
+
+    Route::post('lowongan/apply', [LowonganController::class,'apply']);
+
     Route::post('logout', [UserController::class,'logout']);
-}); 
+});
