@@ -75,13 +75,7 @@ Web Karir
                             @endforeach
                         </ul>
                         <div class="pagination-bx m-t30">
-                            <ul class="pagination">
-                                <li class="previous"><a href="#"><i class="ti-arrow-left"></i> Prev</a></li>
-                                <li class="active"><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li class="next"><a href="#">Next <i class="ti-arrow-right"></i></a></li>
-                            </ul>
+                            {{ $lowongan->links() }}
                         </div>
                     </div>
                     <div class="col-xl-3 col-lg-4">

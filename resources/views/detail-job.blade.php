@@ -6,9 +6,15 @@ Web Karir
 
 @section('content')
 
+@if ($errors->count() != 0)
+    <script>
+        $("#applyBtn").click();
+    </script>
+@endif
+
 <div class="page-content bg-white">
     <!-- inner page banner -->
-    <div class="dez-bnr-inr overlay-black-middle" style="background-image:url(images/banner/bnr1.jpg);">
+    <div class="dez-bnr-inr overlay-black-middle" style="background-image:url('/frontend/images/banner/bnr1.jpg');">
         <div class="container">
             <div class="dez-bnr-inr-entry">
                 <h1 class="text-white">Job Detail</h1>
@@ -35,16 +41,21 @@ Web Karir
                             <div class="row">
                                 <div class="col-lg-12 col-md-6">
                                     <div class="m-b30">
-                                        <img src="images/blog/grid/pic1.jpg" alt="">
+                                        <img src="{{ URL::asset('storage/logo_perusahaan/'.$loker->logo_perusahaan) }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-md-6">
                                     <div class="widget bg-white p-lr20 p-t20  widget_getintuch radius-sm">
                                         <h4 class="text-black font-weight-700 p-t10 m-b15">Job Details</h4>
                                         <ul>
-                                            <li><i class="ti-location-pin"></i><strong class="font-weight-700 text-black">Address</strong><span class="text-black-light"> Demo Address #8901 Marmora Road Chi Minh City, Vietnam </span></li>
-                                            <li><i class="ti-money"></i><strong class="font-weight-700 text-black">Salary</strong> $800 Monthy</li>
-                                            <li><i class="ti-shield"></i><strong class="font-weight-700 text-black">Experience</strong>6 Year Experience</li>
+                                            <li><i class="ti-location-pin"></i><strong class="font-weight-700 text-black">Penempatan</strong><span class="text-black-light">
+                                                @foreach ($lokasi as $lok)
+                                                    {{ $loop->first ? '' : ', ' }}
+                                                    {{ $lok->kota->name }}
+                                                @endforeach
+                                                </span>
+                                            </li>
+                                            <li><i class="ti-money"></i><strong class="font-weight-700 text-black">Salary</strong> {{ 'Rp. '. number_format($loker->gaji,0, ".", ".") }}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -54,133 +65,86 @@ Web Karir
                     <div class="col-lg-8">
                         <div class="job-info-box">
                             <h3 class="m-t0 m-b10 font-weight-700 title-head">
-                                <a href="#" class="text-secondry m-r30">Digital Marketing Executive</a>
+                                <a href="#" class="text-secondry m-r30">{{ $loker->nama_pekerjaan }}</a>
                             </h3>
                             <ul class="job-info">
-                                <li><strong>Education</strong> Web Designer</li>
-                                <li><strong>Deadline:</strong> 25th January 2018</li>
-                                <li><i class="ti-location-pin text-black m-r5"></i> NewYark </li>
-                            </ul>
-                            <p class="p-t20">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                                <li><strong>
+                                    @foreach ($kategori as $kat)
+                                        {{ $loop->first ? '' : ', ' }}
+                                        {{ $kat->kategori->nama_kategori_pekerjaan }}
+                                    @endforeach
+                                </strong></li>
+                                <li><strong>Deadline:</strong> {{ $loker->tanggal_ditutup }}</li>
+                                <li><i class="ti-location-pin text-black m-r5"></i>
+                                    @foreach ($lokasi as $lok)
+                                        {{ $loop->first ? '' : ', ' }}
+                                        {{ $lok->kota->name }}
+                                    @endforeach
+                                </li>
+                            </ul><br>
                             <h5 class="font-weight-600">Job Description</h5>
                             <div class="dez-divider divider-2px bg-gray-dark mb-4 mt-0"></div>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                            <h5 class="font-weight-600">How to Apply</h5>
+                            <p>{{ $loker->deskripsi_pekerjaan }}</p>
+                            <h5 class="font-weight-600">Gambaran Perusahaan</h5>
                             <div class="dez-divider divider-2px bg-gray-dark mb-4 mt-0"></div>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages.</p>
+                            <p>{{ $loker->gambaran_perusahaan }}</p>
                             <h5 class="font-weight-600">Job Requirements</h5>
                             <div class="dez-divider divider-2px bg-gray-dark mb-4 mt-0"></div>
                             <ul class="list-num-count no-round">
-                                <li>The DexignLab Privacy Policy was updated on 25 June 2018.</li>
-                                <li>Who We Are and What This Policy Covers</li>
-                                <li>Remaining essentially unchanged It was popularised in the 1960s </li>
-                                <li>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</li>
-                                <li>DexignLab standard dummy text ever since</li>
+                                    @foreach (json_decode($loker->kualifikasi) as $kua)
+                                        {{ $loop->first ? '' : ' ' }}
+                                        <li>{{ $kua }}</li>
+                                    @endforeach
                             </ul>
-                            <a href="#" class="site-button">Apply This Job</a>
+                            <h5 class="font-weight-600">Skill Requirements</h5>
+                            <div class="dez-divider divider-2px bg-gray-dark mb-4 mt-0"></div>
+                            <ul class="list-num-count no-round">
+                                    @foreach (json_decode($loker->keahlian_dibutuhkan) as $skill)
+                                        {{ $loop->first ? '' : ' ' }}
+                                        <li>{{ $skill }}</li>
+                                    @endforeach
+                            </ul>
+                            @if (!empty($user))
+                                @if ($user->type == 1)
+                                    <button type="button" class="site-button" data-toggle="modal" data-target="#modalApply" id="applyBtn">Apply This Job</button>
+                                @endif
+                            @else
+                             <a href="{{ route('login.login') }}" class="site-button">Login For Apply</a>
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Job Detail -->
-        <!-- Our Jobs -->
+        <div class="modal fade" id="modalApply" role="dialog">
+            <div class="modal-dialog modal-md" role="document">
+                <form action="{{ route('applyjob') }}" method="POST" enctype="multipart/form-data" class="modal-content">
+                    {{ csrf_field() }}
+                    {{ $errors }}
+                    <div class="modal-header">
+                        <h5 class="modal-title float-left" id="scrollmodalLabel">Apply Form</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="hidden" name="id" value="{{ $loker->id }}">
+                            <div class="form-group">
+                                <label for="alasan">Alasan : </label>
+                                <textarea name="alasan" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <button class="btn btn-success">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
         <div class="section-full content-inner">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-3 col-lg-6 col-md-6">
-                        <div class="m-b30 blog-grid">
-                            <div class="dez-post-media dez-img-effect "> <a href="#"><img src="images/blog/grid/pic1.jpg" alt=""></a> </div>
-                            <div class="dez-info p-a20 border-1">
-                                <div class="dez-post-title ">
-                                    <h5 class="post-title"><a href="#">Title of blog post</a></h5>
-                                </div>
-                                <div class="dez-post-meta ">
-                                    <ul>
-                                        <li class="post-date"> <i class="ti-location-pin"></i> London </li>
-                                        <li class="post-author"><i class="ti-user"></i>By <a href="#">Jone</a> </li>
-                                    </ul>
-                                </div>
-                                <div class="dez-post-text">
-                                     <p>All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks.</p>
-                                </div>
-                               <div class="dez-post-readmore">
-                                    <a href="#" class="site-button outline">Apply Now <i class="ti-arrow-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-6 col-md-6">
-                        <div class="m-b30 blog-grid">
-                            <div class="dez-post-media dez-img-effect "> <a href="#"><img src="images/blog/grid/pic2.jpg" alt=""></a> </div>
-                            <div class="dez-info p-a20 border-1">
-                                <div class="dez-post-title ">
-                                    <h5 class="post-title"><a href="#">Title of blog post</a></h5>
-                                </div>
-                                <div class="dez-post-meta ">
-                                    <ul>
-                                        <li class="post-date"> <i class="ti-location-pin"></i> London </li>
-                                        <li class="post-author"><i class="ti-user"></i>By <a href="#">Jone</a> </li>
-                                    </ul>
-                                </div>
-                                <div class="dez-post-text">
-                                     <p>All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks.</p>
-                                </div>
-                               <div class="dez-post-readmore">
-                                    <a href="#" class="site-button outline">Apply Now <i class="ti-arrow-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-6 col-md-6">
-                        <div class="m-b30 blog-grid">
-                            <div class="dez-post-media dez-img-effect "> <a href="#"><img src="images/blog/grid/pic3.jpg" alt=""></a> </div>
-                            <div class="dez-info p-a20 border-1">
-                                <div class="dez-post-title ">
-                                    <h5 class="post-title"><a href="#">Title of blog post</a></h5>
-                                </div>
-                                <div class="dez-post-meta ">
-                                    <ul>
-                                        <li class="post-date"> <i class="ti-location-pin"></i> London </li>
-                                        <li class="post-author"><i class="ti-user"></i>By <a href="#">Jone</a> </li>
-                                    </ul>
-                                </div>
-                                <div class="dez-post-text">
-                                     <p>All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks.</p>
-                                </div>
-                               <div class="dez-post-readmore">
-                                    <a href="#" class="site-button outline">Apply Now <i class="ti-arrow-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-6 col-md-6">
-                        <div class="m-b30 blog-grid">
-                            <div class="dez-post-media dez-img-effect "> <a href="#"><img src="images/blog/grid/pic4.jpg" alt=""></a> </div>
-                            <div class="dez-info p-a20 border-1">
-                                <div class="dez-post-title ">
-                                    <h5 class="post-title"><a href="#">Title of blog post</a></h5>
-                                </div>
-                                <div class="dez-post-meta ">
-                                    <ul>
-                                        <li class="post-date"> <i class="ti-location-pin"></i> London </li>
-                                        <li class="post-author"><i class="ti-user"></i>By <a href="#">Jone</a> </li>
-                                    </ul>
-                                </div>
-                                <div class="dez-post-text">
-                                     <p>All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks.</p>
-                                </div>
-                               <div class="dez-post-readmore">
-                                    <a href="#" class="site-button outline">Apply Now <i class="ti-arrow-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
-        <!-- Our Jobs END -->
     </div>
 </div>
-
 @endsection

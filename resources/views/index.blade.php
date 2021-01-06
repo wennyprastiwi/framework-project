@@ -7,7 +7,7 @@
 @section('content')
 <div class="page-content">
     <!-- Section Banner -->
-    <div class="dez-bnr-inr dez-bnr-inr-md" style="background-image:url(frontend/images/main-slider/slide2.jpg);">
+    <div class="dez-bnr-inr dez-bnr-inr-md" style="background-image:url(/frontend/images/main-slider/slide2.jpg);">
         <div class="container">
             <div class="dez-bnr-inr-entry align-m ">
                 <div class="find-job-bx">
@@ -186,7 +186,7 @@
                     <div class="city-bx align-items-end  d-flex"
                         style="background-image:url(frontend/images/city/pic1.jpg)">
                         <div class="city-info">
-                            <h5>Iraq</h5>
+                            <h5>Surabaya</h5>
                             <span>765 Jobs</span>
                         </div>
                     </div>
@@ -195,7 +195,7 @@
                     <div class="city-bx align-items-end  d-flex"
                         style="background-image:url(frontend/images/city/pic2.jpg)">
                         <div class="city-info">
-                            <h5>Argentina</h5>
+                            <h5>Malang</h5>
                             <span>352 Jobs</span>
                         </div>
                     </div>
@@ -213,7 +213,7 @@
                     <div class="city-bx align-items-end  d-flex"
                         style="background-image:url(frontend/images/city/pic4.jpg)">
                         <div class="city-info">
-                            <h5>Gambia</h5>
+                            <h5>Jakarta</h5>
                             <span>502 Jobs</span>
                         </div>
                     </div>
@@ -222,7 +222,7 @@
                     <div class="city-bx align-items-end  d-flex"
                         style="background-image:url(frontend/images/city/pic5.jpg)">
                         <div class="city-info">
-                            <h5>India</h5>
+                            <h5>Bandung</h5>
                             <span>765 Jobs</span>
                         </div>
                     </div>
@@ -231,7 +231,7 @@
                     <div class="city-bx align-items-end  d-flex"
                         style="background-image:url(frontend/images/city/pic6.jpg)">
                         <div class="city-info">
-                            <h5>Thailand</h5>
+                            <h5>Yogyakarta</h5>
                             <span>352 Jobs</span>
                         </div>
                     </div>
@@ -240,7 +240,7 @@
                     <div class="city-bx align-items-end  d-flex"
                         style="background-image:url(frontend/images/city/pic7.jpg)">
                         <div class="city-info">
-                            <h5>Banjul</h5>
+                            <h5>Semarang</h5>
                             <span>893 Jobs</span>
                         </div>
                     </div>
@@ -249,7 +249,7 @@
                     <div class="city-bx align-items-end  d-flex"
                         style="background-image:url(frontend/images/city/pic8.jpg)">
                         <div class="city-info">
-                            <h5>Spain</h5>
+                            <h5>Makassar</h5>
                             <span>502 Jobs</span>
                         </div>
                     </div>
@@ -314,6 +314,7 @@
                     @endforeach
                     </ul>
                 </div>
+                @if (empty($user->id))
                 <div class="col-lg-3">
                     <div class="sticky-top">
                         <div class="quote-bx">
@@ -325,6 +326,19 @@
                         </div>
                     </div>
                 </div>
+                @else
+                <div class="col-lg-3">
+                    <div class="sticky-top">
+                        <div class="quote-bx">
+                            <div class="quote-info">
+                                <h4>Make a Difference with Your Online Resume!</h4>
+                                <p>Completed your resume in minutes with JobBoard!</p>
+                                <a href="#" class="site-button">Completed Resume</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endif
             </div>
         </div>
     </div>

@@ -339,7 +339,7 @@ class PencariKerjaController extends Controller
 
                 DB::commit();
                 return redirect()->route('admin.pencariKerja')
-                    ->with('success', 'Penyedia Kerja created successfully.');
+                    ->with('success', 'Penyedia Kerja updated successfully.');
             } else {
                 DB::rollback();
                 return redirect()->back()->withErrors(['error' => "Role user tidak diizikan"]);

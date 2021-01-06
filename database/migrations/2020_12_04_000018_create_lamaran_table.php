@@ -17,6 +17,7 @@ class CreateLamaranTable extends Migration
             $table->id();
             $table->foreignId('id_lowongan')->constrained('lowongan')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('id_pencari_kerja')->constrained('pencari_kerja')->onUpdate('cascade')->onDelete('cascade');
+            $table->text('alasan');
             $table->integer('status_lamaran')->unsigned();
             $table->timestamps();
         });

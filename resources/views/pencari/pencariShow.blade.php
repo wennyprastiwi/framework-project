@@ -1,22 +1,22 @@
-@extends('layouts.back-end_layout')
+@extends('layouts.pencari_layout')
 
 @section('title')
-Detail Pencari Kerja
+    Pencari Panel
 @endsection
 
 @section('content')
 
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Detail Pencari Kerja</h1>
-    <a href="{{ route('admin.pencariKerja') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+    <h1 class="h3 mb-0 text-gray-800">Detail Biodata</h1>
+    <a href="{{ route('pencari.data') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
             class="fas fa-arrow-left fa-sm text-white-50"></i> Kembali</a>
 </div>
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Data Pencari Kerja</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Data Biodata</h6>
     </div>
     <div class="card-body">
         @if ($errors->any())
@@ -42,18 +42,18 @@ Detail Pencari Kerja
                     <div class="row mt-3">
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <input type="hidden" value={{ $pencariKerja->id }} name="id">
+                                <input type="hidden" value={{ $pencari->id }} name="id">
                             </div>
                             <div class="form-group">
                                 <strong>Nama lengkap : </strong>
-                                <input type="text" value="{{ $pencariKerja->nama_lengkap }}" name="nama_lengkap"
+                                <input type="text" value="{{ $pencari->nama_lengkap }}" name="nama_lengkap"
                                     class="form-control" placeholder="Masukkan Nama lengkap" disabled>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
                                 <strong>NIK : </strong>
-                                <input value="{{ $pencariKerja->nik }}" type="text" name="nik" class="form-control"
+                                <input value="{{ $pencari->nik }}" type="text" name="nik" class="form-control"
                                     placeholder="Masukkan NIK " disabled>
                             </div>
                         </div>
@@ -63,7 +63,7 @@ Detail Pencari Kerja
                                 @foreach ($kota as $tmplhr)
                                 @php
                                 $selected = "";
-                                if ($tmplhr->name == $pencariKerja->tempat_lahir) {
+                                if ($tmplhr->name == $pencari->tempat_lahir) {
                                 $selected = "selected='selected'";
                                 }
                                 @endphp
@@ -74,7 +74,7 @@ Detail Pencari Kerja
                         <div class="col-xs-12 col-sm-12 col-md-6">
                             <div class="form-group">
                                 <strong>Tanggal lahir : </strong>
-                                <input value="{{ $pencariKerja->tanggal_lahir }}" type="text" name="tanggal_lahir"
+                                <input value="{{ $pencari->tanggal_lahir }}" type="text" name="tanggal_lahir"
                                     class="date form-control" id="tanggallahir" placeholder="Masukkan Tanggal lahir" disabled>
                             </div>
                         </div>
@@ -85,7 +85,7 @@ Detail Pencari Kerja
                                 @foreach ($agama as $agm)
                                 @php
                                 $selected = "";
-                                if ($agm->id == $pencariKerja->agama) {
+                                if ($agm->id == $pencari->agama) {
                                 $selected = "selected='selected'";
                                 }
                                 @endphp
@@ -97,16 +97,16 @@ Detail Pencari Kerja
                             <strong for="exampleFormControlSelect1">Jenis Kelamin</strong>
                             <select name="jenis_kelamin" class="form-control" id="jeniskelamin" disabled>
                                 <option value="">-- Plih Jenis Kelamin --</option>
-                                <option value="1" {{ $pencariKerja->jenis_kelamin == 1 ? 'selected' : '' }}>Laki - Laki
+                                <option value="1" {{ $pencari->jenis_kelamin == 1 ? 'selected' : '' }}>Laki - Laki
                                 </option>
-                                <option value="2" {{ $pencariKerja->jenis_kelamin == 2 ? 'selected' : '' }}>Perempuan
+                                <option value="2" {{ $pencari->jenis_kelamin == 2 ? 'selected' : '' }}>Perempuan
                                 </option>
                             </select>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
                                 <strong>Alamat : </strong>
-                                <input value="{{ $pencariKerja->lokasi->nama_lokasi }}" type="text"
+                                <input value="{{ $pencari->lokasi->nama_lokasi }}" type="text"
                                     name="alamat_pencari" class="form-control" placeholder="Masukkan Alamat Lengkap" disabled>
                             </div>
                         </div>
@@ -116,7 +116,7 @@ Detail Pencari Kerja
                                 @foreach ($provinsi as $prov)
                                 @php
                                 $selected = "";
-                                if ($prov->id == $pencariKerja->lokasi->provinsi->id) {
+                                if ($prov->id == $pencari->lokasi->provinsi->id) {
                                 $selected = "selected='selected'";
                                 }
                                 @endphp
@@ -147,19 +147,19 @@ Detail Pencari Kerja
                             <select name="status_pernikahan" class="form-control" id="statuspernikahan" disabled>
                                 <option value="">-- Plih Status Pernikahan --</option>
                                 <option value="Menikah"
-                                    {{ $pencariKerja->status_pernikahan == "Menikah" ? 'selected' : '' }}>Menikah
+                                    {{ $pencari->status_pernikahan == "Menikah" ? 'selected' : '' }}>Menikah
                                 </option>
                                 <option value="Lajang"
-                                    {{ $pencariKerja->status_pernikahan == "Lajang" ? 'selected' : '' }}>Lajang</option>
+                                    {{ $pencari->status_pernikahan == "Lajang" ? 'selected' : '' }}>Lajang</option>
                                 <option value="Cerai"
-                                    {{ $pencariKerja->status_pernikahan == "Cerai" ? 'selected' : '' }}>Cerai</option>
+                                    {{ $pencari->status_pernikahan == "Cerai" ? 'selected' : '' }}>Cerai</option>
                             </select>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12 mt-3">
                             <strong>CV : </strong><br>
-                            @if (!empty($pencariKerja->file_cv))
+                            @if (!empty($pencari->file_cv))
                             <button type="button" class="btn btn-secondary">
-                                <a class="text-white" download={{$pencariKerja->file_cv}} href="{{ Storage::url('public/cv_pencari/'.$pencariKerja->file_cv) }}">
+                                <a class="text-white" download={{$pencari->file_cv}} href="{{ Storage::url('public/cv_pencari/'.$pencari->file_cv) }}">
                                     Download NPWP
                                 </a>
                             </button>
@@ -318,7 +318,7 @@ Detail Pencari Kerja
     {
             const getKota = (provinsiID, callback) => {
             $.ajax({
-                url : "{{ route('pencariKerja.kota') }}",
+                url : "{{ route('pencari.kota') }}",
                 type : "POST",
                 data: {
                     provinsi_id: provinsiID
@@ -335,7 +335,7 @@ Detail Pencari Kerja
         }
 
         const setKota = () => {
-            let provinsiID = "{{ $pencariKerja->lokasi->id_provinsi }}";
+            let provinsiID = "{{ $pencari->lokasi->id_provinsi }}";
             getKota(provinsiID, data => {
                 console.log(data);
                 $('select[name="indonesia_cities"]').empty();
@@ -367,7 +367,7 @@ Detail Pencari Kerja
 
         const getKecamatan = (kotaID, callback) => {
             $.ajax({
-                url : "{{ route('pencariKerja.kecamatan') }}",
+                url : "{{ route('pencari.kecamatan') }}",
                 type : "POST",
                 data: {
                     kota_id: kotaID
@@ -384,7 +384,7 @@ Detail Pencari Kerja
         }
 
         const setKecamatan = () => {
-            let kotaID = "{{ $pencariKerja->lokasi->id_kota }}";
+            let kotaID = "{{ $pencari->lokasi->id_kota }}";
             getKecamatan(kotaID, data => {
                 console.log(data);
                 $('select[name="indonesia_districts"]').empty();
@@ -416,7 +416,7 @@ Detail Pencari Kerja
 
         const getKelurahan = (kecamatanID, callback) => {
             $.ajax({
-                url : "{{ route('pencariKerja.kelurahan') }}",
+                url : "{{ route('pencari.kelurahan') }}",
                 type : "POST",
                 data: {
                     kecamatan_id: kecamatanID
@@ -433,7 +433,7 @@ Detail Pencari Kerja
         }
 
         const setKelurahan = () => {
-            let kecamatanID = "{{ $pencariKerja->lokasi->id_kecamatan }}";
+            let kecamatanID = "{{ $pencari->lokasi->id_kecamatan }}";
             getKelurahan(kecamatanID, data => {
                 console.log(data);
                 $('select[name="indonesia_villages"]').empty();

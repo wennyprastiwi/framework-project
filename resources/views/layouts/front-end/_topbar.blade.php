@@ -55,16 +55,13 @@
                                 <li>
                                     <a href="#">For Candidates <i class="fa fa-chevron-down"></i></a>
                                     <ul class="sub-menu">
-                                        <li><a href="browse-job.html" class="dez-page">Browse Job</a></li>
-                                        <li><a href="companies.html" class="dez-page">companies</a></li>
+                                        <li><a href="{{ url('job-list') }}" class="dez-page">Browse Job</a></li>
+                                        <li><a href="{{ url('pencari') }}" class="dez-page">Biodata</a></li>
                                     </ul>
                                 </li>
                             @elseif($user->type == 2)
                                 <li>
-                                    <a href="#">For Company <i class="fa fa-chevron-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="browse-candidates.html" class="dez-page">Browse Candidates</a></li>
-                                    </ul>
+                                    <a href="{{ route('perusahaan.data')}}">For Company <i class="fa fa-chevron-down"></i></a>
                                 </li>
                             @endif
                         @else

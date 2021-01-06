@@ -26,4 +26,9 @@ class PencariKerja extends Model
     {
         return $this->hasOne('App\Models\LokasiPencari', 'id_pencari_kerja');
     }
+
+    public function agama()
+    {
+        return $this->belongsTo('App\Models\Agama');
+    }
 }

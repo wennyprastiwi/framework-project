@@ -13,9 +13,11 @@ use App\Models\Kecamatan;
 use App\Models\Kelurahan;
 use App\Models\Kontak;
 use App\Models\Kota;
+use App\Models\Lamaran;
 use App\Models\Lokasi;
 use App\Models\LokasiLowongan;
 use App\Models\Lowongan;
+use App\Models\PencariKerja;
 use App\Models\Provinsi;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -531,11 +533,14 @@ class PerusahaanController extends Controller
         $ktgLoker = KategoriLowongan::all()->where('id_lowongan', $lowongan->id);
         $lokasiLoker = LokasiLowongan::all()->where('id_lowongan', $lowongan->id);
 
+        $lamaran = Lamaran::all()->where('id_lowongan', $lowongan->id);
+
       return view('perusahaan.lowongan.show')->with([
         'data' => $this->getUserData(),
         'lowongan' => $lowongan,
         'lokasiLoker' => $lokasiLoker,
-        'ktgLoker' => $ktgLoker
+        'ktgLoker' => $ktgLoker,
+        'lamaran' => $lamaran
       ]);
     }
 
@@ -545,5 +550,34 @@ class PerusahaanController extends Controller
 
         return redirect()->route('perusahaan.lowongan')
             ->with('success', 'Lowongan deleted successfully');
+    }
+
+    public function lamaranDelete($id)
+    {
+        $lamaran = Lamaran::where('id', $id)->delete();
+
+        return redirect()->route('perusahaan.lowongan')
+            ->with('success', 'Lamaran deleted successfully');
+    }
+
+
+    public function lamaranAccepted($id)
+    {
+        $lamaran = Lamaran::findOrFail($id);
+        $lamaran->status_lamaran = 1;
+        $lamaran->save();
+
+        return redirect()->route('perusahaan.lowongan.show' , $lamaran->id_lowongan)
+            ->with('success', 'Lamaran accepted successfully.');
+    }
+
+    public function lamaranDecline($id)
+    {
+        $lamaran = Lamaran::findOrFail($id);
+        $lamaran->status_lamaran = 2;
+        $lamaran->save();
+
+        return redirect()->route('perusahaan.lowongan.show' , $lamaran->id_lowongan)
+            ->with('success', 'Lamaran declined successfully.');
     }
 }

@@ -213,14 +213,18 @@ let state = {
             $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
         });
 
-        $('#kategorilowongan').select2();
+        $('#kategorilowongan').select2({
+            maximumSelectionLength: 3
+        });
 
         $('#kategorilowongan').on('change', function () {
             var kategorilowongan = $(this).val();
             console.log(kategorilowongan);
         })
 
-        $('#kota').select2();
+        $('#kota').select2({
+            maximumSelectionLength: 3
+        });
 
         $('#kota').on('change', function () {
             var kota = $(this).val();
