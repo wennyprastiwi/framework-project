@@ -1,4 +1,4 @@
-@extends('layouts.back-end_layout')
+@extends('layouts.perusahaan_layout')
 
 @section('title')
     Edit Profile
@@ -9,7 +9,7 @@
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
   <h1 class="h3 mb-0 text-gray-800">Edit Profile</h1>
-  <a href="{{ route('admin.profile') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+  <a href="{{ route('perusahaan.profile') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
           class="fas fa-arrow-left fa-sm text-white-50"></i> Kembali</a>
 </div>
 
@@ -31,7 +31,7 @@
       </div>
       @endif
 
-      <form action="{{ route('admin.profile-update') }}" method="POST">
+      <form action="{{ route('perusahaan.profile-update') }}" method="POST">
           @csrf
           @method('POST')
 

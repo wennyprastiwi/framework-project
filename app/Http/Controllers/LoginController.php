@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\PenyediaKerja;
 use App\Models\PencariKerja;
+use App\Models\PasswordReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use App\Notifications\UserBaru;
 
 class LoginController extends Controller
@@ -122,6 +124,64 @@ class LoginController extends Controller
       return view('verifikasi');
     }
 
+    public function forgetPassword(){
+      return view('forget-password');
+    }
+
+    public function forgetPasswordSent(Request $request){
+      $validateData = $this->validate($request, ['email' => 'required|email']);
+      $email  = $request->email;
+      $user = User::where('email_user',$email)->first();
+      if ($user != NULL) {
+        $token = Str::random(8);
+        $saveData = PasswordReset::create([
+          'email' => $email,
+          'token' => $token,
+          'created_at' => date(now())
+        ]);
+  
+        $url = route('login.resetPassword', ['email' => $email,'token' => $token]);
+        \Mail::to($email)
+            ->send(new \App\Mail\ResetPasswordMail($email, $url));
+        return view('forget-password-sent')->with(['email'=>$email]);
+      }else {
+        return redirect('forget-password')->with('failed','Email tidak terdaftar pada sistem, silahkan buat akun!');
+      }
+    }
+
+    public function resetPassword($email, $token){
+      $dataResetPassword = PasswordReset::all()->where('email', $email)->sortByDesc('created_at')->first();
+      if($dataResetPassword == NULL){
+        return redirect('forget-password')->with('failed','Data reset password tidak terdaftar!');
+      }else 
+      if($dataResetPassword != NULL){
+        if($dataResetPassword->token == $token){
+          $user = User::where('email_user',$email)->first();
+          return view('reset-password')->with(['user'=>$user]);
+        }else{
+          return redirect('forget-password')->with('failed','Anda tidak punya akses untuk mengubah password!');
+        }
+      }else{
+        return redirect('forget-password')->with('failed','Anda tidak punya akses untuk mengubah password!');
+      }
+    }
+
+    public function changePassword(Request $request){
+      $id = $request->id;
+
+      $validateData = $this->validate($request, [
+        'password' => 'required|same:repassword',
+        'repassword' => 'required',
+      ]);
+
+      $password = $request->password;
+
+      $saveData = User::where('id', $id)
+        ->update(['password' => Hash::make($password)]);
+      return redirect()->route('login.login')
+                       ->with('success','Ubah password berhasil');
+    }
+
     public function logout(Request $request){
       Auth::logout();
 
@@ -129,6 +189,6 @@ class LoginController extends Controller
 
       $request->session()->regenerateToken();
 
-      return redirect('/login');
+      return redirect('/');
     }
 }

@@ -67,7 +67,7 @@ Perusahaan - Buat Lowongan
                     <div class="form-group">
                         <strong>Gaji : </strong><i class="fas fa-question fa-sm" data-toggle="tooltip"
                         title="Isi '0' jika tidak disebutkan " style="color: Tomato;"></i>
-                        <input type="text" name="gaji" id="rupiah" class="form-control" placeholder="Masukkan Alamat Gaji"
+                        <input type="text" name="gaji" id="rupiah" class="form-control" placeholder="Masukkan Gaji"
                             value="{{ old('gaji') }}" required>
                     </div>
                 </div>

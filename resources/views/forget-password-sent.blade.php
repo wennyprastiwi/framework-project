@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Verifikasi Email</title>
+    <title>Karir - Email Reset Password Terkirim</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('sb-admin/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -38,7 +38,7 @@
                             <div class="col-lg-12">
                                 <div class="p-5">
                                     <div class="text-center mb-4">
-                                        <h1 class="h4 text-gray-900">Selamat! Verifikasi anda berhasil, Silahkan Login</h1>
+                                        <h1 class="h4 text-gray-900">Kami sudah mengirimkan link reset password ke {{ $email }}, Silahkan check email anda!</h1>
                                     </div>
                                     <hr>
                                     <div class="text-center">

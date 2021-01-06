@@ -75,6 +75,9 @@
                                     <div class="text-center">
                                         <a class="small" href="{{ url('registrasi') }}">Buat Akun</a>
                                     </div>
+                                    <div class="text-center">
+                                        <a class="small" href="{{ url('forget-password') }}">Lupa Password?</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
