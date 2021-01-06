@@ -22,10 +22,6 @@ use Illuminate\Support\Facades\Auth;
 //     return view('welcome');
 // });
 
-Route::get('/', 'UserPencariController@index');
-Route::get('/job-list', 'UserPencariController@jobList' );
-Route::get('/{id}/detail-job', 'UserPencariController@detailJob' )->name('jobdetail');
-
 Route::get('login', 'LoginController@login')->name('login.login');
 Route::post('auth','LoginController@authCheck')->name('login.auth');
 Route::get('registrasi', 'LoginController@register')->name('login.regist');
@@ -33,9 +29,28 @@ Route::post('store', 'LoginController@store')->name('login.store');
 Route::post('logout','LoginController@logout')->name('login.logout');
 Route::get('verify-email/{email}','LoginController@verifyEmail')->name('email.verify');
 
+// Route Job
+Route::get('/', 'UserPencariController@jobIndex');
+Route::get('/job-list', 'UserPencariController@jobList');
+Route::get('/{id}/detail-job', 'UserPencariController@detailJob' )->name('jobdetail');
+Route::post('jobapply', 'UserPencariController@jobApply' )->name('applyjob');
 
 Route::prefix('pencari')->group(function () {
+    Route::get('', 'UserPencariController@index');
+    Route::get('data-pencari', 'UserPencariController@pencari')->name('pencari.data');
+    Route::get('data-pencari/add', 'UserPencariController@pencariAdd')->name('pencari.add');
+    Route::get('data-pencari/edit', 'UserPencariController@pencariEdit')->name('pencari.edit');
+    Route::get('data-pencari/show', 'UserPencariController@pencariShow')->name('pencari.show');
 
+    Route::post('getkota', 'UserPencariController@getKota')->name('pencari.kota');
+    Route::post('getkecamatan', 'UserPencariController@getKecamatan')->name('pencari.kecamatan');
+    Route::post('getkelurahan', 'UserPencariController@getKelurahan')->name('pencari.kelurahan');
+
+    Route::post('store', 'UserPencariController@store')->name('pencari.store');
+    Route::post('update', 'UserPencariController@update')->name('pencari.update');
+
+    Route::get('lamaran', 'UserPencariController@lamaran')->name('pencari.lamaran');
+    Route::delete('lamaran/{id}/delete', 'UserPencariController@lamaranDelete')->name('pencari.lamaran.delete');
 });
 
 
@@ -62,6 +77,11 @@ Route::prefix('perusahaan')->group(function () {
     Route::post('lowongan/update', 'PerusahaanController@lowonganUpdate')->name('perusahaan.lowongan.update');
 
     Route::delete('lowongan/{id}/delete', 'PerusahaanController@lowonganDelete')->name('perusahaan.lowongan.delete');
+
+    Route::delete('lowongan/lamaran/{id}/delete', 'PerusahaanController@lamaranDelete')->name('perusahaan.lamaran.delete');
+
+    Route::get('lowongan/{id}/accepted', 'PerusahaanController@lamaranAccepted')->name('perusahaan.lamaran.accepted');
+    Route::get('lowongan/{id}/decline', 'PerusahaanController@lamaranDecline')->name('perusahaan.lamaran.decline');
 
 });
 

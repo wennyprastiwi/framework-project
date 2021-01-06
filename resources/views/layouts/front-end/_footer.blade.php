@@ -26,35 +26,18 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-xl-5 col-lg-5 col-md-8 col-sm-8 col-12">
+                <div class="col-xl-5 col-lg-5 col-md-8 col-sm-8 col-12 ml-auto">
                     <div class="widget border-0">
                         <h5 class="m-b30 text-white">Frequently Asked Questions</h5>
                         <ul class="list-2 list-line">
                             <li><a href="#">Privacy & Seurty</a></li>
                             <li><a href="#">Terms of Serice</a></li>
                             <li><a href="#">Communications</a></li>
-                            <li><a href="#">Referral Terms</a></li>
-                            <li><a href="#">Lending Licnses</a></li>
                             <li><a href="#">Support</a></li>
                             <li><a href="#">How It Works</a></li>
                             <li><a href="#">For Employers</a></li>
-                            <li><a href="#">Underwriting</a></li>
                             <li><a href="#">Contact Us</a></li>
-                            <li><a href="#">Lending Licnses</a></li>
                             <li><a href="#">Support</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-12">
-                    <div class="widget border-0">
-                        <h5 class="m-b30 text-white">Find Jobs</h5>
-                        <ul class="list-2 w10 list-line">
-                            <li><a href="#">US Jobs</a></li>
-                            <li><a href="#">Canada Jobs</a></li>
-                            <li><a href="#">UK Jobs</a></li>
-                            <li><a href="#">Emplois en Fnce</a></li>
-                            <li><a href="#">Jobs in Deuts</a></li>
-                            <li><a href="#">Vacatures China</a></li>
                         </ul>
                     </div>
                 </div>
@@ -65,7 +48,7 @@
     <div class="footer-bottom">
         <div class="container">
            <div class="row">
-                <div class="col-lg-12 text-center"><span><a target="_blank" href="#t">Templates Hub</a></span></div>
+                <div class="col-lg-12 text-center"> <span>Copyright &copy; Karir <?= date('Y')?></span></div>
             </div>
         </div>
     </div>

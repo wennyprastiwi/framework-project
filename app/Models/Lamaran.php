@@ -10,9 +10,19 @@ class Lamaran extends Model
     use HasFactory;
     protected $table = 'lamaran';
     protected $fillable = [
-        'id', 
-        'id_lowongan', 
-        'status_lamaran', 
-        'id_pencari_kerja'
+        'id_lowongan',
+        'status_lamaran',
+        'id_pencari_kerja',
+        'alasan'
     ];
+
+    public function lowongan()
+    {
+        return $this->belongsTo('App\Models\Lowongan' , 'id_lowongan');
+    }
+
+    public function pelamar()
+    {
+    	return $this->belongsTo('App\Models\PencariKerja', 'id_pencari_kerja');
+    }
 }

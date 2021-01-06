@@ -185,7 +185,9 @@ Master Kategori Pekerjaan
             $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
         });
 
-        $('#bidangusaha').select2();
+        $('#bidangusaha').select2({
+            maximumSelectionLength: 3
+        });
 
         $('#bidangusaha').on('change', function() {
             var bidangUsaha = $(this).val();
