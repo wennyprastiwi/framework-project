@@ -29,13 +29,8 @@ class AdminController extends Controller
     return $admin = Auth::user();
   }
 
-  public function getNotif(){
-    return User::find($this->getAdminData()->id);
-  }
-
     public function index()
     {
-
 
       return view('admin.dashboard')
         ->with(['admin' => $this->getAdminData(),
@@ -43,7 +38,6 @@ class AdminController extends Controller
                 'jmlKP' => mKP::count(),
                 'jmlPK' => mPK::count(),
                 'jmlPencari' => mPencari::count(),
-                'user' => $this->getNotif(),
                 ]);
     }
 
@@ -120,17 +114,21 @@ class AdminController extends Controller
 
     public function profileUpdate(Request $request)
     {
-          $id = $request->id;
+          $validateData = $this->validate($request, [
+            'username' => 'unique:users',
+            'email_user' => 'unique:users',
+              ]);
+          $admin = $this->getAdminData();
 
           $username = $request->username;
           $email_user = $request->email_user;
 
           if($username != NULL){
-              $saveData = User::where('id', $id)
+              $saveData = User::where('id', $$admin->id)
               ->update(['username' => $username]);
           }
           if($email_user != NULL){
-              $saveData = User::where('id', $id)
+              $saveData = User::where('id', $$admin->id)
               ->update(['email_user' => $email_user]);
           }
 

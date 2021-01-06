@@ -98,7 +98,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>Email: </strong>
-                        <input type="text" name="email" class="form-control" placeholder="Masukkan Email" value="{{ old('email') }}" required>
+                        <input type="text" name="email" class="form-control" placeholder="Masukkan Email" value="{{ $data->email_user }}" required>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">

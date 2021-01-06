@@ -25,6 +25,10 @@ use Illuminate\Support\Facades\Auth;
 Route::get('login', 'LoginController@login')->name('login.login');
 Route::post('auth','LoginController@authCheck')->name('login.auth');
 Route::get('registrasi', 'LoginController@register')->name('login.regist');
+Route::get('forget-password', 'LoginController@forgetPassword')->name('login.forgetPassword');
+Route::post('forget-password-sent', 'LoginController@forgetPasswordSent')->name('login.forgetPasswordSent');
+Route::get('reset-password/{email}/{token}', 'LoginController@resetPassword')->name('login.resetPassword');
+Route::post('change-password', 'LoginController@changePassword')->name('login.changePassword');
 Route::post('store', 'LoginController@store')->name('login.store');
 Route::post('logout','LoginController@logout')->name('login.logout');
 Route::get('verify-email/{email}','LoginController@verifyEmail')->name('email.verify');
@@ -56,6 +60,10 @@ Route::prefix('pencari')->group(function () {
 
 Route::prefix('perusahaan')->group(function () {
     Route::get('', 'PerusahaanController@index');
+    Route::get('profile', 'PerusahaanController@profile')->name('perusahaan.profile');
+    Route::get('profile-edit', 'PerusahaanController@profileEdit')->name('perusahaan.profile-edit');
+    Route::post('profile-update', 'PerusahaanController@profileUpdate')->name('perusahaan.profile-update');
+    Route::post('pass-update', 'PerusahaanController@updatePassword')->name('perusahaan.profile-pass');
     Route::get('data-perusahaan', 'PerusahaanController@perusahaan')->name('perusahaan.data');
     Route::get('data-perusahaan/add', 'PerusahaanController@perusahaanAdd')->name('perusahaan.add');
     Route::get('data-perusahaan/edit', 'PerusahaanController@perusahaanEdit')->name('perusahaan.edit');

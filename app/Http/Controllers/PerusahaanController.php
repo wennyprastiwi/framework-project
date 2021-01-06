@@ -20,6 +20,7 @@ use App\Models\Lowongan;
 use App\Models\PencariKerja;
 use App\Models\Provinsi;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Notifications\PerusahaanBaru;
@@ -177,12 +178,7 @@ class PerusahaanController extends Controller
                 $surat->storeAs('public/surat', $suratFileName);
 
                 DB::commit();
-                //notif perusahaanbaru
-                $author = User::where('id', $pk->id_user)->first();
-                $users = User::all()->where('type',99);
-                foreach ($users as $user) {
-                    $user->notify(new PerusahaanBaru($pk,$author));
-                }
+
 
                 return redirect()->route('perusahaan.data')
                     ->with('success', 'Data Perusahaan created successfully.');
@@ -325,11 +321,11 @@ class PerusahaanController extends Controller
     {
       $user = $this->getUserData();
       $perusahaan = PenyediaKerja::where('id_user', $user->id)->first();
-      if(!empty($perusahaan)) {
-        $lowongan = Lowongan::all()->where('id_penyedia_kerja', $perusahaan->id);
-        if ($perusahaan->status_perusahaan == 0) {
-            return redirect()->route('perusahaan.data')->with(['error' => 'Perusahaan anda belum disetujui!']);
-          }else {
+      if($perusahaan !== NULL) {
+          if ($perusahaan->status_perusahaan == 0) {
+              return redirect()->route('perusahaan.data')->with(['error' => 'Perusahaan anda belum disetujui!']);
+            }else {
+            $lowongan = Lowongan::all()->where('id_penyedia_kerja', $perusahaan->id);
             return view('perusahaan.lowongan.index')->with(['data' => $this->getUserData(), 'lowongan' => $lowongan]);
           }
       } else {
@@ -579,5 +575,55 @@ class PerusahaanController extends Controller
 
         return redirect()->route('perusahaan.lowongan.show' , $lamaran->id_lowongan)
             ->with('success', 'Lamaran declined successfully.');
+    }
+
+    public function profile()
+    {
+      return view('perusahaan.profile')->with(['data' => $this->getUserData()]);
+    }
+
+    public function profileEdit()
+    {
+      return view('perusahaan.profile-edit')->with(['data' => $this->getUserData()]);
+    }
+
+    public function profileUpdate(Request $request)
+    {
+        $validateData = $this->validate($request, [
+            'username' => 'unique:users',
+            'email_user' => 'unique:users',
+              ]);
+          $user = $this->getUserData();
+          $username = $request->username;
+          $email_user = $request->email_user;
+
+          if($username != NULL){
+              $saveData = User::where('id', $user->id)
+              ->update(['username' => $username]);
+          }
+          if($email_user != NULL){
+              $saveData = User::where('id', $user->id)
+              ->update(['email_user' => $email_user]);
+          }
+
+          return redirect()->route('perusahaan.profile')
+                          ->with('update-user-success','Update User berhasil!');
+    }
+
+    public function updatePassword(Request $request)
+    {
+      $id = $request->id;
+
+      $validateData = $this->validate($request, [
+        'password' => 'required|same:repassword',
+        'repassword' => 'required',
+      ]);
+
+      $password = $request->password;
+
+      $saveData = User::where('id', $id)
+        ->update(['password' => Hash::make($password)]);
+      return redirect()->route('perusahaan.profile')
+                       ->with('update-pass-success','Ubah password berhasil');
     }
 }
