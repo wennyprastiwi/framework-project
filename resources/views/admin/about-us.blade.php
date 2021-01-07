@@ -12,13 +12,13 @@
   <div class="container">
     <h1 class="display-4">About Us</h1>
     <h3 class="display">Sejarah</h3>
-    <p class="lead">{{ $about->sejarah }}</p>
+    <p class="lead">{{ isset($about->sejarah) ? $about->sejarah : '' }}</p>
     <h3 class="display">Visi</h3>
-    <p class="lead">{{ $about->visi }}</p>
+    <p class="lead">{{ isset($about->visi) ? $about->visi : '' }}</p>
     <h3 class="display">Team Kami</h3>
-    <p class="lead">{{ $about->misi }}</p>
+    <p class="lead">{{ isset($about->misi) ? $about->misi : '' }}</p>
     <h3 class="display">Kontak</h3>
-    <p class="lead">{{ $about->kontak }}</p>
+    <p class="lead">{{ isset($about->kontak) ? $about->kontak : '' }}</p>
   </div>
 </div>
 <div class="row justify-content-center">
