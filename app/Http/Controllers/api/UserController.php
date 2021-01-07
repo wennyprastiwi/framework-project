@@ -42,6 +42,7 @@ class UserController extends Controller
             return response()->json([
                 'status_code' => 200,
                 'access_token' => $tokenResult,
+                'user' => $user
             ]);
 
     }
