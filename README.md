@@ -80,5 +80,5 @@ Lakukan langkah clone dulu. (WAJIB)
     
     
     
------------------------ Menampilkan thumbnail  ------------------------------    
+----------------------- Menampilkan thumbnail Website Laravel  ------------------------------    
     ![thumbnailframework](thumbnailframework.png?raw=true)
