@@ -74,3 +74,6 @@ Lakukan langkah clone dulu. (WAJIB)
 
 ----------------------- Langkah-langkah Awal Menjalankan Api  ------------------------------
 	1. php artisan passport::install
+    
+----------------------- Menampilkan thumbnail  ------------------------------    
+    ![thumbnailframework](thumbnailframework.png?raw=true)
